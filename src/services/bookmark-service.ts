@@ -1,4 +1,4 @@
-import type { BookmarkNode } from "@/types/bookmark";
+import type { BookmarkTreeNode } from "@/types/bookmark";
 
 /**
  * 书签服务类
@@ -23,7 +23,7 @@ class BookmarkService {
    * 获取所有书签
    * @returns Promise<BookmarkNode[]> 书签树结构
    */
-  public async getAllBookmarks(): Promise<BookmarkNode[]> {
+  public async getAllBookmarks(): Promise<BookmarkTreeNode[]> {
     try {
       const bookmarks = await chrome.bookmarks.getTree();
       return this.processBookmarks(bookmarks);
@@ -40,7 +40,7 @@ class BookmarkService {
    */
   private processBookmarks(
     nodes: chrome.bookmarks.BookmarkTreeNode[]
-  ): BookmarkNode[] {
+  ): BookmarkTreeNode[] {
     return nodes.map((node) => ({
       ...node,
       children: node.children ? this.processBookmarks(node.children) : undefined
@@ -52,7 +52,7 @@ class BookmarkService {
    * @param query 搜索关键词
    * @returns Promise<BookmarkNode[]> 匹配的书签数组
    */
-  public async searchBookmarks(query: string): Promise<BookmarkNode[]> {
+  public async searchBookmarks(query: string): Promise<BookmarkTreeNode[]> {
     try {
       const results = await chrome.bookmarks.search(query);
       return this.processBookmarks(results);
