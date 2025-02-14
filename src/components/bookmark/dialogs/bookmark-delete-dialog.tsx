@@ -1,12 +1,12 @@
 import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle
 } from "@/components/ui/alert-dialog";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import React from "react";
@@ -18,7 +18,7 @@ interface DeleteBookmarkDialogProps {
   onConfirm: () => Promise<void>;
 }
 
-const DeleteBookmarkDialog: React.FC<DeleteBookmarkDialogProps> = ({ open, bookmark, onOpenChange, onConfirm }) => {
+const BookmarkDeleteDialog: React.FC<DeleteBookmarkDialogProps> = ({ open, bookmark, onOpenChange, onConfirm }) => {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
@@ -35,6 +35,6 @@ const DeleteBookmarkDialog: React.FC<DeleteBookmarkDialogProps> = ({ open, bookm
   );
 };
 
-DeleteBookmarkDialog.displayName = "DeleteBookmarkDialog";
+BookmarkDeleteDialog.displayName = "BookmarkDeleteDialog";
 
-export default DeleteBookmarkDialog;
+export default BookmarkDeleteDialog;

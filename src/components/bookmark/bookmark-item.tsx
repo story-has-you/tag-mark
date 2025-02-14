@@ -1,9 +1,8 @@
+import BookmarkContextMenu from "@/components/bookmark/bookmark-context-menu";
+import BookmarkFavicon from "@/components/bookmark/bookmark-favicon";
 import { Card, CardContent } from "@/components/ui/card";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import React, { memo } from "react";
-import BookmarkFavicon from "~components/bookmark/bookmark-favicon";
-
-import BookmarkContextMenu from "./bookmark-context-menu";
 
 interface BookmarkItemProps {
   bookmark: BookmarkTreeNode;

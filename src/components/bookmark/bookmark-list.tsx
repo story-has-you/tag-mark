@@ -1,7 +1,5 @@
 import { useBookmarkContext } from "@/components/bookmark/bookmark-context";
 import BookmarkItem from "@/components/bookmark/bookmark-item";
-import DeleteBookmarkDialog from "@/components/bookmark/dialogs/delete-bookmark-dialog";
-import EditBookmarkDialog from "@/components/bookmark/dialogs/edit-bookmark-dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useBookmark } from "@/hooks/use-bookmark";
 import { useBookmarkDialog } from "@/hooks/use-bookmark-dialog";
@@ -9,6 +7,8 @@ import { useBookmarkList } from "@/hooks/use-bookmark-list";
 import { useToast } from "@/hooks/use-toast";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import React, { useRef } from "react";
+import BookmarkDeleteDialog from "~components/bookmark/dialogs/bookmark-delete-dialog";
+import BookmarkEditDialog from "~components/bookmark/dialogs/bookmark-edit-dialog";
 
 const BookmarkList: React.FC = () => {
   const { selectedNode } = useBookmarkContext();
@@ -142,14 +142,14 @@ const BookmarkList: React.FC = () => {
         )}
       </div>
 
-      <EditBookmarkDialog
+      <BookmarkEditDialog
         open={editDialog.dialog.isOpen}
         bookmark={editDialog.dialog.bookmark}
         onOpenChange={(isOpen) => editDialog.setDialog((prev) => ({ ...prev, isOpen }))}
         onConfirm={handleEdit}
       />
 
-      <DeleteBookmarkDialog
+      <BookmarkDeleteDialog
         open={deleteDialog.dialog.isOpen}
         bookmark={deleteDialog.dialog.bookmark}
         onOpenChange={(isOpen) => deleteDialog.setDialog((prev) => ({ ...prev, isOpen }))}

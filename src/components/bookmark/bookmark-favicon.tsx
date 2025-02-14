@@ -50,6 +50,6 @@ const BookmarkFavicon: React.FC<FaviconProps> = ({ url, size = 16, className }) 
   );
 };
 
-BookmarkFavicon.displayName = "Favicon";
+BookmarkFavicon.displayName = "BookmarkFavicon";
 
 export default BookmarkFavicon;

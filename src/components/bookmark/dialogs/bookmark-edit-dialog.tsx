@@ -12,7 +12,7 @@ interface EditBookmarkDialogProps {
   onConfirm: (title: string, url: string) => Promise<void>;
 }
 
-const EditBookmarkDialog: React.FC<EditBookmarkDialogProps> = ({ open, bookmark, onOpenChange, onConfirm }) => {
+const BookmarkEditDialog: React.FC<EditBookmarkDialogProps> = ({ open, bookmark, onOpenChange, onConfirm }) => {
   const [title, setTitle] = React.useState(bookmark?.title || "");
   const [url, setUrl] = React.useState(bookmark?.url || "");
 
@@ -50,6 +50,6 @@ const EditBookmarkDialog: React.FC<EditBookmarkDialogProps> = ({ open, bookmark,
   );
 };
 
-EditBookmarkDialog.displayName = "EditBookmarkDialog";
+BookmarkEditDialog.displayName = "BookmarkEditDialog";
 
-export default EditBookmarkDialog;
+export default BookmarkEditDialog;
