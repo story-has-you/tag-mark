@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useTagManagement } from "@/hooks/use-tag-management";
+import { useTagManagement } from "@/hooks/tag/use-tag-management";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import React, { useEffect, useState } from "react";
 
