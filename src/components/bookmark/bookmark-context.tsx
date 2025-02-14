@@ -1,4 +1,3 @@
-// contexts/bookmark-context.tsx
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import React, { createContext, useContext, useState } from "react";
 
