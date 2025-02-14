@@ -33,7 +33,7 @@ const Favicon: React.FC<FaviconProps> = ({ url, size = 16, className }) => {
   }
 
   const domain = getDomain(url);
-  const faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}`;
+  const faviconUrl = `https://favicon.im/${domain}`;
 
   return (
     <Avatar className={className}>
