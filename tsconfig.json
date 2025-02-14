@@ -13,9 +13,10 @@
       "~*": [
         "./src/*"
       ],
-      "@components/*": [
-        "./src/components/*"
-      ]
+      "@/*": [
+        "./src/*"
+      ],
+
     },
     "baseUrl": "."
   }
