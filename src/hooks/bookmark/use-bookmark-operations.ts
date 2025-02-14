@@ -1,4 +1,4 @@
-import { useBookmark } from "@/hooks/use-bookmark";
+import { useBookmark } from "@/hooks/bookmark/use-bookmark";
 import { useToast } from "@/hooks/use-toast";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 

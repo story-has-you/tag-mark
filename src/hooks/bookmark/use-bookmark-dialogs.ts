@@ -1,4 +1,4 @@
-import { useBookmarkDialog } from "@/hooks/use-bookmark-dialog";
+import { useBookmarkDialog } from "@/hooks/bookmark/use-bookmark-dialog";
 
 export const useBookmarkDialogs = () => {
   const editDialog = useBookmarkDialog();

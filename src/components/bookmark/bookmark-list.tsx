@@ -3,10 +3,10 @@ import BookmarkItem from "@/components/bookmark/bookmark-item";
 import BookmarkDeleteDialog from "@/components/bookmark/dialogs/bookmark-delete-dialog";
 import BookmarkEditDialog from "@/components/bookmark/dialogs/bookmark-edit-dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useBookmarkDialogs } from "@/hooks/use-bookmark-dialogs";
-import { useBookmarkList } from "@/hooks/use-bookmark-list";
-import { useBookmarkOperations } from "@/hooks/use-bookmark-operations";
-import { useScrollPosition } from "@/hooks/use-scroll-position";
+import { useBookmarkDialogs } from "@/hooks/bookmark/use-bookmark-dialogs";
+import { useBookmarkList } from "@/hooks/bookmark/use-bookmark-list";
+import { useBookmarkOperations } from "@/hooks/bookmark/use-bookmark-operations";
+import { useScrollPosition } from "@/hooks/bookmark/use-scroll-position";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import React from "react";
 

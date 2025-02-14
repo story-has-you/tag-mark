@@ -5,7 +5,7 @@ import { BookmarkTree } from "@/components/bookmark/bookmark-tree";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useBookmark } from "@/hooks/use-bookmark";
+import { useBookmark } from "@/hooks/bookmark/use-bookmark";
 import React from "react";
 
 const MIN_SIDEBAR_WIDTH = 15; // percentage

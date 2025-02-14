@@ -1,6 +1,6 @@
 import BookmarkAddTagDialog from "@/components/bookmark/dialogs/bookmark-add-tag-dialog";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
-import { useBookmarkDialog } from "@/hooks/use-bookmark-dialog";
+import { useBookmarkDialog } from "@/hooks/bookmark/use-bookmark-dialog";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { ExternalLink, Pencil, Tag, Trash2 } from "lucide-react";
 import React from "react";

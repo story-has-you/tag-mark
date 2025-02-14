@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Globe } from "lucide-react";
 import React, { useState } from "react";
 
-import { cn } from "~lib/utils";
+import { cn } from "@/lib/utils";
 
 interface FaviconProps {
   url: string;
