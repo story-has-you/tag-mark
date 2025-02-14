@@ -10,7 +10,7 @@ interface FaviconProps {
   className?: string;
 }
 
-const Favicon: React.FC<FaviconProps> = ({ url, size = 16, className }) => {
+const BookmarkFavicon: React.FC<FaviconProps> = ({ url, size = 16, className }) => {
   const [error, setError] = useState(false);
 
   // 从 URL 中获取域名
@@ -50,6 +50,6 @@ const Favicon: React.FC<FaviconProps> = ({ url, size = 16, className }) => {
   );
 };
 
-Favicon.displayName = "Favicon";
+BookmarkFavicon.displayName = "Favicon";
 
-export default Favicon;
+export default BookmarkFavicon;

@@ -1,7 +1,7 @@
-import Favicon from "@/components/favicon";
 import { Card, CardContent } from "@/components/ui/card";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import React, { memo } from "react";
+import BookmarkFavicon from "~components/bookmark/bookmark-favicon";
 
 import BookmarkContextMenu from "./bookmark-context-menu";
 
@@ -18,7 +18,7 @@ const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onEdit, onDelete 
         <CardContent className="p-0">
           <div className="flex items-center gap-3 p-3 hover:bg-accent transition-colors">
             <div className="flex items-center justify-center">
-              <Favicon url={bookmark.url || ""} className="w-8 h-8" />
+              <BookmarkFavicon url={bookmark.url || ""} className="w-8 h-8" />
             </div>
             <div className="flex flex-col min-w-0">
               <span className="text-sm font-medium truncate hover:text-primary">{bookmark.title}</span>
