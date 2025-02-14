@@ -1,92 +1,27 @@
 import { useBookmarkContext } from "@/components/bookmark/bookmark-context";
 import BookmarkItem from "@/components/bookmark/bookmark-item";
+import BookmarkDeleteDialog from "@/components/bookmark/dialogs/bookmark-delete-dialog";
+import BookmarkEditDialog from "@/components/bookmark/dialogs/bookmark-edit-dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useBookmark } from "@/hooks/use-bookmark";
-import { useBookmarkDialog } from "@/hooks/use-bookmark-dialog";
+import { useBookmarkDialogs } from "@/hooks/use-bookmark-dialogs";
 import { useBookmarkList } from "@/hooks/use-bookmark-list";
-import { useToast } from "@/hooks/use-toast";
+import { useBookmarkOperations } from "@/hooks/use-bookmark-operations";
+import { useScrollPosition } from "@/hooks/use-scroll-position";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import React, { useRef } from "react";
-import BookmarkDeleteDialog from "~components/bookmark/dialogs/bookmark-delete-dialog";
-import BookmarkEditDialog from "~components/bookmark/dialogs/bookmark-edit-dialog";
+import React from "react";
 
 const BookmarkList: React.FC = () => {
   const { selectedNode } = useBookmarkContext();
-  const { deleteBookmark, updateBookmark } = useBookmark();
-  const { toast } = useToast();
-  const parentRef = useRef<HTMLDivElement>(null);
-  const scrollPositionRef = useRef(0);
-  const editDialog = useBookmarkDialog();
-  const deleteDialog = useBookmarkDialog();
-
   const { bookmarks, updateLocalBookmark, deleteLocalBookmark } = useBookmarkList(selectedNode);
+  const { parentRef, saveScrollPosition, restoreScrollPosition } = useScrollPosition();
+  const { editDialog, deleteDialog, handleEditDialogChange, handleDeleteDialogChange } = useBookmarkDialogs();
 
-  // 保存滚动位置
-  const saveScrollPosition = () => {
-    if (parentRef.current) {
-      scrollPositionRef.current = parentRef.current.scrollTop;
-    }
-  };
-
-  // 恢复滚动位置
-  const restoreScrollPosition = () => {
-    if (parentRef.current) {
-      parentRef.current.scrollTop = scrollPositionRef.current;
-    }
-  };
-
-  const handleEdit = async (title: string, url: string) => {
-    if (!editDialog.dialog.bookmark) return;
-
-    saveScrollPosition();
-    try {
-      const updatedBookmark = await updateBookmark(editDialog.dialog.bookmark.id, {
-        title,
-        url
-      });
-
-      updateLocalBookmark(updatedBookmark);
-
-      toast({
-        title: "编辑成功",
-        description: "书签已更新"
-      });
-      editDialog.closeDialog();
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "编辑失败",
-        description: "更新书签时发生错误"
-      });
-    } finally {
-      restoreScrollPosition();
-    }
-  };
-
-  const handleDelete = async () => {
-    if (!deleteDialog.dialog.bookmark) return;
-
-    saveScrollPosition();
-    try {
-      await deleteBookmark(deleteDialog.dialog.bookmark.id);
-
-      deleteLocalBookmark(deleteDialog.dialog.bookmark.id);
-
-      toast({
-        title: "删除成功",
-        description: "书签已被删除"
-      });
-      deleteDialog.closeDialog();
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "删除失败",
-        description: "删除书签时发生错误"
-      });
-    } finally {
-      restoreScrollPosition();
-    }
-  };
+  const { handleEdit, handleDelete } = useBookmarkOperations(
+    updateLocalBookmark,
+    deleteLocalBookmark,
+    saveScrollPosition,
+    restoreScrollPosition
+  );
 
   const rowVirtualizer = useVirtualizer({
     count: bookmarks.length,
@@ -145,15 +80,15 @@ const BookmarkList: React.FC = () => {
       <BookmarkEditDialog
         open={editDialog.dialog.isOpen}
         bookmark={editDialog.dialog.bookmark}
-        onOpenChange={(isOpen) => editDialog.setDialog((prev) => ({ ...prev, isOpen }))}
-        onConfirm={handleEdit}
+        onOpenChange={handleEditDialogChange}
+        onConfirm={(title, url) => handleEdit(editDialog.dialog.bookmark, title, url, editDialog.closeDialog)}
       />
 
       <BookmarkDeleteDialog
         open={deleteDialog.dialog.isOpen}
         bookmark={deleteDialog.dialog.bookmark}
-        onOpenChange={(isOpen) => deleteDialog.setDialog((prev) => ({ ...prev, isOpen }))}
-        onConfirm={handleDelete}
+        onOpenChange={handleDeleteDialogChange}
+        onConfirm={() => handleDelete(deleteDialog.dialog.bookmark, deleteDialog.closeDialog)}
       />
     </>
   );
