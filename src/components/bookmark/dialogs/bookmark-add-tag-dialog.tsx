@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
 import type { BookmarkTreeNode } from "@/types/bookmark";
@@ -82,6 +82,7 @@ const BookmarkAddTagDialog: React.FC<BookmarkAddTagDialogProps> = ({ open, bookm
             })}
           </div>
         </div>
+        <DialogDescription></DialogDescription>
       </DialogContent>
     </Dialog>
   );
