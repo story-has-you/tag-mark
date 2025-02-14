@@ -1,135 +1,82 @@
 import { useBookmarkContext } from "@/components/bookmark/bookmark-context";
 import BookmarkItem from "@/components/bookmark/bookmark-item";
+import DeleteBookmarkDialog from "@/components/bookmark/dialogs/delete-bookmark-dialog";
+import EditBookmarkDialog from "@/components/bookmark/dialogs/edit-bookmark-dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useBookmark } from "@/hooks/use-bookmark";
+import { useBookmarkDialog } from "@/hooks/use-bookmark-dialog";
+import { useBookmarkList } from "@/hooks/use-bookmark-list";
 import { useToast } from "@/hooks/use-toast";
-import type { BookmarkTreeNode } from "@/types/bookmark";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import React, { useCallback, useMemo, useState } from "react";
-
-interface EditDialogState {
-  isOpen: boolean;
-  bookmark?: BookmarkTreeNode;
-  title: string;
-  url: string;
-}
+import React, { useRef } from "react";
 
 const BookmarkList: React.FC = () => {
   const { selectedNode } = useBookmarkContext();
   const { deleteBookmark, updateBookmark } = useBookmark();
-  const parentRef = React.useRef<HTMLDivElement>(null);
   const { toast } = useToast();
-  const [deleteDialog, setDeleteDialog] = useState<{
-    isOpen: boolean;
-    bookmark?: BookmarkTreeNode;
-  }>({ isOpen: false });
-  // 编辑对话框状态
-  const [editDialog, setEditDialog] = useState<EditDialogState>({
-    isOpen: false,
-    title: "",
-    url: ""
-  });
+  const parentRef = useRef<HTMLDivElement>(null);
+  const scrollPositionRef = useRef(0);
+  const editDialog = useBookmarkDialog();
+  const deleteDialog = useBookmarkDialog();
 
-  const bookmarks = useMemo(() => {
-    if (!selectedNode) return [];
+  const { bookmarks, updateLocalBookmark, deleteLocalBookmark } = useBookmarkList(selectedNode);
 
-    const getAllBookmarks = (node: BookmarkTreeNode): BookmarkTreeNode[] => {
-      let bookmarks: BookmarkTreeNode[] = [];
+  // 保存滚动位置
+  const saveScrollPosition = () => {
+    if (parentRef.current) {
+      scrollPositionRef.current = parentRef.current.scrollTop;
+    }
+  };
 
-      const traverse = (n: BookmarkTreeNode) => {
-        if (n.url) {
-          bookmarks.push(n);
-        }
-        n.children?.forEach(traverse);
-      };
+  // 恢复滚动位置
+  const restoreScrollPosition = () => {
+    if (parentRef.current) {
+      parentRef.current.scrollTop = scrollPositionRef.current;
+    }
+  };
 
-      traverse(node);
-      return bookmarks;
-    };
+  const handleEdit = async (title: string, url: string) => {
+    if (!editDialog.dialog.bookmark) return;
 
-    return getAllBookmarks(selectedNode);
-  }, [selectedNode]);
-
-  // 本地更新书签数据
-  const updateLocalBookmark = useCallback(
-    (updatedBookmark: BookmarkTreeNode) => {
-      const index = bookmarks.findIndex((b) => b.id === updatedBookmark.id);
-      if (index !== -1) {
-        bookmarks[index] = updatedBookmark;
-      }
-    },
-    [bookmarks]
-  );
-
-  const rowVirtualizer = useVirtualizer({
-    count: bookmarks.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 72,
-    overscan: 5
-  });
-
-  const handleEdit = useCallback(async (bookmark: BookmarkTreeNode) => {
-    setEditDialog({
-      isOpen: true,
-      bookmark,
-      title: bookmark.title,
-      url: bookmark.url || ""
-    });
-  }, []);
-
-  const confirmEdit = async () => {
-    if (!editDialog.bookmark) return;
-
+    saveScrollPosition();
     try {
-      const updatedBookmark = await updateBookmark(editDialog.bookmark.id, {
-        title: editDialog.title,
-        url: editDialog.url
+      const updatedBookmark = await updateBookmark(editDialog.dialog.bookmark.id, {
+        title,
+        url
       });
 
-      // 本地更新数据
       updateLocalBookmark(updatedBookmark);
 
       toast({
         title: "编辑成功",
         description: "书签已更新"
       });
-      setEditDialog((prev) => ({ ...prev, isOpen: false }));
+      editDialog.closeDialog();
     } catch (error) {
       toast({
         variant: "destructive",
         title: "编辑失败",
         description: "更新书签时发生错误"
       });
+    } finally {
+      restoreScrollPosition();
     }
   };
 
-  const handleDelete = useCallback(async (bookmark: BookmarkTreeNode) => {
-    setDeleteDialog({ isOpen: true, bookmark });
-  }, []);
+  const handleDelete = async () => {
+    if (!deleteDialog.dialog.bookmark) return;
 
-  const confirmDelete = async () => {
-    if (!deleteDialog.bookmark) return;
-
+    saveScrollPosition();
     try {
-      await deleteBookmark(deleteDialog.bookmark.id);
+      await deleteBookmark(deleteDialog.dialog.bookmark.id);
+
+      deleteLocalBookmark(deleteDialog.dialog.bookmark.id);
+
       toast({
         title: "删除成功",
         description: "书签已被删除"
       });
+      deleteDialog.closeDialog();
     } catch (error) {
       toast({
         variant: "destructive",
@@ -137,9 +84,16 @@ const BookmarkList: React.FC = () => {
         description: "删除书签时发生错误"
       });
     } finally {
-      setDeleteDialog({ isOpen: false });
+      restoreScrollPosition();
     }
   };
+
+  const rowVirtualizer = useVirtualizer({
+    count: bookmarks.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 72,
+    overscan: 5
+  });
 
   if (!selectedNode) {
     return <div className="flex items-center justify-center h-full text-muted-foreground">请选择一个文件夹</div>;
@@ -154,12 +108,7 @@ const BookmarkList: React.FC = () => {
             <AlertDescription>该文件夹下没有书签</AlertDescription>
           </Alert>
         ) : (
-          <div
-            ref={parentRef}
-            className="h-[calc(100vh-8rem)] overflow-auto"
-            style={{
-              contain: "strict"
-            }}>
+          <div ref={parentRef} className="h-[calc(100vh-8rem)] overflow-auto" style={{ contain: "strict" }}>
             <div
               style={{
                 height: `${rowVirtualizer.getTotalSize()}px`,
@@ -171,7 +120,6 @@ const BookmarkList: React.FC = () => {
                 return (
                   <div
                     key={bookmark.id}
-                    data-index={virtualRow.index}
                     style={{
                       position: "absolute",
                       top: 0,
@@ -181,7 +129,11 @@ const BookmarkList: React.FC = () => {
                       transform: `translateY(${virtualRow.start}px)`
                     }}
                     className="p-1">
-                    <BookmarkItem bookmark={bookmark} onEdit={handleEdit} onDelete={handleDelete} />
+                    <BookmarkItem
+                      bookmark={bookmark}
+                      onEdit={editDialog.openDialog}
+                      onDelete={deleteDialog.openDialog}
+                    />
                   </div>
                 );
               })}
@@ -190,64 +142,19 @@ const BookmarkList: React.FC = () => {
         )}
       </div>
 
-      <Dialog open={editDialog.isOpen} onOpenChange={(isOpen) => setEditDialog((prev) => ({ ...prev, isOpen }))}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>编辑书签</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <Label htmlFor="title">标题</Label>
-              <Input
-                id="title"
-                value={editDialog.title}
-                onChange={(e) =>
-                  setEditDialog((prev) => ({
-                    ...prev,
-                    title: e.target.value
-                  }))
-                }
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="url">URL</Label>
-              <Input
-                id="url"
-                value={editDialog.url}
-                onChange={(e) =>
-                  setEditDialog((prev) => ({
-                    ...prev,
-                    url: e.target.value
-                  }))
-                }
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setEditDialog((prev) => ({ ...prev, isOpen: false }))}>
-              取消
-            </Button>
-            <Button onClick={confirmEdit}>保存</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <EditBookmarkDialog
+        open={editDialog.dialog.isOpen}
+        bookmark={editDialog.dialog.bookmark}
+        onOpenChange={(isOpen) => editDialog.setDialog((prev) => ({ ...prev, isOpen }))}
+        onConfirm={handleEdit}
+      />
 
-      <AlertDialog
-        open={deleteDialog.isOpen}
-        onOpenChange={(isOpen) => setDeleteDialog((prev) => ({ ...prev, isOpen }))}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>确认删除</AlertDialogTitle>
-            <AlertDialogDescription>
-              你确定要删除书签 "{deleteDialog.bookmark?.title}" 吗？此操作无法撤销。
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>取消</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDelete}>删除</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <DeleteBookmarkDialog
+        open={deleteDialog.dialog.isOpen}
+        bookmark={deleteDialog.dialog.bookmark}
+        onOpenChange={(isOpen) => deleteDialog.setDialog((prev) => ({ ...prev, isOpen }))}
+        onConfirm={handleDelete}
+      />
     </>
   );
 };

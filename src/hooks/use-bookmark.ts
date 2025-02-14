@@ -16,7 +16,7 @@ export const useBookmark = () => {
     } finally {
       setLoading(false);
     }
-  }, [setBookmarks, setLoading]);
+  }, [setBookmarks]);
 
   const searchBookmarks = useCallback(
     async (query: string) => {
@@ -35,8 +35,7 @@ export const useBookmark = () => {
     async (id: string, params: BookmarkUpdateParams) => {
       try {
         setLoading(true);
-        const updatedBookmark = await BookmarkService.getInstance().updateBookmark(id, params);
-        return updatedBookmark;
+        return await BookmarkService.getInstance().updateBookmark(id, params);
       } finally {
         setLoading(false);
       }
@@ -60,7 +59,7 @@ export const useBookmark = () => {
 
   useEffect(() => {
     fetchBookmarks();
-  }, [fetchBookmarks]);
+  }, []);
 
   return {
     bookmarks,

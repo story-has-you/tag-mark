@@ -3,13 +3,8 @@ import { BookmarkProvider } from "@/components/bookmark/bookmark-context";
 import BookmarkList from "@/components/bookmark/bookmark-list";
 import { BookmarkTree } from "@/components/bookmark/bookmark-tree";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup
-} from "@/components/ui/resizable";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useBookmark } from "@/hooks/use-bookmark";
 import React from "react";
 
@@ -18,19 +13,7 @@ const DEFAULT_SIDEBAR_WIDTH = 25; // percentage
 const MAX_SIDEBAR_WIDTH = 40; // percentage
 
 const BookmarkManager: React.FC = () => {
-  const { bookmarks, loading } = useBookmark();
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen p-4">
-        <div className="w-full max-w-md space-y-4">
-          <Skeleton className="h-4 w-3/4" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-2/3" />
-        </div>
-      </div>
-    );
-  }
+  const { bookmarks } = useBookmark();
 
   // 数据为空时显示错误状态
   if (!bookmarks?.length) {
@@ -47,9 +30,7 @@ const BookmarkManager: React.FC = () => {
         direction="horizontal"
         className="h-screen"
         onLayout={(sizes: number[]) => {
-          document.cookie = `react-resizable-panels:layout=${JSON.stringify(
-            sizes
-          )}`;
+          document.cookie = `react-resizable-panels:layout=${JSON.stringify(sizes)}`;
         }}>
         <ResizablePanel
           defaultSize={DEFAULT_SIDEBAR_WIDTH}
