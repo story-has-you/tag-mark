@@ -11,16 +11,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useBookmark } from "@/hooks/use-bookmark";
 import { useToast } from "@/hooks/use-toast";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import React, { useCallback, useMemo, useState } from "react";
-
-import { Button } from "~components/ui/button";
-import { Input } from "~components/ui/input";
-import { Label } from "~components/ui/label";
 
 interface EditDialogState {
   isOpen: boolean;
@@ -65,6 +64,17 @@ const BookmarkList: React.FC = () => {
     return getAllBookmarks(selectedNode);
   }, [selectedNode]);
 
+  // 本地更新书签数据
+  const updateLocalBookmark = useCallback(
+    (updatedBookmark: BookmarkTreeNode) => {
+      const index = bookmarks.findIndex((b) => b.id === updatedBookmark.id);
+      if (index !== -1) {
+        bookmarks[index] = updatedBookmark;
+      }
+    },
+    [bookmarks]
+  );
+
   const rowVirtualizer = useVirtualizer({
     count: bookmarks.length,
     getScrollElement: () => parentRef.current,
@@ -85,10 +95,13 @@ const BookmarkList: React.FC = () => {
     if (!editDialog.bookmark) return;
 
     try {
-      await updateBookmark(editDialog.bookmark.id, {
+      const updatedBookmark = await updateBookmark(editDialog.bookmark.id, {
         title: editDialog.title,
         url: editDialog.url
       });
+
+      // 本地更新数据
+      updateLocalBookmark(updatedBookmark);
 
       toast({
         title: "编辑成功",

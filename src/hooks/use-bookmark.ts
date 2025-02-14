@@ -35,12 +35,13 @@ export const useBookmark = () => {
     async (id: string, params: BookmarkUpdateParams) => {
       try {
         setLoading(true);
-        await BookmarkService.getInstance().updateBookmark(id, params);
+        const updatedBookmark = await BookmarkService.getInstance().updateBookmark(id, params);
+        return updatedBookmark;
       } finally {
         setLoading(false);
       }
     },
-    [fetchBookmarks, setLoading]
+    [setLoading]
   );
 
   const deleteBookmark = useCallback(
