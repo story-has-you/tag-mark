@@ -1,5 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { BookmarkTreeNode } from "@/types/bookmark";
@@ -39,6 +46,7 @@ const BookmarkEditDialog: React.FC<EditBookmarkDialogProps> = ({ open, bookmark,
             <Input id="url" value={url} onChange={(e) => setUrl(e.target.value)} />
           </div>
         </div>
+        <DialogDescription></DialogDescription>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             取消
