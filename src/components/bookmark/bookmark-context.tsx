@@ -24,7 +24,7 @@ export const BookmarkProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-export const useBookmark = () => {
+export const useBookmarkContext = () => {
   const context = useContext(BookmarkContext);
   if (!context) {
     throw new Error("useBookmark must be used within a BookmarkProvider");

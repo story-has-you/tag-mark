@@ -1,4 +1,4 @@
-import type { BookmarkTreeNode } from "@/types/bookmark";
+import type { BookmarkTreeNode, BookmarkUpdateParams } from "@/types/bookmark";
 
 /**
  * 书签服务类
@@ -57,6 +57,37 @@ class BookmarkService {
     } catch (error) {
       console.error("搜索书签失败:", error);
       throw new Error("Failed to search bookmarks");
+    }
+  }
+
+  /**
+   * 更新书签
+   * @param id 书签ID
+   * @param params 更新参数，包含可选的 title 和 url
+   * @returns Promise<BookmarkTreeNode> 更新后的书签节点
+   */
+  public async updateBookmark(id: string, params: BookmarkUpdateParams): Promise<BookmarkTreeNode> {
+    try {
+      const updatedBookmark = await chrome.bookmarks.update(id, params);
+      return updatedBookmark;
+    } catch (error) {
+      console.error("更新书签失败:", error);
+      throw new Error("Failed to update bookmark");
+    }
+  }
+
+  /**
+   * 删除书签
+   * @param id 要删除的书签ID
+   * @returns Promise<void>
+   * @throws Error 如果删除失败
+   */
+  public async deleteBookmark(id: string): Promise<void> {
+    try {
+      await chrome.bookmarks.remove(id);
+    } catch (error) {
+      console.error("删除书签失败:", error);
+      throw new Error("Failed to delete bookmark");
     }
   }
 }

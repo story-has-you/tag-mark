@@ -1,4 +1,4 @@
-import { useBookmark } from "@/components/bookmark/bookmark-context";
+import { useBookmarkContext } from "@/components/bookmark/bookmark-context";
 import BookmarkItem from "@/components/bookmark/bookmark-item";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
@@ -11,19 +11,39 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from "@/components/ui/alert-dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useBookmark } from "@/hooks/use-bookmark";
 import { useToast } from "@/hooks/use-toast";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import React, { useCallback, useMemo, useState } from "react";
 
+import { Button } from "~components/ui/button";
+import { Input } from "~components/ui/input";
+import { Label } from "~components/ui/label";
+
+interface EditDialogState {
+  isOpen: boolean;
+  bookmark?: BookmarkTreeNode;
+  title: string;
+  url: string;
+}
+
 const BookmarkList: React.FC = () => {
-  const { selectedNode } = useBookmark();
+  const { selectedNode } = useBookmarkContext();
+  const { deleteBookmark, updateBookmark } = useBookmark();
   const parentRef = React.useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   const [deleteDialog, setDeleteDialog] = useState<{
     isOpen: boolean;
     bookmark?: BookmarkTreeNode;
   }>({ isOpen: false });
+  // 编辑对话框状态
+  const [editDialog, setEditDialog] = useState<EditDialogState>({
+    isOpen: false,
+    title: "",
+    url: ""
+  });
 
   const bookmarks = useMemo(() => {
     if (!selectedNode) return [];
@@ -52,24 +72,37 @@ const BookmarkList: React.FC = () => {
     overscan: 5
   });
 
-  const handleEdit = useCallback(
-    async (bookmark: BookmarkTreeNode) => {
-      try {
-        // 暂时实现为简单的提示
-        toast({
-          title: "编辑功能开发中",
-          description: `即将支持编辑: ${bookmark.title}`
-        });
-      } catch (error) {
-        toast({
-          variant: "destructive",
-          title: "编辑失败",
-          description: "操作书签时发生错误"
-        });
-      }
-    },
-    [toast]
-  );
+  const handleEdit = useCallback(async (bookmark: BookmarkTreeNode) => {
+    setEditDialog({
+      isOpen: true,
+      bookmark,
+      title: bookmark.title,
+      url: bookmark.url || ""
+    });
+  }, []);
+
+  const confirmEdit = async () => {
+    if (!editDialog.bookmark) return;
+
+    try {
+      await updateBookmark(editDialog.bookmark.id, {
+        title: editDialog.title,
+        url: editDialog.url
+      });
+
+      toast({
+        title: "编辑成功",
+        description: "书签已更新"
+      });
+      setEditDialog((prev) => ({ ...prev, isOpen: false }));
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "编辑失败",
+        description: "更新书签时发生错误"
+      });
+    }
+  };
 
   const handleDelete = useCallback(async (bookmark: BookmarkTreeNode) => {
     setDeleteDialog({ isOpen: true, bookmark });
@@ -79,7 +112,7 @@ const BookmarkList: React.FC = () => {
     if (!deleteDialog.bookmark) return;
 
     try {
-      await chrome.bookmarks.remove(deleteDialog.bookmark.id);
+      await deleteBookmark(deleteDialog.bookmark.id);
       toast({
         title: "删除成功",
         description: "书签已被删除"
@@ -143,6 +176,48 @@ const BookmarkList: React.FC = () => {
           </div>
         )}
       </div>
+
+      <Dialog open={editDialog.isOpen} onOpenChange={(isOpen) => setEditDialog((prev) => ({ ...prev, isOpen }))}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>编辑书签</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label htmlFor="title">标题</Label>
+              <Input
+                id="title"
+                value={editDialog.title}
+                onChange={(e) =>
+                  setEditDialog((prev) => ({
+                    ...prev,
+                    title: e.target.value
+                  }))
+                }
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="url">URL</Label>
+              <Input
+                id="url"
+                value={editDialog.url}
+                onChange={(e) =>
+                  setEditDialog((prev) => ({
+                    ...prev,
+                    url: e.target.value
+                  }))
+                }
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditDialog((prev) => ({ ...prev, isOpen: false }))}>
+              取消
+            </Button>
+            <Button onClick={confirmEdit}>保存</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <AlertDialog
         open={deleteDialog.isOpen}

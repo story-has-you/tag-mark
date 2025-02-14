@@ -5,6 +5,7 @@ import type { Tag } from "@/types/tag";
  * 用来展示书签树的数据结构
  */
 export type BookmarkTreeNode = chrome.bookmarks.BookmarkTreeNode;
+export type BookmarkUpdateParams = chrome.bookmarks.BookmarkChangesArg;
 
 /**
  * 用来存储书签的数据结构

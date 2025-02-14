@@ -1,5 +1,6 @@
 import BookmarkService from "@/services/bookmark-service";
 import { bookmarkLoadingAtom, bookmarksAtom } from "@/store/bookmark";
+import type { BookmarkUpdateParams } from "@/types/bookmark";
 import { useAtom } from "jotai";
 import { useCallback, useEffect } from "react";
 
@@ -30,6 +31,32 @@ export const useBookmark = () => {
     [setBookmarks, setLoading]
   );
 
+  const updateBookmark = useCallback(
+    async (id: string, params: BookmarkUpdateParams) => {
+      try {
+        setLoading(true);
+        await BookmarkService.getInstance().updateBookmark(id, params);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [fetchBookmarks, setLoading]
+  );
+
+  const deleteBookmark = useCallback(
+    async (id: string) => {
+      try {
+        setLoading(true);
+        await BookmarkService.getInstance().deleteBookmark(id);
+        // 删除后重新获取最新数据
+        await fetchBookmarks();
+      } finally {
+        setLoading(false);
+      }
+    },
+    [fetchBookmarks, setLoading]
+  );
+
   useEffect(() => {
     fetchBookmarks();
   }, [fetchBookmarks]);
@@ -38,6 +65,8 @@ export const useBookmark = () => {
     bookmarks,
     loading,
     fetchBookmarks,
-    searchBookmarks
+    searchBookmarks,
+    updateBookmark,
+    deleteBookmark
   };
 };
