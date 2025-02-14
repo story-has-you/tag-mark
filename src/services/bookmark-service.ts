@@ -1,11 +1,11 @@
-import type { BookmarkNode } from "@/types/bookmark"
+import type { BookmarkNode } from "@/types/bookmark";
 
 /**
  * 书签服务类
  * 负责处理与浏览器书签相关的所有操作
  */
 class BookmarkService {
-  private static instance: BookmarkService
+  private static instance: BookmarkService;
 
   private constructor() {}
 
@@ -14,9 +14,9 @@ class BookmarkService {
    */
   public static getInstance(): BookmarkService {
     if (!BookmarkService.instance) {
-      BookmarkService.instance = new BookmarkService()
+      BookmarkService.instance = new BookmarkService();
     }
-    return BookmarkService.instance
+    return BookmarkService.instance;
   }
 
   /**
@@ -25,11 +25,11 @@ class BookmarkService {
    */
   public async getAllBookmarks(): Promise<BookmarkNode[]> {
     try {
-      const bookmarks = await chrome.bookmarks.getTree()
-      return this.processBookmarks(bookmarks)
+      const bookmarks = await chrome.bookmarks.getTree();
+      return this.processBookmarks(bookmarks);
     } catch (error) {
-      console.error("获取书签失败:", error)
-      throw new Error("Failed to fetch bookmarks")
+      console.error("获取书签失败:", error);
+      throw new Error("Failed to fetch bookmarks");
     }
   }
 
@@ -44,7 +44,7 @@ class BookmarkService {
     return nodes.map((node) => ({
       ...node,
       children: node.children ? this.processBookmarks(node.children) : undefined
-    }))
+    }));
   }
 
   /**
@@ -54,13 +54,13 @@ class BookmarkService {
    */
   public async searchBookmarks(query: string): Promise<BookmarkNode[]> {
     try {
-      const results = await chrome.bookmarks.search(query)
-      return this.processBookmarks(results)
+      const results = await chrome.bookmarks.search(query);
+      return this.processBookmarks(results);
     } catch (error) {
-      console.error("搜索书签失败:", error)
-      throw new Error("Failed to search bookmarks")
+      console.error("搜索书签失败:", error);
+      throw new Error("Failed to search bookmarks");
     }
   }
 }
 
-export default BookmarkService
+export default BookmarkService;

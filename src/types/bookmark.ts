@@ -1,6 +1,6 @@
-export type BookmarkNode = chrome.bookmarks.BookmarkTreeNode
+export type BookmarkNode = chrome.bookmarks.BookmarkTreeNode;
 
 export interface BookmarkError {
-  message: string
-  code?: string
+  message: string;
+  code?: string;
 }
