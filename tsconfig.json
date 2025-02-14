@@ -11,7 +11,10 @@
   "compilerOptions": {
     "paths": {
       "~*": [
-        "./*"
+        "./src/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
       ]
     },
     "baseUrl": "."
