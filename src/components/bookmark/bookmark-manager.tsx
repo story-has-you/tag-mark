@@ -1,23 +1,26 @@
-// bookmark-manager.tsx
 import { BookmarkProvider } from "@/components/bookmark/bookmark-context";
 import BookmarkList from "@/components/bookmark/bookmark-list";
 import { BookmarkTree } from "@/components/bookmark/bookmark-tree";
-import Resizer from "@/components/resizer";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup
+} from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import BookmarkService from "@/services/bookmark-service";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import React, { useEffect, useState } from "react";
 
-const MIN_SIDEBAR_WIDTH = 200;
-const MAX_SIDEBAR_WIDTH = 600;
+const MIN_SIDEBAR_WIDTH = 15; // percentage
+const DEFAULT_SIDEBAR_WIDTH = 25; // percentage
+const MAX_SIDEBAR_WIDTH = 40; // percentage
 
 const BookmarkManager: React.FC = () => {
   const [bookmarks, setBookmarks] = useState<BookmarkTreeNode[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [sidebarWidth, setSidebarWidth] = useState(300);
 
   useEffect(() => {
     const fetchBookmarks = async () => {
@@ -34,13 +37,6 @@ const BookmarkManager: React.FC = () => {
 
     fetchBookmarks();
   }, []);
-
-  const handleResize = (delta: number) => {
-    setSidebarWidth((width) => {
-      const newWidth = width + delta;
-      return Math.min(Math.max(newWidth, MIN_SIDEBAR_WIDTH), MAX_SIDEBAR_WIDTH);
-    });
-  };
 
   if (loading) {
     return (
@@ -64,23 +60,30 @@ const BookmarkManager: React.FC = () => {
 
   return (
     <BookmarkProvider>
-      <div className="flex h-screen select-none">
-        <div
-          className="border-r border-gray-200 dark:border-gray-700"
-          style={{ width: sidebarWidth }}>
+      <ResizablePanelGroup
+        direction="horizontal"
+        className="h-screen"
+        onLayout={(sizes: number[]) => {
+          document.cookie = `react-resizable-panels:layout=${JSON.stringify(
+            sizes
+          )}`;
+        }}>
+        <ResizablePanel
+          defaultSize={DEFAULT_SIDEBAR_WIDTH}
+          minSize={MIN_SIDEBAR_WIDTH}
+          maxSize={MAX_SIDEBAR_WIDTH}
+          className="border-r border-border">
           <ScrollArea className="h-full">
             <BookmarkTree bookmarks={bookmarks} />
           </ScrollArea>
-        </div>
-
-        <Resizer onResize={handleResize} />
-
-        <div className="flex-1">
+        </ResizablePanel>
+        <ResizableHandle />
+        <ResizablePanel>
           <ScrollArea className="h-full">
             <BookmarkList />
           </ScrollArea>
-        </div>
-      </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </BookmarkProvider>
   );
 };
