@@ -1,3 +1,4 @@
+// bookmark-manager.tsx
 import { BookmarkProvider } from "@/components/bookmark/bookmark-context";
 import BookmarkList from "@/components/bookmark/bookmark-list";
 import { BookmarkTree } from "@/components/bookmark/bookmark-tree";
@@ -9,34 +10,15 @@ import {
 } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
-import BookmarkService from "@/services/bookmark-service";
-import type { BookmarkTreeNode } from "@/types/bookmark";
-import React, { useEffect, useState } from "react";
+import { useBookmark } from "@/hooks/use-bookmark";
+import React from "react";
 
 const MIN_SIDEBAR_WIDTH = 15; // percentage
 const DEFAULT_SIDEBAR_WIDTH = 25; // percentage
 const MAX_SIDEBAR_WIDTH = 40; // percentage
 
 const BookmarkManager: React.FC = () => {
-  const [bookmarks, setBookmarks] = useState<BookmarkTreeNode[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchBookmarks = async () => {
-      try {
-        const bookmarkService = BookmarkService.getInstance();
-        const data = await bookmarkService.getAllBookmarks();
-        setBookmarks(data);
-      } catch (err) {
-        setError("加载书签失败");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBookmarks();
-  }, []);
+  const { bookmarks, loading } = useBookmark();
 
   if (loading) {
     return (
@@ -50,10 +32,11 @@ const BookmarkManager: React.FC = () => {
     );
   }
 
-  if (error) {
+  // 数据为空时显示错误状态
+  if (!bookmarks?.length) {
     return (
       <Alert variant="destructive" className="m-4">
-        <AlertDescription>{error}</AlertDescription>
+        <AlertDescription>加载书签失败</AlertDescription>
       </Alert>
     );
   }
