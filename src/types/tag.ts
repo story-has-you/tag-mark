@@ -6,3 +6,13 @@ export interface Tag {
   createdAt: number; // 创建时间戳
   updatedAt: number; // 更新时间戳
 }
+
+export interface CreateTagParams {
+  name: string;
+  parentId?: string;
+  order?: number;
+}
+
+export interface UpdateTagParams extends CreateTagParams {
+  id: string;
+}
