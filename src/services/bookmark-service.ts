@@ -46,6 +46,24 @@ class BookmarkService {
   }
 
   /**
+   * 根据ID获取书签
+   * @param id 书签ID
+   * @returns Promise<BookmarkTreeNode | null> 书签节点,不存在时返回 null
+   */
+  public async getBookmarkById(id: string): Promise<BookmarkTreeNode | null> {
+    try {
+      const [bookmark] = await chrome.bookmarks.get(id);
+      return this.processBookmarks([bookmark])[0];
+    } catch (error) {
+      if (error instanceof Error && error.message.includes("No bookmark with id")) {
+        return null;
+      }
+      console.error("获取书签失败:", error);
+      throw new Error("Failed to fetch bookmark");
+    }
+  }
+
+  /**
    * 搜索书签
    * @param query 搜索关键词
    * @returns Promise<BookmarkNode[]> 匹配的书签数组
