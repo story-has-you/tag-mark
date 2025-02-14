@@ -21,8 +21,7 @@ export const useBookmark = () => {
     async (query: string) => {
       try {
         setLoading(true);
-        const results =
-          await BookmarkService.getInstance().searchBookmarks(query);
+        const results = await BookmarkService.getInstance().searchBookmarks(query);
         setBookmarks(results);
       } finally {
         setLoading(false);

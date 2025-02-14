@@ -38,9 +38,7 @@ class BookmarkService {
    * @param nodes 原始书签节点
    * @returns 处理后的书签节点数组
    */
-  private processBookmarks(
-    nodes: chrome.bookmarks.BookmarkTreeNode[]
-  ): BookmarkTreeNode[] {
+  private processBookmarks(nodes: chrome.bookmarks.BookmarkTreeNode[]): BookmarkTreeNode[] {
     return nodes.map((node) => ({
       ...node,
       children: node.children ? this.processBookmarks(node.children) : undefined
