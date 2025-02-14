@@ -44,8 +44,8 @@ const BookmarkList: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 p-3 hover:bg-accent transition-colors">
-                <div className="flex items-center justify-center w-6 h-6">
-                  <Favicon url={bookmark.url || ""} size={24} />
+                <div className="flex items-center justify-center">
+                  <Favicon url={bookmark.url || ""} className="w-8 h-8" />
                 </div>
                 <div className="flex flex-col min-w-0">
                   <span className="text-sm font-medium truncate hover:text-primary">

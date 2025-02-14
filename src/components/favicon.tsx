@@ -1,8 +1,8 @@
-// favicon.tsx
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { cn } from "@/lib/utils";
 import { Globe } from "lucide-react";
 import React, { useState } from "react";
+
+import { cn } from "~lib/utils";
 
 interface FaviconProps {
   url: string;
@@ -24,9 +24,9 @@ const Favicon: React.FC<FaviconProps> = ({ url, size = 16, className }) => {
 
   if (!url) {
     return (
-      <Avatar className={cn("h-4 w-4", className)}>
+      <Avatar className={className}>
         <AvatarFallback>
-          <Globe className="h-3 w-3 text-muted-foreground" />
+          <Globe className={cn("text-muted-foreground", className)} />
         </AvatarFallback>
       </Avatar>
     );
@@ -36,7 +36,7 @@ const Favicon: React.FC<FaviconProps> = ({ url, size = 16, className }) => {
   const faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}`;
 
   return (
-    <Avatar className={cn("h-4 w-4", className)}>
+    <Avatar className={className}>
       <AvatarImage
         src={faviconUrl}
         alt={`${domain} favicon`}
@@ -44,7 +44,7 @@ const Favicon: React.FC<FaviconProps> = ({ url, size = 16, className }) => {
         className="object-contain"
       />
       <AvatarFallback>
-        <Globe className="h-3 w-3 text-muted-foreground" />
+        <Globe className={cn("text-muted-foreground", className)} />
       </AvatarFallback>
     </Avatar>
   );
