@@ -2,7 +2,7 @@ import BookmarkContextMenu from "@/components/bookmark/bookmark-context-menu";
 import BookmarkFavicon from "@/components/bookmark/bookmark-favicon";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { useLoadTags } from "@/hooks/tag/use-load-tags";
+import { useTagManagement } from "@/hooks/tag/use-tag-management";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import React, { memo } from "react";
 
@@ -15,7 +15,7 @@ interface BookmarkItemProps {
 const MAX_DISPLAY_TAGS = 3;
 
 const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onEdit, onDelete }) => {
-  const { tags, loading } = useLoadTags(bookmark.id);
+  const { tags, loading } = useTagManagement(bookmark);
 
   return (
     <BookmarkContextMenu bookmark={bookmark} onEdit={onEdit} onDelete={onDelete}>

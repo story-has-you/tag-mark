@@ -1,8 +1,12 @@
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
+import { cn } from "@/lib/utils";
 import type { BookmarkTreeNode } from "@/types/bookmark";
-import React, { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react";
+import React, { useEffect } from "react";
 
 interface BookmarkAddTagDialogProps {
   open: boolean;
@@ -11,24 +15,28 @@ interface BookmarkAddTagDialogProps {
 }
 
 const BookmarkAddTagDialog: React.FC<BookmarkAddTagDialogProps> = ({ open, bookmark, onOpenChange }) => {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const { tags, selectedTags, input, setInput, filteredTags, loadTags, handleTagOperation, reset } =
-    useTagManagement(bookmark);
+  const { tags, loading, input, setInput, handleAddTag, handleDeleteTag } = useTagManagement(bookmark);
 
   useEffect(() => {
-    if (open) {
-      loadTags();
-      setShowDropdown(false);
+    if (!open) {
+      setInput("");
     }
-    return () => reset();
-  }, [open, loadTags, reset]);
+  }, [open, setInput]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && input.trim()) {
+      e.preventDefault();
+      handleAddTag(input.trim());
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>添加标签</DialogTitle>
+          <DialogTitle>标签管理</DialogTitle>
         </DialogHeader>
+
         <div className="flex flex-col space-y-4">
           {/* 输入区域 */}
           <div className="relative">
@@ -37,52 +45,40 @@ const BookmarkAddTagDialog: React.FC<BookmarkAddTagDialogProps> = ({ open, bookm
               value={input}
               onChange={(e) => {
                 setInput(e.target.value);
-                setShowDropdown(true);
               }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && input.trim()) {
-                  e.preventDefault();
-                  handleTagOperation(input.trim());
-                }
-              }}
-              onFocus={() => setShowDropdown(true)}
+              onKeyDown={handleKeyDown}
+              className="w-full"
+              disabled={loading}
             />
-            {/* 下拉选项 */}
-            {showDropdown && filteredTags.length > 0 && (
-              <div className="absolute w-full mt-1 bg-popover border rounded-md shadow-md z-50">
-                <div className="p-1">
-                  {filteredTags.map((tag) => (
-                    <div
-                      key={tag.id}
-                      className="px-2 py-1.5 text-sm cursor-pointer hover:bg-accent rounded-sm"
-                      onClick={() => handleTagOperation(tag.name)}>
-                      {tag.name}
-                    </div>
-                  ))}
-                </div>
+
+            {/* 加载状态 */}
+            {loading && (
+              <div className="absolute right-3 top-2.5">
+                <Loader2 className="h-4 w-4 animate-spin" />
               </div>
             )}
           </div>
 
-          {/* 已选标签 */}
+          {/* 已选标签列表 */}
           <div className="flex flex-wrap gap-2">
-            {selectedTags.map((tagId) => {
-              const tag = tags.find((t) => t.id === tagId);
-              if (!tag) return null;
-              return (
-                <div key={tag.id} className="flex items-center gap-1 px-2 py-1 text-sm bg-secondary rounded-md">
-                  {tag.name}
-                  <button
-                    onClick={() => handleTagOperation(tag.name, true)}
-                    className="text-muted-foreground hover:text-foreground">
-                    ×
-                  </button>
-                </div>
-              );
-            })}
+            {tags.map((tag) => (
+              <Badge
+                key={tag.id}
+                variant="secondary"
+                className={cn("flex items-center gap-1 px-2 py-1", "hover:bg-secondary/80 transition-colors")}>
+                {tag.name}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-4 w-4 p-0 hover:bg-transparent"
+                  onClick={() => handleDeleteTag(tag.id)}>
+                  <span className="sr-only">删除标签</span>×
+                </Button>
+              </Badge>
+            ))}
+            {tags.length === 0 && !loading && <div className="text-sm text-muted-foreground">暂无标签</div>}
           </div>
         </div>
-        <DialogDescription></DialogDescription>
       </DialogContent>
     </Dialog>
   );

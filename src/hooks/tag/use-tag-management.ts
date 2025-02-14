@@ -1,101 +1,114 @@
 import { useToast } from "@/hooks/use-toast";
 import TagBookmarkRelationService from "@/services/tag-bookmark-relation-service";
 import TagService from "@/services/tag-service";
+import { bookmarkTagsAtom } from "@/store/tag";
 import type { BookmarkTreeNode } from "@/types/bookmark";
-import type { Tag } from "@/types/tag";
-import { useCallback, useMemo, useState } from "react";
+import { useAtom } from "jotai";
+import { useCallback, useEffect, useState } from "react";
 
 export const useTagManagement = (bookmark?: BookmarkTreeNode) => {
-  const [tags, setTags] = useState<Tag[]>([]);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [bookmarkTags, setBookmarkTags] = useAtom(bookmarkTagsAtom);
+  const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");
   const { toast } = useToast();
 
-  // 过滤未选择的相关标签
-  const filteredTags = useMemo(() => {
-    const search = input.trim().toLowerCase();
-    return search
-      ? tags.filter((tag) => tag.name.toLowerCase().includes(search) && !selectedTags.includes(tag.id))
-      : [];
-  }, [tags, input, selectedTags]);
+  // 获取当前书签的标签
+  const tags = bookmark?.id ? bookmarkTags[bookmark.id] || [] : [];
 
   // 加载标签数据
   const loadTags = useCallback(async () => {
-    if (!bookmark) return;
+    if (!bookmark?.id) return;
 
+    setLoading(true);
     try {
-      const [allTags, bookmarkTags] = await Promise.all([
-        TagService.getInstance().getAllTags(),
-        TagBookmarkRelationService.getInstance().getTagsByBookmarkId(bookmark.id)
-      ]);
-      setTags(allTags);
-      setSelectedTags(bookmarkTags.map((tag) => tag.id));
+      const bookmarkTags = await TagBookmarkRelationService.getInstance().getTagsByBookmarkId(bookmark.id);
+      setBookmarkTags((prev) => ({
+        ...prev,
+        [bookmark.id]: bookmarkTags
+      }));
     } catch (error) {
       toast({
         variant: "destructive",
         title: "加载失败",
-        description: "获取标签数据时发生错误"
+        description: "获取标签时发生错误"
       });
+    } finally {
+      setLoading(false);
     }
-  }, [bookmark]);
+  }, [bookmark?.id, setBookmarkTags, toast]);
 
-  // 处理标签操作
-  const handleTagOperation = useCallback(
-    async (tagName: string, isRemove = false) => {
-      if (!bookmark || !tagName.trim()) return;
+  // 添加标签
+  const handleAddTag = useCallback(
+    async (tagName: string) => {
+      if (!bookmark?.id || !tagName.trim()) return;
 
       try {
-        let targetTag = tags.find((tag) => tag.name === tagName);
+        const allTags = await TagService.getInstance().getAllTags();
+        let targetTag = allTags.find((tag) => tag.name === tagName);
 
-        if (!targetTag && !isRemove) {
+        if (!targetTag) {
           targetTag = await TagService.getInstance().createTag({ name: tagName.trim() });
-          setTags((prev) => [...prev, targetTag!]);
         }
 
-        if (targetTag) {
-          if (isRemove) {
-            await TagBookmarkRelationService.getInstance().deleteRelation(targetTag.id, bookmark.id);
-            setSelectedTags((prev) => prev.filter((id) => id !== targetTag!.id));
-          } else {
-            await TagBookmarkRelationService.getInstance().createRelation(targetTag.id, bookmark.id);
-            setSelectedTags((prev) => [...prev, targetTag!.id]);
-          }
+        await TagBookmarkRelationService.getInstance().createRelation(targetTag.id, bookmark.id);
+        await loadTags();
 
-          toast({
-            title: isRemove ? "已移除标签" : "已添加标签",
-            description: `标签 "${tagName}" ${isRemove ? "已移除" : "已添加"}`
-          });
-
-          setInput("");
-        }
+        toast({
+          title: "已添加标签",
+          description: `标签 "${tagName}" 已添加`
+        });
+        setInput("");
       } catch (error) {
         toast({
           variant: "destructive",
-          title: "操作失败",
-          description: "处理标签时发生错误"
+          title: "添加失败",
+          description: "添加标签时发生错误"
         });
       }
     },
-    [bookmark, tags]
+    [bookmark?.id, tags, loadTags, toast]
   );
 
-  // 重置状态
-  const reset = useCallback(() => {
-    setInput("");
-    if (!bookmark) {
-      setTags([]);
-      setSelectedTags([]);
-    }
-  }, [bookmark]);
+  // 删除标签
+  const handleDeleteTag = useCallback(
+    async (tagId: string) => {
+      if (!bookmark?.id) return;
+
+      try {
+        await TagBookmarkRelationService.getInstance().deleteRelation(tagId, bookmark.id);
+        await TagService.getInstance().deleteTag(tagId);
+        await loadTags();
+
+        toast({
+          title: "已移除标签",
+          description: "标签已成功移除"
+        });
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "移除失败",
+          description: "移除标签时发生错误"
+        });
+      }
+    },
+    [bookmark?.id, loadTags, toast]
+  );
+
+  // 自动加载标签
+  useEffect(() => {
+    loadTags();
+  }, [loadTags]);
+
+  // 过滤标签
+  const filteredTags = tags.filter((tag) => tag.name.toLowerCase().includes(input.trim().toLowerCase()));
 
   return {
     tags,
-    selectedTags,
+    loading,
     input,
     setInput,
     filteredTags,
-    loadTags,
-    handleTagOperation,
-    reset
+    handleAddTag,
+    handleDeleteTag
   };
 };
