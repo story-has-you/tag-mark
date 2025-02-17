@@ -30,15 +30,15 @@ const BookmarkContextMenu: React.FC<BookmarkContextMenuProps> = ({ children, boo
         </ContextMenuItem>
         <ContextMenuItem onClick={handleOpenInNewTab}>
           <ExternalLink className="mr-2 h-4 w-4" />
-          打开
+          打开书签
         </ContextMenuItem>
         <ContextMenuItem onClick={() => onEdit?.(bookmark)}>
           <Pencil className="mr-2 h-4 w-4" />
-          编辑
+          编辑书签
         </ContextMenuItem>
         <ContextMenuItem onClick={() => onDelete?.(bookmark)}>
           <Trash2 className="mr-2 h-4 w-4" />
-          删除
+          删除书签
         </ContextMenuItem>
       </ContextMenuContent>
 
