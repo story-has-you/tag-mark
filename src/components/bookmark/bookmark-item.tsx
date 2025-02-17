@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import React, { memo } from "react";
 
-import { useTagManagement } from "~hooks/tag/use-tag-management";
+import { useBookmarkTagManagement } from "@/hooks/bookmark/use-bookmark-tag-management";
 
 const MAX_DISPLAY_TAGS = 3;
 
@@ -17,7 +17,7 @@ interface BookmarkItemProps {
 }
 
 const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onEdit, onDelete }) => {
-  const { tags, loading } = useTagManagement(bookmark);
+  const { tags, loading } = useBookmarkTagManagement(bookmark);
 
   return (
     <BookmarkContextMenu bookmark={bookmark} onEdit={onEdit} onDelete={onDelete}>

@@ -6,9 +6,9 @@ import type { BookmarkTreeNode } from "@/types/bookmark";
 import { useAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
 
-import type { Tag } from "~types/tag";
+import type { Tag } from "@/types/tag";
 
-export const useTagManagement = (bookmark?: BookmarkTreeNode) => {
+export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
   const [bookmarkTags, setBookmarkTags] = useAtom(bookmarkTagsAtom);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");

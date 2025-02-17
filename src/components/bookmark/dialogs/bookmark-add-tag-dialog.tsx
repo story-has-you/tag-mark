@@ -3,13 +3,13 @@ import TagSuggestions from "@/components/tag/tag-suggestions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useTagManagement } from "@/hooks/tag/use-tag-management";
+import { useBookmarkTagManagement } from "@/hooks/bookmark/use-bookmark-tag-management";
 import { cn } from "@/lib/utils";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { Tag } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
-import { useTagSuggestions } from "~hooks/tag/use-tag-suggestions";
+import { useTagSuggestions } from "@/hooks/tag/use-tag-suggestions";
 
 interface BookmarkAddTagDialogProps {
   open: boolean;
@@ -18,7 +18,7 @@ interface BookmarkAddTagDialogProps {
 }
 
 const BookmarkAddTagDialog: React.FC<BookmarkAddTagDialogProps> = ({ open, bookmark, onOpenChange }) => {
-  const { tags, loading, input, setInput, handleAddTag, handleDeleteTag, allTags } = useTagManagement(bookmark);
+  const { tags, loading, input, setInput, handleAddTag, handleDeleteTag, allTags } = useBookmarkTagManagement(bookmark);
   const suggestions = useTagSuggestions(allTags, input);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
