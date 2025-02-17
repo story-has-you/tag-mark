@@ -11,9 +11,7 @@ export const useTagManagement = (bookmark?: BookmarkTreeNode) => {
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");
   const { toast } = useToast();
-
-  // 获取当前书签的标签
-  const tags = bookmark?.id ? bookmarkTags[bookmark.id] || [] : [];
+  const [currentTags, setCurrentTags] = useState([]);
 
   // 加载标签数据
   const loadTags = useCallback(async () => {
@@ -21,10 +19,10 @@ export const useTagManagement = (bookmark?: BookmarkTreeNode) => {
 
     setLoading(true);
     try {
-      const bookmarkTags = await TagBookmarkRelationService.getInstance().getTagsByBookmarkId(bookmark.id);
+      const tags = await TagBookmarkRelationService.getInstance().getTagsByBookmarkId(bookmark.id);
       setBookmarkTags((prev) => ({
         ...prev,
-        [bookmark.id]: bookmarkTags
+        [bookmark.id]: tags
       }));
     } catch (error) {
       toast({
@@ -66,7 +64,7 @@ export const useTagManagement = (bookmark?: BookmarkTreeNode) => {
         });
       }
     },
-    [bookmark?.id, tags, loadTags, toast]
+    [bookmark?.id, currentTags, loadTags, toast]
   );
 
   // 删除标签
@@ -100,10 +98,12 @@ export const useTagManagement = (bookmark?: BookmarkTreeNode) => {
   }, [loadTags]);
 
   // 过滤标签
-  const filteredTags = tags.filter((tag) => tag.name.toLowerCase().includes(input.trim().toLowerCase()));
+  const filteredTags =
+    bookmarkTags[bookmark?.id ?? ""]?.filter((tag) => tag.name.toLowerCase().includes(input.trim().toLowerCase())) ??
+    [];
 
   return {
-    tags,
+    tags: bookmarkTags[bookmark?.id ?? ""] ?? [],
     loading,
     input,
     setInput,

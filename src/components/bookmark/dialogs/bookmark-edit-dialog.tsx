@@ -54,6 +54,7 @@ const BookmarkEditDialog: React.FC<EditBookmarkDialogProps> = ({ open, bookmark,
           <Button onClick={() => onConfirm(title, url)}>保存</Button>
         </DialogFooter>
       </DialogContent>
+      <DialogDescription></DialogDescription>
     </Dialog>
   );
 };
