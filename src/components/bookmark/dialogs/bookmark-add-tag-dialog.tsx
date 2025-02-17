@@ -1,12 +1,15 @@
+// bookmark-add-tag-dialog.tsx
+import TagSuggestions from "@/components/tag/tag-suggestions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
 import { cn } from "@/lib/utils";
 import type { BookmarkTreeNode } from "@/types/bookmark";
-import { Loader2 } from "lucide-react";
-import React, { useEffect } from "react";
+import { Tag } from "lucide-react";
+import React, { useEffect, useState } from "react";
+
+import { useTagSuggestions } from "~hooks/tag/use-tag-suggestions";
 
 interface BookmarkAddTagDialogProps {
   open: boolean;
@@ -15,68 +18,81 @@ interface BookmarkAddTagDialogProps {
 }
 
 const BookmarkAddTagDialog: React.FC<BookmarkAddTagDialogProps> = ({ open, bookmark, onOpenChange }) => {
-  const { tags, loading, input, setInput, handleAddTag, handleDeleteTag } = useTagManagement(bookmark);
+  const { tags, loading, input, setInput, handleAddTag, handleDeleteTag, allTags } = useTagManagement(bookmark);
+  const suggestions = useTagSuggestions(allTags, input);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
     if (!open) {
       setInput("");
+      setShowSuggestions(false);
     }
   }, [open, setInput]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && input.trim()) {
-      e.preventDefault();
-      handleAddTag(input.trim());
-    }
-  };
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>标签管理</DialogTitle>
+          <DialogTitle className="flex items-center gap-2 text-xl">
+            <Tag className="h-5 w-5" />
+            标签管理
+          </DialogTitle>
         </DialogHeader>
 
-        <div className="flex flex-col space-y-4">
-          {/* 输入区域 */}
-          <div className="relative">
-            <Input
-              placeholder="输入标签名称，回车添加..."
-              value={input}
-              onChange={(e) => {
-                setInput(e.target.value);
-              }}
-              onKeyDown={handleKeyDown}
-              className="w-full"
-              disabled={loading}
-            />
-
-            {/* 加载状态 */}
-            {loading && (
-              <div className="absolute right-3 top-2.5">
-                <Loader2 className="h-4 w-4 animate-spin" />
-              </div>
-            )}
+        <div className="flex flex-col space-y-6 py-4">
+          {/* 书签信息 */}
+          <div className="space-y-2">
+            <h3 className="text-sm font-medium text-muted-foreground">书签信息</h3>
+            <div className="rounded-lg border bg-card p-4">
+              <h4 className="font-medium">{bookmark?.title}</h4>
+              <p className="text-sm text-muted-foreground truncate">{bookmark?.url}</p>
+            </div>
           </div>
 
-          {/* 已选标签列表 */}
-          <div className="flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <Badge
-                key={tag.id}
-                variant="secondary"
-                className={cn("flex items-center gap-1 px-2 py-1", "hover:bg-secondary/80 transition-colors")}>
-                {tag.name}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-4 w-4 p-0 hover:bg-transparent"
-                  onClick={() => handleDeleteTag(tag.id)}>
-                  <span className="sr-only">删除标签</span>×
-                </Button>
-              </Badge>
-            ))}
-            {tags.length === 0 && !loading && <div className="text-sm text-muted-foreground">暂无标签</div>}
+          {/* 标签输入区域 */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-medium text-muted-foreground">添加标签</h3>
+              <span className="text-xs text-muted-foreground">已添加 {tags.length} 个标签</span>
+            </div>
+            <TagSuggestions
+              value={input}
+              suggestions={suggestions}
+              onValueChange={setInput}
+              onEnter={handleAddTag}
+              disabled={loading}
+              allTags={allTags}
+              tags={tags}
+            />
+          </div>
+
+          {/* 标签展示区域 */}
+          <div className="space-y-2">
+            <h3 className="text-sm font-medium text-muted-foreground">已添加标签</h3>
+            <div className="min-h-[100px] rounded-lg border bg-card p-4">
+              <div className="flex flex-wrap gap-2">
+                {tags.map((tag) => (
+                  <Badge
+                    key={tag.id}
+                    variant="secondary"
+                    className={cn("flex items-center gap-1 px-3 py-1", "hover:bg-secondary/80 transition-colors")}>
+                    {tag.name}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-4 w-4 p-0 hover:bg-transparent"
+                      onClick={() => handleDeleteTag(tag.id)}>
+                      <span className="sr-only">删除标签</span>×
+                    </Button>
+                  </Badge>
+                ))}
+                {tags.length === 0 && !loading && (
+                  <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground">
+                    暂无标签，请在上方添加
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </DialogContent>

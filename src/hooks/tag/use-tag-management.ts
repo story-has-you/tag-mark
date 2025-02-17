@@ -6,12 +6,14 @@ import type { BookmarkTreeNode } from "@/types/bookmark";
 import { useAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
 
+import type { Tag } from "~types/tag";
+
 export const useTagManagement = (bookmark?: BookmarkTreeNode) => {
   const [bookmarkTags, setBookmarkTags] = useAtom(bookmarkTagsAtom);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");
   const { toast } = useToast();
-  const [currentTags, setCurrentTags] = useState([]);
+  const [allTags, setAllTags] = useState<Tag[]>([]);
 
   // 加载标签数据
   const loadTags = useCallback(async () => {
@@ -24,6 +26,7 @@ export const useTagManagement = (bookmark?: BookmarkTreeNode) => {
         ...prev,
         [bookmark.id]: tags
       }));
+      setAllTags(await TagService.getInstance().getAllTags());
     } catch (error) {
       toast({
         variant: "destructive",
@@ -64,7 +67,7 @@ export const useTagManagement = (bookmark?: BookmarkTreeNode) => {
         });
       }
     },
-    [bookmark?.id, currentTags, loadTags, toast]
+    [bookmark?.id, loadTags, toast]
   );
 
   // 删除标签
@@ -74,7 +77,6 @@ export const useTagManagement = (bookmark?: BookmarkTreeNode) => {
 
       try {
         await TagBookmarkRelationService.getInstance().deleteRelation(tagId, bookmark.id);
-        await TagService.getInstance().deleteTag(tagId);
         await loadTags();
 
         toast({
@@ -104,6 +106,7 @@ export const useTagManagement = (bookmark?: BookmarkTreeNode) => {
 
   return {
     tags: bookmarkTags[bookmark?.id ?? ""] ?? [],
+    allTags,
     loading,
     input,
     setInput,
