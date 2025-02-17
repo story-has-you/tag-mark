@@ -1,15 +1,13 @@
-// bookmark-add-tag-dialog.tsx
 import TagSuggestions from "@/components/tag/tag-suggestions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useBookmarkTagManagement } from "@/hooks/bookmark/use-bookmark-tag-management";
+import { useTagSuggestions } from "@/hooks/tag/use-tag-suggestions";
 import { cn } from "@/lib/utils";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { Tag } from "lucide-react";
 import React, { useEffect, useState } from "react";
-
-import { useTagSuggestions } from "@/hooks/tag/use-tag-suggestions";
 
 interface BookmarkAddTagDialogProps {
   open: boolean;
@@ -76,7 +74,7 @@ const BookmarkAddTagDialog: React.FC<BookmarkAddTagDialogProps> = ({ open, bookm
                     key={tag.id}
                     variant="secondary"
                     className={cn("flex items-center gap-1 px-3 py-1", "hover:bg-secondary/80 transition-colors")}>
-                    {tag.name}
+                    {tag.fullPath}
                     <Button
                       variant="ghost"
                       size="icon"

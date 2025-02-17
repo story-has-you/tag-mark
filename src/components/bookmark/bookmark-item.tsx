@@ -3,10 +3,9 @@ import BookmarkContextMenu from "@/components/bookmark/bookmark-context-menu";
 import BookmarkFavicon from "@/components/bookmark/bookmark-favicon";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { useBookmarkTagManagement } from "@/hooks/bookmark/use-bookmark-tag-management";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import React, { memo } from "react";
-
-import { useBookmarkTagManagement } from "@/hooks/bookmark/use-bookmark-tag-management";
 
 const MAX_DISPLAY_TAGS = 3;
 
@@ -38,7 +37,7 @@ const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onEdit, onDelete 
               <div className="flex flex-shrink-0 items-center gap-1 ml-4 mr-8">
                 {tags.slice(0, MAX_DISPLAY_TAGS).map((tag) => (
                   <Badge key={tag.id} variant="secondary" className="text-xs whitespace-nowrap">
-                    {tag.name}
+                    {tag.fullPath}
                   </Badge>
                 ))}
                 {tags.length > MAX_DISPLAY_TAGS && (

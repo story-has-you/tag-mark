@@ -3,10 +3,11 @@ import TagBookmarkRelationService from "@/services/tag-bookmark-relation-service
 import TagService from "@/services/tag-service";
 import { bookmarkTagsAtom } from "@/store/tag";
 import type { BookmarkTreeNode } from "@/types/bookmark";
+import type { Tag } from "@/types/tag";
 import { useAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
 
-import type { Tag } from "@/types/tag";
+import TagName from "~lib/tag-name";
 
 export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
   const [bookmarkTags, setBookmarkTags] = useAtom(bookmarkTagsAtom);
@@ -22,11 +23,13 @@ export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
     setLoading(true);
     try {
       const tags = await TagBookmarkRelationService.getInstance().getTagsByBookmarkId(bookmark.id);
+      const allTags = await TagService.getInstance().getAllTags();
+      tags.forEach((tag) => (tag.fullPath = TagName.buildFullPathWithAllTags(tag, allTags)));
       setBookmarkTags((prev) => ({
         ...prev,
         [bookmark.id]: tags
       }));
-      setAllTags(await TagService.getInstance().getAllTags());
+      setAllTags(allTags);
     } catch (error) {
       toast({
         variant: "destructive",
@@ -40,30 +43,62 @@ export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
 
   // 添加标签
   const handleAddTag = useCallback(
-    async (tagName: string) => {
-      if (!bookmark?.id || !tagName.trim()) return;
+    async (tagPath: string) => {
+      if (!bookmark?.id) return;
 
       try {
-        const allTags = await TagService.getInstance().getAllTags();
-        let targetTag = allTags.find((tag) => tag.name === tagName);
+        const tagName = new TagName(tagPath);
 
-        if (!targetTag) {
-          targetTag = await TagService.getInstance().createTag({ name: tagName.trim() });
+        // 验证标签名称
+        tagName.validate();
+        if (tagName.isEmpty()) return;
+
+        const allTags = await TagService.getInstance().getAllTags();
+        let parentId: string | undefined = undefined;
+        let lastTag: Tag | undefined = undefined;
+
+        // 按层级处理每个标签
+        for (let depth = 0; depth < tagName.getDepth(); depth++) {
+          // 验证父标签
+          tagName.validateParentTag(depth, parentId);
+
+          const currentName = tagName.getNameAtDepth(depth);
+
+          // 在当前父标签下查找是否已存在该标签
+          const existingTag = allTags.find((tag) => tag.name === currentName && tag.parentId === parentId);
+
+          if (existingTag) {
+            lastTag = existingTag;
+            parentId = existingTag.id;
+          } else {
+            // 创建新标签
+            const newTag = await TagService.getInstance().createTag({
+              name: currentName,
+              parentId: parentId
+            });
+            lastTag = newTag;
+            parentId = newTag.id;
+            allTags.push(newTag);
+          }
         }
 
-        await TagBookmarkRelationService.getInstance().createRelation(targetTag.id, bookmark.id);
-        await loadTags();
+        // 创建书签和最后一个标签的关联
+        if (lastTag) {
+          await TagBookmarkRelationService.getInstance().createRelation(lastTag.id, bookmark.id);
+          await loadTags();
 
-        toast({
-          title: "已添加标签",
-          description: `标签 "${tagName}" 已添加`
-        });
-        setInput("");
+          toast({
+            title: "已添加标签",
+            description: `标签 "${tagName.getFullPath()}" 已添加`
+          });
+          setInput("");
+        }
       } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : "添加标签时发生错误";
         toast({
           variant: "destructive",
           title: "添加失败",
-          description: "添加标签时发生错误"
+          description: errorMessage
         });
       }
     },
