@@ -25,6 +25,7 @@ export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
       const tags = await TagBookmarkRelationService.getInstance().getTagsByBookmarkId(bookmark.id);
       const allTags = await TagService.getInstance().getAllTags();
       tags.forEach((tag) => (tag.fullPath = TagName.buildFullPathWithAllTags(tag, allTags)));
+      allTags.forEach((tag) => (tag.fullPath = TagName.buildFullPathWithAllTags(tag, allTags)));
       setBookmarkTags((prev) => ({
         ...prev,
         [bookmark.id]: tags

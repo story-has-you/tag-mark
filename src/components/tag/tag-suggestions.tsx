@@ -47,9 +47,9 @@ const TagSuggestions: React.FC<TagSuggestionsProps> = ({
       .map((tag) => (
         <CommandItem
           key={tag.id}
-          onSelect={() => handleSuggestionSelect(tag.name)}
+          onSelect={() => handleSuggestionSelect(tag.fullPath)}
           className="px-4 py-2 cursor-pointer">
-          {tag.name}
+          {tag.fullPath}
         </CommandItem>
       ));
   };
