@@ -9,9 +9,10 @@ interface TagDeleteDialogProps {
   tag: Tag | null;
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
+  onConfirmWithBookmarks: () => void;
 }
 
-const TagDeleteDialog: React.FC<TagDeleteDialogProps> = ({ open, tag, onOpenChange, onConfirm }) => {
+const TagDeleteDialog: React.FC<TagDeleteDialogProps> = ({ open, tag, onOpenChange, onConfirm, onConfirmWithBookmarks }) => {
   const { getChildTags } = useTagManagement();
 
   if (!tag) return null;
@@ -25,18 +26,22 @@ const TagDeleteDialog: React.FC<TagDeleteDialogProps> = ({ open, tag, onOpenChan
         <DialogHeader>
           <DialogTitle>删除标签</DialogTitle>
           <DialogDescription className="space-y-2">
-            <p>确定要删除标签 "{tag.name}" 吗？</p>
+            <p>您要如何删除标签 "{tag.name}"？</p>
             {hasChildren && <p className="text-destructive">警告：该标签下有 {childTags.length} 个子标签，删除后子标签将变为顶级标签。</p>}
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="gap-2">
+        <DialogFooter className="flex-col gap-2 sm:flex-row">
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             取消
           </Button>
           <Button variant="destructive" onClick={onConfirm}>
-            删除
+            仅删除标签
+          </Button>
+          <Button variant="destructive" onClick={onConfirmWithBookmarks}>
+            删除标签和关联书签
           </Button>
         </DialogFooter>
+        <DialogDescription></DialogDescription>
       </DialogContent>
     </Dialog>
   );

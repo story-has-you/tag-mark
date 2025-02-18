@@ -19,7 +19,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 const TagDetail: React.FC = () => {
   const { selectedTag, setSelectedTag } = useTagContext();
-  const { loading, getChildTags, getTagBookmarks, deleteTag, updateTag, refreshTags } = useTagManagement();
+  const { loading, getChildTags, getTagBookmarks, deleteTag, updateTag } = useTagManagement();
 
   const [bookmarks, setBookmarks] = useState<BookmarkTreeNode[]>([]);
   const [loadingBookmarks, setLoadingBookmarks] = useState(false);
@@ -68,18 +68,16 @@ const TagDetail: React.FC = () => {
       // 更新 context 中的选中标签
       setSelectedTag(updatedTag);
       setEditDialogOpen(false);
-      // 触发整个标签树的刷新
-      await refreshTags();
     } catch (error) {
       console.error("Failed to update tag:", error);
     }
   };
 
-  const handleDeleteTag = async () => {
+  const handleDeleteTag = async (deleteWithBookmarks: boolean) => {
     if (!selectedTag) return;
 
     try {
-      await deleteTag(selectedTag.id);
+      await deleteTag(selectedTag.id, deleteWithBookmarks);
       setSelectedTag(null);
       setDeleteDialogOpen(false);
     } catch (error) {
@@ -177,7 +175,13 @@ const TagDetail: React.FC = () => {
 
       {/* 对话框组件 */}
       <TagEditDialog open={editDialogOpen} tag={selectedTag} onOpenChange={setEditDialogOpen} onConfirm={handleEditTag} />
-      <TagDeleteDialog open={deleteDialogOpen} tag={selectedTag} onOpenChange={setDeleteDialogOpen} onConfirm={handleDeleteTag} />
+      <TagDeleteDialog
+        open={deleteDialogOpen}
+        tag={selectedTag}
+        onOpenChange={setDeleteDialogOpen}
+        onConfirm={() => handleDeleteTag(false)}
+        onConfirmWithBookmarks={() => handleDeleteTag(true)}
+      />
 
       <BookmarkEditDialog
         open={editDialog.dialog.isOpen}

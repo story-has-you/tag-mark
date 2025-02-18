@@ -7,33 +7,16 @@ import type { Tag, UpdateTagParams } from "@/types/tag";
 import { useAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
 
-interface UseTagManagementReturn {
-  // 状态
-  loading: boolean;
-  error: Error | null;
-  tags: Tag[];
+import BookmarkService from "~services/bookmark-service";
 
-  // 标签操作
-  updateTag: (id: string, params: UpdateTagParams) => Promise<Tag>;
-  deleteTag: (id: string) => Promise<void>;
-
-  // 关联关系操作
-  getTagBookmarks: (tagId: string) => Promise<BookmarkTreeNode[]>;
-  removeBookmarkFromTag: (tagId: string, bookmarkId: string) => Promise<void>;
-  addBookmarkToTag: (tagId: string, bookmarkId: string) => Promise<void>;
-
-  // 辅助方法
-  getChildTags: (parentId: string) => Tag[];
-  refreshTags: () => Promise<void>;
-}
-
-export const useTagManagement = (): UseTagManagementReturn => {
+export const useTagManagement = () => {
   const [tags, setTags] = useAtom(tagsAtom);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   const tagService = TagService.getInstance();
   const relationService = TagBookmarkRelationService.getInstance();
+  const bookmarkService = BookmarkService.getInstance();
 
   // 加载所有标签
   const loadTags = useCallback(async () => {
@@ -75,12 +58,38 @@ export const useTagManagement = (): UseTagManagementReturn => {
   };
 
   // 删除标签
-  const deleteTag = async (id: string): Promise<void> => {
-    await tagService.deleteTag(id);
-    await relationService.deleteRelationsByTagId(id);
-    await loadTags();
-  };
+  const deleteTag = async (id: string, deleteWithBookmarks: boolean): Promise<void> => {
+    try {
+      // 如果需要删除关联的书签
+      if (deleteWithBookmarks) {
+        const bookmarks = await getTagBookmarks(id);
+        console.log("bookmarks", bookmarks);
+        if (!bookmarks) {
+          return;
+        }
 
+        // 并行删除所有关联的书签
+        await Promise.all(
+          bookmarks.map(async (bookmark) => {
+            try {
+              await bookmarkService.deleteBookmark(bookmark.id);
+            } catch (error) {
+              console.error(`Failed to delete bookmark ${bookmark.id}:`, error);
+              // 继续删除其他书签
+            }
+          })
+        );
+      }
+
+      // 删除关联关系和标签
+      await relationService.deleteRelationsByTagId(id);
+      await tagService.deleteTag(id);
+      await loadTags();
+    } catch (error) {
+      console.error("Failed to delete tag and related items:", error);
+      throw error;
+    }
+  };
   // 获取标签关联的书签
   const getTagBookmarks = async (tagId: string): Promise<BookmarkTreeNode[]> => {
     return await relationService.getBookmarksByTagId(tagId);
