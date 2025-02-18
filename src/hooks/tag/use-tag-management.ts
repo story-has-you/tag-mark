@@ -1,8 +1,10 @@
 import TagName from "@/lib/tag-name";
 import TagBookmarkRelationService from "@/services/tag-bookmark-relation-service";
 import TagService from "@/services/tag-service";
+import { tagsAtom } from "@/store/tag";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import type { Tag, UpdateTagParams } from "@/types/tag";
+import { useAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
 
 interface UseTagManagementReturn {
@@ -26,7 +28,7 @@ interface UseTagManagementReturn {
 }
 
 export const useTagManagement = (): UseTagManagementReturn => {
-  const [tags, setTags] = useState<Tag[]>([]);
+  const [tags, setTags] = useAtom(tagsAtom);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 

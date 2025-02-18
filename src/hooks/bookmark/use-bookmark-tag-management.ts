@@ -1,7 +1,7 @@
 import { useToast } from "@/hooks/use-toast";
 import TagBookmarkRelationService from "@/services/tag-bookmark-relation-service";
 import TagService from "@/services/tag-service";
-import { bookmarkTagsAtom } from "@/store/tag";
+import { bookmarkTagsAtom } from "@/store/bookmark";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import type { Tag } from "@/types/tag";
 import { useAtom } from "jotai";
@@ -136,9 +136,7 @@ export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
   }, [loadTags]);
 
   // 过滤标签
-  const filteredTags =
-    bookmarkTags[bookmark?.id ?? ""]?.filter((tag) => tag.name.toLowerCase().includes(input.trim().toLowerCase())) ??
-    [];
+  const filteredTags = bookmarkTags[bookmark?.id ?? ""]?.filter((tag) => tag.name.toLowerCase().includes(input.trim().toLowerCase())) ?? [];
 
   return {
     tags: bookmarkTags[bookmark?.id ?? ""] ?? [],

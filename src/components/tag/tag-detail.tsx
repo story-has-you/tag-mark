@@ -46,8 +46,6 @@ const TagDetail: React.FC = () => {
         // 使用新的方法获取直接关联的书签
         const tagBookmarks = await getTagBookmarks(selectedTag.id);
         setBookmarks(tagBookmarks);
-        // 触发整个标签树的刷新
-        await refreshTags();
       } catch (err) {
         console.error("Failed to load bookmarks:", err);
       } finally {
@@ -70,6 +68,8 @@ const TagDetail: React.FC = () => {
       // 更新 context 中的选中标签
       setSelectedTag(updatedTag);
       setEditDialogOpen(false);
+      // 触发整个标签树的刷新
+      await refreshTags();
     } catch (error) {
       console.error("Failed to update tag:", error);
     }
