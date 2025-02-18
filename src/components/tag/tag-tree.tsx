@@ -17,7 +17,6 @@ const TreeNode: React.FC<TreeNodeProps> = ({ tag, level, allTags }) => {
   const { selectedTag, setSelectedTag } = useTagContext();
   const isSelected = selectedTag?.id === tag.id;
 
-  // 获取当前标签的子标签并排序
   const childTags = allTags.filter((t) => t.parentId === tag.id).sort((a, b) => a.order - b.order);
 
   const hasChildTags = childTags.length > 0;
@@ -58,23 +57,16 @@ const TreeNode: React.FC<TreeNodeProps> = ({ tag, level, allTags }) => {
   );
 };
 
-interface TagTreeProps {
-  tags?: Tag[];
-}
+const TagTree: React.FC = () => {
+  const { tags } = useTagContext();
 
-const TagTree: React.FC<TagTreeProps> = ({ tags = [] }) => {
   // 获取根标签并排序
   const rootTags = tags.filter((tag) => !tag.parentId).sort((a, b) => a.order - b.order);
 
   return (
     <div className="py-1">
       {rootTags.map((tag) => (
-        <TreeNode
-          key={tag.id}
-          tag={tag}
-          level={0}
-          allTags={tags} // 传递所有标签
-        />
+        <TreeNode key={tag.id} tag={tag} level={0} allTags={tags} />
       ))}
     </div>
   );

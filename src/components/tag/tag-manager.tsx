@@ -2,8 +2,8 @@ import { TagProvider } from "@/components/tag/tag-context";
 import TagTree from "@/components/tag/tag-tree";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useTagManagement } from "@/hooks/tag/use-tag-management";
 import React from "react";
+
 import TagDetail from "~components/tag/tag-detail";
 
 const MIN_SIDEBAR_WIDTH = 15;
@@ -11,7 +11,6 @@ const DEFAULT_SIDEBAR_WIDTH = 25;
 const MAX_SIDEBAR_WIDTH = 40;
 
 const TagManager: React.FC = () => {
-  const { tags } = useTagManagement();
   return (
     <TagProvider>
       <ResizablePanelGroup
@@ -22,7 +21,7 @@ const TagManager: React.FC = () => {
         }}>
         <ResizablePanel defaultSize={DEFAULT_SIDEBAR_WIDTH} minSize={MIN_SIDEBAR_WIDTH} maxSize={MAX_SIDEBAR_WIDTH} className="border-r border-border">
           <ScrollArea className="h-full">
-            <TagTree tags={tags} />
+            <TagTree />
           </ScrollArea>
         </ResizablePanel>
         <ResizableHandle />

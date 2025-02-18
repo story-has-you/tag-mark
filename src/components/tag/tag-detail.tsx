@@ -19,7 +19,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 const TagDetail: React.FC = () => {
   const { selectedTag, setSelectedTag } = useTagContext();
-  const { loading, getChildTags, getTagBookmarks, deleteTag, updateTag } = useTagManagement();
+  const { loading, getChildTags, getTagBookmarks, deleteTag, updateTag, refreshTags } = useTagManagement();
 
   const [bookmarks, setBookmarks] = useState<BookmarkTreeNode[]>([]);
   const [loadingBookmarks, setLoadingBookmarks] = useState(false);
@@ -46,6 +46,8 @@ const TagDetail: React.FC = () => {
         // 使用新的方法获取直接关联的书签
         const tagBookmarks = await getTagBookmarks(selectedTag.id);
         setBookmarks(tagBookmarks);
+        // 触发整个标签树的刷新
+        await refreshTags();
       } catch (err) {
         console.error("Failed to load bookmarks:", err);
       } finally {

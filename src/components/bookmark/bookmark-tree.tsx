@@ -1,5 +1,6 @@
 import { useBookmarkContext } from "@/components/bookmark/bookmark-context";
 import { Button } from "@/components/ui/button";
+import { useBookmark } from "@/hooks/bookmark/use-bookmark";
 import { cn } from "@/lib/utils";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { ChevronDown, ChevronRight, Folder } from "lucide-react";
@@ -33,10 +34,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level }) => {
     <div className="py-2">
       <Button
         variant={isSelected ? "secondary" : "ghost"}
-        className={cn(
-          "w-full justify-start gap-2 px-2 py-1.5 h-auto",
-          isSelected && "bg-accent"
-        )}
+        className={cn("w-full justify-start gap-2 px-2 py-1.5 h-auto", isSelected && "bg-accent")}
         style={{ paddingLeft: `${level * 1.5}rem` }}
         onClick={handleClick}>
         {hasChildFolders ? (
@@ -48,12 +46,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level }) => {
         ) : (
           <span className="w-4" />
         )}
-        <Folder
-          className={cn(
-            "h-4 w-4",
-            isSelected ? "text-primary" : "text-muted-foreground"
-          )}
-        />
+        <Folder className={cn("h-4 w-4", isSelected ? "text-primary" : "text-muted-foreground")} />
         <span className="text-base truncate">{node.title}</span>
       </Button>
       {isOpen && hasChildFolders && (
@@ -67,9 +60,9 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level }) => {
   );
 };
 
-const BookmarkTree: React.FC<{ bookmarks: BookmarkTreeNode[] }> = ({
-  bookmarks
-}) => {
+const BookmarkTree: React.FC = () => {
+  const { bookmarks } = useBookmark();
+
   return (
     <div className="py-2">
       {bookmarks.map((bookmark) => (
