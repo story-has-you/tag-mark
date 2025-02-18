@@ -16,12 +16,7 @@ const BookmarkList: React.FC = () => {
   const { parentRef, saveScrollPosition, restoreScrollPosition } = useScrollPosition();
   const { editDialog, deleteDialog, handleEditDialogChange, handleDeleteDialogChange } = useBookmarkDialogs();
 
-  const { handleEdit, handleDelete } = useBookmarkOperations(
-    updateLocalBookmark,
-    deleteLocalBookmark,
-    saveScrollPosition,
-    restoreScrollPosition
-  );
+  const { handleEdit, handleDelete } = useBookmarkOperations(updateLocalBookmark, deleteLocalBookmark, saveScrollPosition, restoreScrollPosition);
 
   const rowVirtualizer = useVirtualizer({
     count: bookmarks.length,
@@ -64,11 +59,7 @@ const BookmarkList: React.FC = () => {
                       transform: `translateY(${virtualRow.start}px)`
                     }}
                     className="p-1">
-                    <BookmarkItem
-                      bookmark={bookmark}
-                      onEdit={editDialog.openDialog}
-                      onDelete={deleteDialog.openDialog}
-                    />
+                    <BookmarkItem key={bookmark.id} bookmark={bookmark} onEdit={editDialog.openDialog} onDelete={deleteDialog.openDialog} />
                   </div>
                 );
               })}

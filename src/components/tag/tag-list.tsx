@@ -1,49 +1,42 @@
 import BookmarkItem from "@/components/bookmark/bookmark-item";
+import BookmarkDeleteDialog from "@/components/bookmark/dialogs/bookmark-delete-dialog";
+import BookmarkEditDialog from "@/components/bookmark/dialogs/bookmark-edit-dialog";
 import TagDeleteDialog from "@/components/tag/dialogs/tag-delete-dialog";
 import TagEditDialog from "@/components/tag/dialogs/tag-edit-dialog";
 import { useTagContext } from "@/components/tag/tag-context";
+import TagItem from "@/components/tag/tag-item";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBookmarkDialogs } from "@/hooks/bookmark/use-bookmark-dialogs";
+import { useBookmarkOperations } from "@/hooks/bookmark/use-bookmark-operations";
+import { useScrollPosition } from "@/hooks/bookmark/use-scroll-position";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
 import type { BookmarkTreeNode } from "@/types/bookmark";
-import type { Tag } from "@/types/tag";
 import { Edit2, Trash2 } from "lucide-react";
-import React, { useEffect, useState } from "react";
-
-interface TagItemProps {
-  tag: Tag;
-  onSelect: (tag: Tag) => void;
-}
-
-const TagItem: React.FC<TagItemProps> = ({ tag, onSelect }) => {
-  return (
-    <Card className="hover:bg-accent transition-colors cursor-pointer" onClick={() => onSelect(tag)}>
-      <CardContent className="p-3">
-        <div className="flex items-center gap-3">
-          <div className="flex flex-col min-w-0">
-            <span className="text-sm font-medium truncate">{tag.name}</span>
-            {tag.fullPath && <span className="text-xs text-muted-foreground truncate">{tag.fullPath}</span>}
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
+import React, { useCallback, useEffect, useState } from "react";
 
 const TagList: React.FC = () => {
   const { selectedTag, setSelectedTag } = useTagContext();
   const { loading, getChildTags, getTagBookmarks, deleteTag, updateTag, createTag } = useTagManagement();
-  const { editDialog, deleteDialog } = useBookmarkDialogs();
 
   const [bookmarks, setBookmarks] = useState<BookmarkTreeNode[]>([]);
   const [loadingBookmarks, setLoadingBookmarks] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const { editDialog, deleteDialog, handleEditDialogChange, handleDeleteDialogChange } = useBookmarkDialogs();
+  const { saveScrollPosition, restoreScrollPosition } = useScrollPosition();
+  const updateLocalBookmark = useCallback((updatedBookmark: BookmarkTreeNode) => {
+    setBookmarks((prev) => prev.map((bookmark) => (bookmark.id === updatedBookmark.id ? updatedBookmark : bookmark)));
+  }, []);
+
+  const deleteLocalBookmark = useCallback((bookmarkId: string) => {
+    setBookmarks((prev) => prev.filter((bookmark) => bookmark.id !== bookmarkId));
+  }, []);
+
+  const { handleEdit, handleDelete } = useBookmarkOperations(updateLocalBookmark, deleteLocalBookmark, saveScrollPosition, restoreScrollPosition);
 
   useEffect(() => {
     const loadBookmarks = async () => {
@@ -64,7 +57,7 @@ const TagList: React.FC = () => {
     loadBookmarks();
   }, [selectedTag]);
 
-  const handleEdit = async (name: string, parentId?: string) => {
+  const handleEditTag = async (name: string, parentId?: string) => {
     if (!selectedTag) return;
 
     try {
@@ -79,7 +72,7 @@ const TagList: React.FC = () => {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDeleteTag = async () => {
     if (!selectedTag) return;
 
     try {
@@ -118,6 +111,33 @@ const TagList: React.FC = () => {
   if (!selectedTag) {
     return <div className="flex items-center justify-center h-full text-muted-foreground">请选择一个标签</div>;
   }
+
+  const renderBookmarkList = () => {
+    if (loadingBookmarks) {
+      return (
+        <div className="space-y-2">
+          <Skeleton className="h-16 w-full" />
+          <Skeleton className="h-16 w-full" />
+        </div>
+      );
+    }
+
+    if (bookmarks.length === 0) {
+      return (
+        <Alert>
+          <AlertDescription>该标签下没有直接关联的书签</AlertDescription>
+        </Alert>
+      );
+    }
+
+    return (
+      <div className="grid gap-2">
+        {bookmarks.map((bookmark) => (
+          <BookmarkItem key={bookmark.id} bookmark={bookmark} onEdit={editDialog.openDialog} onDelete={deleteDialog.openDialog} />
+        ))}
+      </div>
+    );
+  };
 
   return (
     <ScrollArea className="h-full">
@@ -160,29 +180,28 @@ const TagList: React.FC = () => {
         {/* 关联书签列表 */}
         <div className="space-y-2">
           <h3 className="text-sm font-medium">直接关联书签 ({bookmarks.length})</h3>
-          {loadingBookmarks ? (
-            <div className="space-y-2">
-              <Skeleton className="h-16 w-full" />
-              <Skeleton className="h-16 w-full" />
-            </div>
-          ) : bookmarks.length === 0 ? (
-            <Alert>
-              <AlertDescription>该标签下没有直接关联的书签</AlertDescription>
-            </Alert>
-          ) : (
-            <div className="grid gap-2">
-              {bookmarks.map((bookmark) => (
-                <BookmarkItem bookmark={bookmark} onEdit={editDialog.openDialog} onDelete={deleteDialog.openDialog} />
-              ))}
-            </div>
-          )}
+          {renderBookmarkList()}
         </div>
       </div>
 
       {/* 对话框组件 */}
-      <TagEditDialog open={editDialogOpen} tag={selectedTag} onOpenChange={setEditDialogOpen} onConfirm={handleEdit} />
-      <TagDeleteDialog open={deleteDialogOpen} tag={selectedTag} onOpenChange={setDeleteDialogOpen} onConfirm={handleDelete} />
+      <TagEditDialog open={editDialogOpen} tag={selectedTag} onOpenChange={setEditDialogOpen} onConfirm={handleEditTag} />
+      <TagDeleteDialog open={deleteDialogOpen} tag={selectedTag} onOpenChange={setDeleteDialogOpen} onConfirm={handleDeleteTag} />
       <TagEditDialog open={createDialogOpen} tag={null} onOpenChange={setCreateDialogOpen} onConfirm={handleCreate} />
+
+      <BookmarkEditDialog
+        open={editDialog.dialog.isOpen}
+        bookmark={editDialog.dialog.bookmark}
+        onOpenChange={handleEditDialogChange}
+        onConfirm={(title, url) => handleEdit(editDialog.dialog.bookmark, title, url, editDialog.closeDialog)}
+      />
+
+      <BookmarkDeleteDialog
+        open={deleteDialog.dialog.isOpen}
+        bookmark={deleteDialog.dialog.bookmark}
+        onOpenChange={handleDeleteDialogChange}
+        onConfirm={() => handleDelete(deleteDialog.dialog.bookmark, deleteDialog.closeDialog)}
+      />
     </ScrollArea>
   );
 };
