@@ -86,16 +86,16 @@ const TagEditDialog: React.FC<TagEditDialogProps> = ({ open, tag, onOpenChange, 
           <div className="space-y-2">
             <label className="text-sm font-medium">父标签</label>
             <Select
-              value={parentId}
+              value={parentId || "none"}
               onValueChange={(value) => {
-                setParentId(value);
+                setParentId(value === "none" ? undefined : value);
                 setError(null);
               }}>
               <SelectTrigger>
                 <SelectValue placeholder="选择父标签" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">无</SelectItem>
+                <SelectItem value="none">无</SelectItem>
                 {availableParentTags.map((t) => (
                   <SelectItem key={t.id} value={t.id}>
                     {t.fullPath || t.name}
