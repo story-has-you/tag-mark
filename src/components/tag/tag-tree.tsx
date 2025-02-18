@@ -39,7 +39,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ tag, level, allTags }) => {
         onClick={handleClick}>
         {hasChildTags ? isOpen ? <ChevronDown className="h-4 w-4 text-muted-foreground" /> : <ChevronRight className="h-4 w-4 text-muted-foreground" /> : <span className="w-4" />}
         <TagIcon className={cn("h-4 w-4", isSelected ? "text-primary" : "text-muted-foreground")} />
-        <span className="text-base truncate">{tag.name}</span>
+        <span className="text-base truncate">#{tag.name}</span>
       </Button>
       {isOpen && hasChildTags && (
         <div className="border-l border-border ml-4">

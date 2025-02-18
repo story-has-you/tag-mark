@@ -134,7 +134,7 @@ const TagDetail: React.FC = () => {
         {/* 标签信息和操作按钮 */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold">{selectedTag.name}</h2>
+            <h2 className="text-lg font-semibold">#{selectedTag.name}</h2>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" onClick={() => setEditDialogOpen(true)}>
                 <Edit2 className="h-4 w-4 mr-2" />

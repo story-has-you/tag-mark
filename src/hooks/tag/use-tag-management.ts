@@ -46,6 +46,7 @@ export const useTagManagement = () => {
   );
 
   const updateTag = async (id: string, params: UpdateTagParams): Promise<Tag> => {
+    params.name = params.name.replace(/^#/, "");
     const updatedTag = await tagService.updateTag(id, params);
     await loadTags(); // 重新加载以更新路径
 

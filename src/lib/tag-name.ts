@@ -100,7 +100,7 @@ class TagName {
       currentTag = currentTag.parentId ? allTags.find((t) => t.id === currentTag?.parentId) : undefined;
     }
 
-    return paths.join("/");
+    return "#" + paths.join("/");
   }
 }
 

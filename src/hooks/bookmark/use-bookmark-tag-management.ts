@@ -48,7 +48,8 @@ export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
       if (!bookmark?.id) return;
 
       try {
-        const tagName = new TagName(tagPath);
+        const normalizedPath = tagPath.replace(/^#/, "");
+        const tagName = new TagName(normalizedPath);
 
         // 验证标签名称
         tagName.validate();
