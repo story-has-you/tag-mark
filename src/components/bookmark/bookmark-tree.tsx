@@ -30,7 +30,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level }) => {
   };
 
   return (
-    <div className="py-0.5">
+    <div className="py-2">
       <Button
         variant={isSelected ? "secondary" : "ghost"}
         className={cn(
@@ -54,7 +54,7 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level }) => {
             isSelected ? "text-primary" : "text-muted-foreground"
           )}
         />
-        <span className="text-sm truncate">{node.title}</span>
+        <span className="text-base truncate">{node.title}</span>
       </Button>
       {isOpen && hasChildFolders && (
         <div className="border-l border-border ml-4">
