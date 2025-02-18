@@ -2,7 +2,7 @@ import TagName from "@/lib/tag-name";
 import TagBookmarkRelationService from "@/services/tag-bookmark-relation-service";
 import TagService from "@/services/tag-service";
 import type { BookmarkTreeNode } from "@/types/bookmark";
-import type { CreateTagParams, Tag, UpdateTagParams } from "@/types/tag";
+import type { Tag, UpdateTagParams } from "@/types/tag";
 import { useCallback, useEffect, useState } from "react";
 
 interface UseTagManagementReturn {
@@ -12,7 +12,6 @@ interface UseTagManagementReturn {
   tags: Tag[];
 
   // 标签操作
-  createTag: (params: CreateTagParams) => Promise<Tag>;
   updateTag: (id: string, params: UpdateTagParams) => Promise<Tag>;
   deleteTag: (id: string) => Promise<void>;
 
@@ -61,13 +60,6 @@ export const useTagManagement = (): UseTagManagementReturn => {
     [tags]
   );
 
-  // 创建标签
-  const createTag = async (params: CreateTagParams): Promise<Tag> => {
-    const newTag = await tagService.createTag(params);
-    await loadTags(); // 重新加载以更新路径
-    return newTag;
-  };
-
   // 更新标签
   const updateTag = async (id: string, params: UpdateTagParams): Promise<Tag> => {
     const updatedTag = await tagService.updateTag(id, params);
@@ -111,7 +103,6 @@ export const useTagManagement = (): UseTagManagementReturn => {
     loading,
     error,
     tags,
-    createTag,
     updateTag,
     deleteTag,
     getTagBookmarks,

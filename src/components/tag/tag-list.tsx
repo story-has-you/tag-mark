@@ -19,13 +19,12 @@ import React, { useCallback, useEffect, useState } from "react";
 
 const TagList: React.FC = () => {
   const { selectedTag, setSelectedTag } = useTagContext();
-  const { loading, getChildTags, getTagBookmarks, deleteTag, updateTag, createTag } = useTagManagement();
+  const { loading, getChildTags, getTagBookmarks, deleteTag, updateTag } = useTagManagement();
 
   const [bookmarks, setBookmarks] = useState<BookmarkTreeNode[]>([]);
   const [loadingBookmarks, setLoadingBookmarks] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const { editDialog, deleteDialog, handleEditDialogChange, handleDeleteDialogChange } = useBookmarkDialogs();
   const { saveScrollPosition, restoreScrollPosition } = useScrollPosition();
   const updateLocalBookmark = useCallback((updatedBookmark: BookmarkTreeNode) => {
@@ -81,18 +80,6 @@ const TagList: React.FC = () => {
       setDeleteDialogOpen(false);
     } catch (error) {
       console.error("Failed to delete tag:", error);
-    }
-  };
-
-  const handleCreate = async (name: string, parentId?: string) => {
-    try {
-      await createTag({
-        name,
-        parentId: parentId || selectedTag?.id
-      });
-      setCreateDialogOpen(false);
-    } catch (error) {
-      console.error("Failed to create tag:", error);
     }
   };
 
@@ -187,7 +174,6 @@ const TagList: React.FC = () => {
       {/* 对话框组件 */}
       <TagEditDialog open={editDialogOpen} tag={selectedTag} onOpenChange={setEditDialogOpen} onConfirm={handleEditTag} />
       <TagDeleteDialog open={deleteDialogOpen} tag={selectedTag} onOpenChange={setDeleteDialogOpen} onConfirm={handleDeleteTag} />
-      <TagEditDialog open={createDialogOpen} tag={null} onOpenChange={setCreateDialogOpen} onConfirm={handleCreate} />
 
       <BookmarkEditDialog
         open={editDialog.dialog.isOpen}
