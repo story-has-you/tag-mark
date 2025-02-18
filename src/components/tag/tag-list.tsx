@@ -60,11 +60,13 @@ const TagList: React.FC = () => {
     if (!selectedTag) return;
 
     try {
-      await updateTag(selectedTag.id, {
+      const updatedTag = await updateTag(selectedTag.id, {
         id: selectedTag.id,
         name,
         parentId
       });
+      // 更新 context 中的选中标签
+      setSelectedTag(updatedTag);
       setEditDialogOpen(false);
     } catch (error) {
       console.error("Failed to update tag:", error);

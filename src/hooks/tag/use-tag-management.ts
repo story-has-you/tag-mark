@@ -60,11 +60,16 @@ export const useTagManagement = (): UseTagManagementReturn => {
     [tags]
   );
 
-  // 更新标签
   const updateTag = async (id: string, params: UpdateTagParams): Promise<Tag> => {
     const updatedTag = await tagService.updateTag(id, params);
     await loadTags(); // 重新加载以更新路径
-    return updatedTag;
+
+    // 返回更新后的完整标签信息
+    const allTags = await tagService.getAllTags();
+    return {
+      ...updatedTag,
+      fullPath: TagName.buildFullPathWithAllTags(updatedTag, allTags)
+    };
   };
 
   // 删除标签
