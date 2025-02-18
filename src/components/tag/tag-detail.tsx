@@ -17,7 +17,7 @@ import type { BookmarkTreeNode } from "@/types/bookmark";
 import { Edit2, Trash2 } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
 
-const TagList: React.FC = () => {
+const TagDetail: React.FC = () => {
   const { selectedTag, setSelectedTag } = useTagContext();
   const { loading, getChildTags, getTagBookmarks, deleteTag, updateTag } = useTagManagement();
 
@@ -194,6 +194,6 @@ const TagList: React.FC = () => {
   );
 };
 
-TagList.displayName = "TagList";
+TagDetail.displayName = "TagDetail";
 
-export default TagList;
+export default TagDetail;
