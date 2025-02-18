@@ -63,7 +63,6 @@ export const useTagManagement = () => {
       // 如果需要删除关联的书签
       if (deleteWithBookmarks) {
         const bookmarks = await getTagBookmarks(id);
-        console.log("bookmarks", bookmarks);
         if (!bookmarks) {
           return;
         }

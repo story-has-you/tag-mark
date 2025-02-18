@@ -100,8 +100,31 @@ class TagService {
   public async deleteTag(id: string): Promise<void> {
     try {
       const tags = await this.getAllTags();
-      const filteredTags = tags.filter((tag) => tag.id !== id);
-      await chrome.storage.local.set({ [STORAGE_KEY]: filteredTags });
+
+      // 找到要删除的标签的索引
+      const deleteIndex = tags.findIndex((tag) => tag.id === id);
+
+      if (deleteIndex === -1) {
+        throw new Error("Tag not found");
+      }
+
+      // 找到所有子标签并更新它们的 parentId
+      const updatedTags = tags.map((tag) => {
+        if (tag.parentId === id) {
+          return {
+            ...tag,
+            parentId: null,
+            updatedAt: Date.now()
+          };
+        }
+        return tag;
+      });
+
+      // 从数组中移除要删除的标签
+      updatedTags.splice(deleteIndex, 1);
+
+      // 保存更新后的标签数组
+      await chrome.storage.local.set({ [STORAGE_KEY]: updatedTags });
     } catch (error) {
       console.error("删除标签失败:", error);
       throw new Error("Failed to delete tag");
