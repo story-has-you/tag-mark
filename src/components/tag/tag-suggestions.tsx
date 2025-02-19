@@ -55,15 +55,18 @@ const TagSuggestions: React.FC<TagSuggestionsProps> = ({ value, suggestions, onV
   return (
     <Command className="rounded-lg border shadow-md h-[200px]">
       <div className="flex items-center justify-between border-b">
-        <CommandInput
-          ref={inputRef}
-          placeholder="输入标签名称，回车添加..."
-          value={value}
-          onValueChange={onValueChange}
-          onKeyDown={handleKeyDown}
-          disabled={disabled}
-          className="border-none focus:ring-0"
-        />
+        <div className="flex items-center flex-1">
+          <span className="text-base text-muted-foreground pl-3">#</span>
+          <CommandInput
+            ref={inputRef}
+            placeholder="输入标签名称，回车添加..."
+            value={value}
+            onValueChange={onValueChange}
+            onKeyDown={handleKeyDown}
+            disabled={disabled}
+            className="border-none focus:ring-0"
+          />
+        </div>
         <Button variant="default" disabled={disabled || !value.trim()} onClick={handleAddClick}>
           添加标签
         </Button>
