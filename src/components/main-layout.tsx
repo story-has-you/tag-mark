@@ -25,7 +25,7 @@ const fadeIn = {
 };
 
 const MainLayout: React.FC = () => {
-  const [activeTab, setActiveTab] = useState("bookmarks");
+  const [activeTab, setActiveTab] = useState("tags");
   const { theme, toggleTheme } = useTheme();
 
   return (
@@ -38,13 +38,13 @@ const MainLayout: React.FC = () => {
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="flex items-center justify-between mb-6">
                 <TabsList className="bg-white/80 dark:bg-slate-800/80">
-                  <TabsTrigger value="bookmarks" className="gap-2 px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                    <Bookmark className="h-4 w-4" />
-                    书签管理
-                  </TabsTrigger>
                   <TabsTrigger value="tags" className="gap-2 px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                     <Tags className="h-4 w-4" />
                     标签管理
+                  </TabsTrigger>
+                  <TabsTrigger value="bookmarks" className="gap-2 px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                    <Bookmark className="h-4 w-4" />
+                    书签管理
                   </TabsTrigger>
                 </TabsList>
 

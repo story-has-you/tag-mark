@@ -18,16 +18,12 @@ const BookmarkTag: React.FC<BookmarkTagProps> = ({ tags }) => {
       transition={{ duration: 0.3, delay: 0.1 }}>
       {tags.slice(0, MAX_DISPLAY_TAGS).map((tag, index) => (
         <motion.div key={tag.id} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2, delay: index * 0.1 }}>
-          <Badge variant="secondary" className="text-sm whitespace-nowrap bg-primary/5 hover:bg-primary/10 transition-colors duration-200">
-            {tag.fullPath}
-          </Badge>
+          <Badge className="text-sm whitespace-nowrap">{tag.fullPath}</Badge>
         </motion.div>
       ))}
       {tags.length > MAX_DISPLAY_TAGS && (
         <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2, delay: 0.3 }}>
-          <Badge variant="secondary" className="text-xs whitespace-nowrap bg-primary/5 hover:bg-primary/10 transition-colors duration-200">
-            +{tags.length - MAX_DISPLAY_TAGS}
-          </Badge>
+          <Badge className="text-sm whitespace-nowrap">+{tags.length - MAX_DISPLAY_TAGS}</Badge>
         </motion.div>
       )}
     </motion.div>
