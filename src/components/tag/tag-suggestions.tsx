@@ -64,7 +64,7 @@ const TagSuggestions: React.FC<TagSuggestionsProps> = ({ value, suggestions, onV
             onValueChange={onValueChange}
             onKeyDown={handleKeyDown}
             disabled={disabled}
-            className="border-none focus:ring-0"
+            className="border-none focus:ring-0 w-full"
           />
         </div>
         <Button variant="default" disabled={disabled || !value.trim()} onClick={handleAddClick}>
