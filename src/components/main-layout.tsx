@@ -29,7 +29,7 @@ const MainLayout: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="min-h-screen relative bg-gradient-to-br from-blue-50 via-indigo-50/50 to-purple-50/50 dark:from-slate-900 dark:via-indigo-900/20 dark:to-purple-900/20">
+    <div className="min-h-screen relative main-layout-bg">
       <Toaster />
 
       <div className="relative">
@@ -55,9 +55,9 @@ const MainLayout: React.FC = () => {
 
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div key={activeTab} initial="initial" animate="animate" exit="exit" variants={fadeIn} className="relative h-[calc(100dvh-7rem)]">
-                  <div className="h-full rounded-xl border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
+                  <div className="h-full rounded-2xl border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
                     {/* 毛玻璃背景层 */}
-                    <div className="absolute inset-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md" />
+                    <div className="absolute inset-0 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-2xl" />
 
                     {/* 内容层 */}
                     <div className="relative h-full p-6">

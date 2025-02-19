@@ -57,3 +57,21 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .main-layout-bg {
+    background-color: hsla(259, 84%, 37%, 1);
+    background-image: radial-gradient(circle at 20% 55%, hsla(248, 82%, 99%, 1) 13%, transparent 67%),
+      radial-gradient(circle at 26% 19%, hsla(318, 83%, 77%, 1) 16%, transparent 58%), radial-gradient(circle at 37% 0%, hsla(302, 95%, 45%, 1) 2%, transparent 60%),
+      radial-gradient(circle at 38% 72%, hsla(210, 87%, 65%, 1) 19%, transparent 85%), radial-gradient(circle at 39% 60%, hsla(317, 98%, 84%, 1) 5%, transparent 61%);
+    background-blend-mode: normal, normal, normal, normal, normal;
+  }
+
+  :is(.dark .main-layout-bg) {
+    background-color: hsla(204.30379746835442, 96%, 32%, 1);
+    background-image: radial-gradient(circle at 87% 90%, hsla(0, 0%, 3%, 1) 0%, transparent 68.4918641207511%),
+      radial-gradient(circle at 39% 88%, hsla(0, 0%, 3%, 1) 5.847953216374269%, transparent 78.61653873376679%),
+      radial-gradient(circle at 92% 65%, hsla(0, 0%, 3%, 1) 5.847953216374269%, transparent 78.61653873376679%);
+    background-blend-mode: normal, normal, normal;
+  }
+}
