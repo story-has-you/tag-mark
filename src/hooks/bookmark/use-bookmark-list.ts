@@ -1,15 +1,9 @@
-// hooks/use-bookmark-list.ts
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { useCallback, useEffect, useState } from "react";
 
 const getBookmarksFromNode = (node: BookmarkTreeNode): BookmarkTreeNode[] => {
-  const bookmarks: BookmarkTreeNode[] = [];
-  const traverse = (n: BookmarkTreeNode) => {
-    if (n.url) bookmarks.push(n);
-    n.children?.forEach(traverse);
-  };
-  traverse(node);
-  return bookmarks;
+  // 只返回直接子节点中的书签（带 url 的节点）
+  return node.children?.filter((child) => child.url) || [];
 };
 
 export const useBookmarkList = (selectedNode: BookmarkTreeNode | null) => {
