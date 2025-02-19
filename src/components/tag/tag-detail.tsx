@@ -7,6 +7,7 @@ import { useTagContext } from "@/components/tag/tag-context";
 import TagItem from "@/components/tag/tag-item";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBookmarkDialogs } from "@/hooks/bookmark/use-bookmark-dialogs";
@@ -14,7 +15,8 @@ import { useBookmarkOperations } from "@/hooks/bookmark/use-bookmark-operations"
 import { useScrollPosition } from "@/hooks/bookmark/use-scroll-position";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
 import type { BookmarkTreeNode } from "@/types/bookmark";
-import { Edit2, Trash2 } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Bookmark, Clock, Edit2, Hash, Route, Tags, Trash2 } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
 
 const TagDetail: React.FC = () => {
@@ -104,73 +106,107 @@ const TagDetail: React.FC = () => {
   const renderBookmarkList = () => {
     if (loadingBookmarks) {
       return (
-        <div className="space-y-2">
-          <Skeleton className="h-16 w-full" />
-          <Skeleton className="h-16 w-full" />
+        <div className="space-y-3">
+          <Skeleton className="h-20 w-full rounded-lg" />
+          <Skeleton className="h-20 w-full rounded-lg" />
+          <Skeleton className="h-20 w-full rounded-lg" />
         </div>
       );
     }
 
     if (bookmarks.length === 0) {
       return (
-        <Alert>
-          <AlertDescription>该标签下没有直接关联的书签</AlertDescription>
+        <Alert variant="default" className="bg-muted/50 border-none">
+          <AlertDescription className="flex items-center justify-center h-24 text-muted-foreground">该标签下没有直接关联的书签</AlertDescription>
         </Alert>
       );
     }
 
     return (
-      <div className="grid gap-2">
-        {bookmarks.map((bookmark) => (
-          <BookmarkItem key={bookmark.id} bookmark={bookmark} onEdit={editDialog.openDialog} onDelete={deleteDialog.openDialog} />
-        ))}
-      </div>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="grid gap-3">
+        <AnimatePresence mode="popLayout">
+          {bookmarks.map((bookmark, index) => (
+            <motion.div
+              key={bookmark.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2, delay: index * 0.05 }}>
+              <BookmarkItem bookmark={bookmark} onEdit={editDialog.openDialog} onDelete={deleteDialog.openDialog} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
     );
   };
 
   return (
     <ScrollArea className="h-full">
-      <div className="p-4 space-y-6">
-        {/* 标签信息和操作按钮 */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold">#{selectedTag.name}</h2>
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={() => setEditDialogOpen(true)}>
-                <Edit2 className="h-4 w-4 mr-2" />
-                编辑
-              </Button>
-              <Button variant="destructive" size="sm" onClick={() => setDeleteDialogOpen(true)}>
-                <Trash2 className="h-4 w-4 mr-2" />
-                删除
-              </Button>
+      <div className="p-6 space-y-8">
+        {/* 标签头部信息 */}
+        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+          <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-none shadow-sm">
+            <CardContent className="p-6">
+              <div className="flex items-start justify-between">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2">
+                    <Hash className="h-5 w-5 text-primary/80" />
+                    <h2 className="text-2xl font-semibold">{selectedTag.name}</h2>
+                  </div>
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2">
+                      <Route className="h-4 w-4" />
+                      <span>路径: {selectedTag.fullPath || selectedTag.name}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4" />
+                      <div className="space-x-4">
+                        <span>创建: {new Date(selectedTag.createdAt).toLocaleString()}</span>
+                        <span>更新: {new Date(selectedTag.updatedAt).toLocaleString()}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm" onClick={() => setEditDialogOpen(true)} className="hover:bg-primary/10">
+                    <Edit2 className="h-4 w-4 mr-2" />
+                    编辑
+                  </Button>
+                  <Button variant="destructive" size="sm" onClick={() => setDeleteDialogOpen(true)} className="hover:bg-destructive/90">
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    删除
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 子标签列表 */}
+          {childTags.length > 0 && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+              <div className="flex items-center gap-2 px-2">
+                <Tags className="h-4 w-4 text-muted-foreground" />
+                <h3 className="text-sm font-medium">子标签 ({childTags.length})</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {childTags.map((tag, index) => (
+                  <motion.div key={tag.id} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.1 }}>
+                    <TagItem tag={tag} onSelect={setSelectedTag} />
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* 书签列表 */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 px-2">
+              <Bookmark className="h-4 w-4 text-muted-foreground" />
+              <h3 className="text-sm font-medium">关联书签 ({bookmarks.length})</h3>
             </div>
+            {renderBookmarkList()}
           </div>
-
-          <div className="text-sm text-muted-foreground">
-            <p>完整路径: {selectedTag.fullPath || selectedTag.name}</p>
-            <p>创建时间: {new Date(selectedTag.createdAt).toLocaleString()}</p>
-            <p>更新时间: {new Date(selectedTag.updatedAt).toLocaleString()}</p>
-          </div>
-        </div>
-
-        {/* 子标签列表 */}
-        {childTags.length > 0 && (
-          <div className="space-y-2">
-            <h3 className="text-sm font-medium">子标签 ({childTags.length})</h3>
-            <div className="grid gap-2">
-              {childTags.map((tag) => (
-                <TagItem key={tag.id} tag={tag} onSelect={setSelectedTag} />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* 关联书签列表 */}
-        <div className="space-y-2">
-          <h3 className="text-sm font-medium">直接关联书签 ({bookmarks.length})</h3>
-          {renderBookmarkList()}
-        </div>
+        </motion.div>
       </div>
 
       {/* 对话框组件 */}
