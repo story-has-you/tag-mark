@@ -2,33 +2,36 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { Tag } from "@/types/tag";
 import { ChevronDown, ChevronRight, Tag as TagIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 
 import { useTagContext } from "./tag-context";
 
 interface TreeNodeProps {
   tag: Tag;
   level: number;
-  allTags: Tag[]; // 修改为传入所有标签
+  childTags: Tag[];
+  onSelect: (tag: Tag) => void;
 }
 
-const TreeNode: React.FC<TreeNodeProps> = ({ tag, level, allTags }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { selectedTag, setSelectedTag } = useTagContext();
+// 使用 React.memo 优化子组件
+const TreeNode: React.FC<TreeNodeProps> = React.memo(({ tag, level, childTags, onSelect }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const { selectedTag } = useTagContext();
   const isSelected = selectedTag?.id === tag.id;
-
-  const childTags = allTags.filter((t) => t.parentId === tag.id).sort((a, b) => a.order - b.order);
 
   const hasChildTags = childTags.length > 0;
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setSelectedTag(tag);
-    if (hasChildTags) {
-      setIsOpen(!isOpen);
-    }
-  };
+  const handleClick = React.useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onSelect(tag);
+      if (hasChildTags) {
+        setIsOpen(!isOpen);
+      }
+    },
+    [tag, hasChildTags, onSelect]
+  );
 
   return (
     <div className="py-2">
@@ -48,25 +51,45 @@ const TreeNode: React.FC<TreeNodeProps> = ({ tag, level, allTags }) => {
               key={childTag.id}
               tag={childTag}
               level={level + 1}
-              allTags={allTags} // 传递所有标签
+              childTags={[]} // 递归传递子标签
+              onSelect={onSelect}
             />
           ))}
         </div>
       )}
     </div>
   );
-};
+});
+
+TreeNode.displayName = "TreeNode";
 
 const TagTree: React.FC = () => {
-  const { tags } = useTagContext();
+  const { tags, setSelectedTag } = useTagContext();
 
-  // 获取根标签并排序
-  const rootTags = tags.filter((tag) => !tag.parentId).sort((a, b) => a.order - b.order);
+  // 使用 useMemo 优化标签过滤和排序
+  const { rootTags, tagMap } = useMemo(() => {
+    const map = new Map<string, Tag[]>();
+    tags.forEach((tag) => {
+      const parentId = tag.parentId || "root";
+      if (!map.has(parentId)) {
+        map.set(parentId, []);
+      }
+      map.get(parentId)!.push(tag);
+    });
+
+    // 对每个分组进行排序
+    map.forEach((group) => group.sort((a, b) => a.order - b.order));
+
+    return {
+      rootTags: map.get("root") || [],
+      tagMap: map
+    };
+  }, [tags]);
 
   return (
     <div className="py-1">
       {rootTags.map((tag) => (
-        <TreeNode key={tag.id} tag={tag} level={0} allTags={tags} />
+        <TreeNode key={tag.id} tag={tag} level={0} childTags={tagMap.get(tag.id) || []} onSelect={setSelectedTag} />
       ))}
     </div>
   );
