@@ -1,4 +1,4 @@
-// atoms/settings.ts
+import hotkeyEnabledChromeStorage from "@/lib/chrome-storage";
 import { atomWithStorage } from "jotai/utils";
 
-export const hotkeyEnabledAtom = atomWithStorage("hotkey-enabled", true);
+export const hotkeyEnabledAtom = atomWithStorage<boolean>("hotkey-enabled", true, hotkeyEnabledChromeStorage);
