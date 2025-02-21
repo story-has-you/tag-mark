@@ -1,19 +1,19 @@
 // main-layout.tsx
 import BookmarkManager from "@/components/bookmark/bookmark-manager";
+import KeyboardShortcut from "@/components/keyboard-shortcut";
 import SearchCommand from "@/components/search-command";
 import TagManager from "@/components/tag/tag-manager";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Toaster } from "@/components/ui/toaster";
+import { useKeyboardShortcut } from "@/hooks/use-hotkeys";
 import { useTheme } from "@/hooks/use-theme";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
-import { Bookmark, Moon, Search, Sun, Tags } from "lucide-react";
+import { Bookmark, Keyboard, Moon, Search, Sun, Tags } from "lucide-react";
 import React, { useState } from "react";
-import { useHotkeys } from "react-hotkeys-hook";
-
-import KeyboardShortcut from "~components/keyboard-shortcut";
 
 const fadeIn = {
   initial: { opacity: 0 },
@@ -31,16 +31,7 @@ const MainLayout: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"tags" | "bookmarks">("tags");
   const [searchOpen, setSearchOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
-
-  // 添加快捷键支持
-  useHotkeys(
-    "mod+k",
-    (e) => {
-      e.preventDefault();
-      setSearchOpen(true);
-    },
-    { enableOnFormTags: true }
-  );
+  const { hotkeyEnabled, setHotkeyEnabled } = useKeyboardShortcut({ onSearch: () => setSearchOpen(true) });
 
   return (
     <div className="min-h-screen relative main-layout-bg">
@@ -69,7 +60,11 @@ const MainLayout: React.FC = () => {
                     <span className="hidden sm:inline">搜索...</span>
                     <KeyboardShortcut command keys={["K"]} />
                   </Button>
-
+                  {/* 快捷键开关 */}
+                  <Button variant="outline" className="gap-2 bg-white/80 dark:bg-slate-800/80 border border-slate-200/50 dark:border-slate-700/50">
+                    <Keyboard className="h-4 w-4" />
+                    <Switch checked={hotkeyEnabled} onCheckedChange={setHotkeyEnabled} />
+                  </Button>
                   {/* 主题切换按钮 */}
                   <Button variant="outline" size="icon" onClick={toggleTheme} className="bg-white/80 dark:bg-slate-800/80">
                     {theme === "dark" ? <Sun className="h-4 w-4 text-yellow-500" /> : <Moon className="h-4 w-4 text-slate-700" />}

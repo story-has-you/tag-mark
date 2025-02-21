@@ -19,7 +19,8 @@ import type { BookmarkTreeNode } from "@/types/bookmark";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bookmark, Clock, Edit2, ExternalLink, Hash, Route, Tags, Trash2 } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
-import { useHotkeys } from "react-hotkeys-hook";
+
+import { useKeyboardShortcut } from "~hooks/use-hotkeys";
 
 const TagDetail: React.FC = () => {
   const { selectedTag, setSelectedTag } = useTagManagement();
@@ -40,6 +41,8 @@ const TagDetail: React.FC = () => {
   }, []);
 
   const { handleEdit, handleDelete } = useBookmarkOperations(updateLocalBookmark, deleteLocalBookmark, saveScrollPosition, restoreScrollPosition);
+
+  useKeyboardShortcut({ onOpenAll: () => handleOpenAll(), onEdit: () => setEditDialogOpen(true), onDelete: () => setDeleteDialogOpen(true) });
 
   useEffect(() => {
     const loadBookmarks = async () => {
@@ -88,35 +91,6 @@ const TagDetail: React.FC = () => {
       console.error("Failed to delete tag:", error);
     }
   };
-
-  // 添加快捷键支持
-  useHotkeys(
-    "mod+o",
-    (e) => {
-      e.preventDefault();
-      handleOpenAll();
-    },
-    { enableOnFormTags: true }
-  );
-
-  // 添加快捷键支持
-  useHotkeys(
-    "mod+E",
-    (e) => {
-      e.preventDefault();
-      setEditDialogOpen(true);
-    },
-    { enableOnFormTags: true }
-  );
-
-  useHotkeys(
-    "mod+Delete",
-    (e) => {
-      e.preventDefault();
-      setDeleteDialogOpen(true);
-    },
-    { enableOnFormTags: true }
-  );
 
   const handleOpenAll = async () => {
     try {
