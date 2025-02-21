@@ -75,7 +75,10 @@ const KeyboardShortcut: React.FC<KeyboardShortcutProps> = ({ command = false, al
     <kbd
       className={cn(
         "hidden sm:inline-flex pointer-events-none select-none items-center gap-1",
-        "rounded dark:border-slate-700/50 dark:bg-slate-800 font-mono font-medium",
+        "rounded border px-1.5 py-0.5",
+        "bg-slate-50/30 border-slate-200/20 text-slate-700",
+        "dark:bg-slate-900/30 dark:border-slate-700/20 dark:text-slate-300",
+        "backdrop-blur-[2px]",
         sizeClasses,
         className
       )}>
