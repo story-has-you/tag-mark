@@ -16,8 +16,10 @@ import { useScrollPosition } from "@/hooks/bookmark/use-scroll-position";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { AnimatePresence, motion } from "framer-motion";
-import { Bookmark, Clock, Edit2, Hash, Route, Tags, Trash2 } from "lucide-react";
+import { Bookmark, Clock, Edit2, ExternalLink, Hash, Route, Tags, Trash2 } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
+
+import BookmarkService from "~services/bookmark-service";
 
 const TagDetail: React.FC = () => {
   const { selectedTag, setSelectedTag } = useTagContext();
@@ -84,6 +86,15 @@ const TagDetail: React.FC = () => {
       setDeleteDialogOpen(false);
     } catch (error) {
       console.error("Failed to delete tag:", error);
+    }
+  };
+
+  const handleOpenAll = async () => {
+    try {
+      const bookmarkService = BookmarkService.getInstance();
+      await bookmarkService.openBookmarksInGroup(bookmarks, selectedTag.name);
+    } catch (error) {
+      console.error("Failed to open all bookmarks:", error);
     }
   };
 
@@ -168,12 +179,16 @@ const TagDetail: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex gap-2">
+                  <Button variant="outline" size="sm" className="hover:bg-primary/10" onClick={handleOpenAll}>
+                    <ExternalLink className="h-4 w-4" />
+                    打开全部
+                  </Button>
                   <Button variant="outline" size="sm" onClick={() => setEditDialogOpen(true)} className="hover:bg-primary/10">
-                    <Edit2 className="h-4 w-4 mr-2" />
+                    <Edit2 className="h-4 w-4" />
                     编辑
                   </Button>
                   <Button variant="destructive" size="sm" onClick={() => setDeleteDialogOpen(true)} className="hover:bg-destructive/90">
-                    <Trash2 className="h-4 w-4 mr-2" />
+                    <Trash2 className="h-4 w-4" />
                     删除
                   </Button>
                 </div>

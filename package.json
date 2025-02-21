@@ -55,7 +55,8 @@
     "permissions": [
       "tabs",
       "bookmarks",
-      "storage"
+      "storage",
+      "tabGroups"
     ]
   }
 }

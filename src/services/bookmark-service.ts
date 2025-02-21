@@ -108,6 +108,52 @@ class BookmarkService {
       throw new Error("Failed to delete bookmark");
     }
   }
+
+  /**
+   * 创建标签组并打开书签
+   * @param bookmarks 要打开的书签数组
+   * @param groupTitle 标签组标题
+   * @returns Promise<void>
+   */
+  public async openBookmarksInGroup(bookmarks: BookmarkTreeNode[], groupTitle: string): Promise<void> {
+    try {
+      // 先打开所有书签并获取标签ID
+      const tabPromises = bookmarks
+        .filter((bookmark) => bookmark.url) // 只处理有 URL 的书签
+        .map(async (bookmark) => {
+          const tab = await chrome.tabs.create({
+            url: bookmark.url,
+            active: false // 不自动切换到新标签
+          });
+          return tab.id;
+        });
+
+      // 等待所有标签创建完成
+      const tabIds = await Promise.all(tabPromises);
+
+      // 过滤出有效的标签ID
+      const validTabIds = tabIds.filter((id): id is number => id !== undefined);
+
+      if (validTabIds.length === 0) {
+        throw new Error("No valid tabs created");
+      }
+
+      // 创建标签组并添加标签
+      const groupId = await chrome.tabs.group({
+        tabIds: validTabIds,
+        createProperties: { windowId: chrome.windows.WINDOW_ID_CURRENT }
+      });
+
+      // 设置标签组标题
+      await chrome.tabGroups.update(groupId, {
+        title: groupTitle,
+        collapsed: false
+      });
+    } catch (error) {
+      console.error("打开书签组失败:", error);
+      throw new Error("Failed to open bookmarks in group");
+    }
+  }
 }
 
 export default BookmarkService;
