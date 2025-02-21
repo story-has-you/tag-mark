@@ -1,4 +1,3 @@
-import { useBookmarkContext } from "@/components/bookmark/bookmark-context";
 import { Button } from "@/components/ui/button";
 import { useBookmark } from "@/hooks/bookmark/use-bookmark";
 import { cn } from "@/lib/utils";
@@ -13,7 +12,7 @@ interface TreeNodeProps {
 
 const TreeNode: React.FC<TreeNodeProps> = ({ node, level }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { selectedNode, setSelectedNode } = useBookmarkContext();
+  const { selectedNode, setSelectedNode } = useBookmark();
   const isSelected = selectedNode?.id === node.id;
   const isFolder = !node.url;
   const childFolders = node.children?.filter((child) => !child.url) || [];

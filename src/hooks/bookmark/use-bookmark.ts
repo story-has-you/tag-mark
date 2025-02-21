@@ -1,5 +1,5 @@
 import BookmarkService from "@/services/bookmark-service";
-import { bookmarkLoadingAtom, bookmarksAtom } from "@/store/bookmark";
+import { bookmarkLoadingAtom, bookmarksAtom, selectedNodeAtom } from "@/store/bookmark";
 import type { BookmarkUpdateParams } from "@/types/bookmark";
 import { useAtom } from "jotai";
 import { useCallback, useEffect } from "react";
@@ -7,6 +7,7 @@ import { useCallback, useEffect } from "react";
 export const useBookmark = () => {
   const [bookmarks, setBookmarks] = useAtom(bookmarksAtom);
   const [loading, setLoading] = useAtom(bookmarkLoadingAtom);
+  const [selectedNode, setSelectedNode] = useAtom(selectedNodeAtom);
 
   const fetchBookmarks = useCallback(async () => {
     try {
@@ -66,10 +67,12 @@ export const useBookmark = () => {
   return {
     bookmarks,
     loading,
+    selectedNode,
     getBookmarkById,
     fetchBookmarks,
     searchBookmarks,
     updateBookmark,
-    deleteBookmark
+    deleteBookmark,
+    setSelectedNode
   };
 };

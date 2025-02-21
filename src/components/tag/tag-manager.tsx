@@ -1,4 +1,3 @@
-import { TagProvider } from "@/components/tag/tag-context";
 import TagTree from "@/components/tag/tag-tree";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -12,26 +11,24 @@ const MAX_SIDEBAR_WIDTH = 40;
 
 const TagManager: React.FC = () => {
   return (
-    <TagProvider>
-      <ResizablePanelGroup
-        direction="horizontal"
-        className="h-screen"
-        onLayout={(sizes: number[]) => {
-          document.cookie = `react-resizable-panels:layout=${JSON.stringify(sizes)}`;
-        }}>
-        <ResizablePanel defaultSize={DEFAULT_SIDEBAR_WIDTH} minSize={MIN_SIDEBAR_WIDTH} maxSize={MAX_SIDEBAR_WIDTH} className="border-r border-border">
-          <ScrollArea className="h-full">
-            <TagTree />
-          </ScrollArea>
-        </ResizablePanel>
-        <ResizableHandle />
-        <ResizablePanel>
-          <ScrollArea className="h-full">
-            <TagDetail />
-          </ScrollArea>
-        </ResizablePanel>
-      </ResizablePanelGroup>
-    </TagProvider>
+    <ResizablePanelGroup
+      direction="horizontal"
+      className="h-screen"
+      onLayout={(sizes: number[]) => {
+        document.cookie = `react-resizable-panels:layout=${JSON.stringify(sizes)}`;
+      }}>
+      <ResizablePanel defaultSize={DEFAULT_SIDEBAR_WIDTH} minSize={MIN_SIDEBAR_WIDTH} maxSize={MAX_SIDEBAR_WIDTH} className="border-r border-border">
+        <ScrollArea className="h-full">
+          <TagTree />
+        </ScrollArea>
+      </ResizablePanel>
+      <ResizableHandle />
+      <ResizablePanel>
+        <ScrollArea className="h-full">
+          <TagDetail />
+        </ScrollArea>
+      </ResizablePanel>
+    </ResizablePanelGroup>
   );
 };
 

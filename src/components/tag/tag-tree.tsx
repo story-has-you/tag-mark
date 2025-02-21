@@ -4,7 +4,7 @@ import type { Tag } from "@/types/tag";
 import { ChevronDown, ChevronRight, Tag as TagIcon } from "lucide-react";
 import React, { useMemo } from "react";
 
-import { useTagContext } from "./tag-context";
+import { useTagManagement } from "~hooks/tag/use-tag-management";
 
 interface TreeNodeProps {
   tag: Tag;
@@ -16,7 +16,7 @@ interface TreeNodeProps {
 
 const TreeNode: React.FC<TreeNodeProps> = React.memo(({ tag, level, childTags, onSelect, tagMap }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const { selectedTag } = useTagContext();
+  const { selectedTag } = useTagManagement();
   const isSelected = selectedTag?.id === tag.id;
 
   const hasChildTags = childTags.length > 0;
@@ -80,7 +80,7 @@ const TreeNode: React.FC<TreeNodeProps> = React.memo(({ tag, level, childTags, o
 TreeNode.displayName = "TreeNode";
 
 const TagTree: React.FC = () => {
-  const { tags, setSelectedTag } = useTagContext();
+  const { tags, setSelectedTag } = useTagManagement();
 
   const { rootTags, tagMap } = useMemo(() => {
     const map = new Map<string, Tag[]>();

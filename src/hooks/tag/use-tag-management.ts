@@ -1,7 +1,7 @@
 import TagName from "@/lib/tag-name";
 import TagBookmarkRelationService from "@/services/tag-bookmark-relation-service";
 import TagService from "@/services/tag-service";
-import { tagsAtom } from "@/store/tag";
+import { selectedTagAtom, tagsAtom } from "@/store/tag";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import type { Tag, UpdateTagParams } from "@/types/tag";
 import { useAtom } from "jotai";
@@ -11,6 +11,7 @@ import BookmarkService from "~services/bookmark-service";
 
 export const useTagManagement = () => {
   const [tags, setTags] = useAtom(tagsAtom);
+  const [selectedTag, setSelectedTag] = useAtom(selectedTagAtom);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -105,11 +106,6 @@ export const useTagManagement = () => {
     await relationService.createRelation(tagId, bookmarkId);
   };
 
-  // 刷新标签列表
-  const refreshTags = async (): Promise<void> => {
-    await loadTags();
-  };
-
   const getTagById = useCallback((id: string) => tags.find((tag) => tag.id === id), [tags]);
 
   // 初始加载
@@ -121,6 +117,7 @@ export const useTagManagement = () => {
     loading,
     error,
     tags,
+    selectedTag,
     getTagById,
     updateTag,
     deleteTag,
@@ -128,6 +125,6 @@ export const useTagManagement = () => {
     removeBookmarkFromTag,
     addBookmarkToTag,
     getChildTags,
-    refreshTags
+    setSelectedTag
   };
 };

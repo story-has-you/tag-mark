@@ -3,7 +3,6 @@ import BookmarkDeleteDialog from "@/components/bookmark/dialogs/bookmark-delete-
 import BookmarkEditDialog from "@/components/bookmark/dialogs/bookmark-edit-dialog";
 import TagDeleteDialog from "@/components/tag/dialogs/tag-delete-dialog";
 import TagEditDialog from "@/components/tag/dialogs/tag-edit-dialog";
-import { useTagContext } from "@/components/tag/tag-context";
 import TagItem from "@/components/tag/tag-item";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -22,7 +21,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import BookmarkService from "~services/bookmark-service";
 
 const TagDetail: React.FC = () => {
-  const { selectedTag, setSelectedTag } = useTagContext();
+  const { selectedTag, setSelectedTag } = useTagManagement();
   const { loading, getChildTags, getTagBookmarks, deleteTag, updateTag } = useTagManagement();
 
   const [bookmarks, setBookmarks] = useState<BookmarkTreeNode[]>([]);

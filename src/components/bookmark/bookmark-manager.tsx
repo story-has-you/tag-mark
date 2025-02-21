@@ -1,5 +1,4 @@
 // bookmark-manager.tsx
-import { BookmarkProvider } from "@/components/bookmark/bookmark-context";
 import BookmarkList from "@/components/bookmark/bookmark-list";
 import { BookmarkTree } from "@/components/bookmark/bookmark-tree";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
@@ -12,26 +11,24 @@ const MAX_SIDEBAR_WIDTH = 40; // percentage
 
 const BookmarkManager: React.FC = () => {
   return (
-    <BookmarkProvider>
-      <ResizablePanelGroup
-        direction="horizontal"
-        className="h-screen"
-        onLayout={(sizes: number[]) => {
-          document.cookie = `react-resizable-panels:layout=${JSON.stringify(sizes)}`;
-        }}>
-        <ResizablePanel defaultSize={DEFAULT_SIDEBAR_WIDTH} minSize={MIN_SIDEBAR_WIDTH} maxSize={MAX_SIDEBAR_WIDTH} className="border-r border-border">
-          <ScrollArea className="h-full">
-            <BookmarkTree />
-          </ScrollArea>
-        </ResizablePanel>
-        <ResizableHandle />
-        <ResizablePanel>
-          <ScrollArea className="h-full">
-            <BookmarkList />
-          </ScrollArea>
-        </ResizablePanel>
-      </ResizablePanelGroup>
-    </BookmarkProvider>
+    <ResizablePanelGroup
+      direction="horizontal"
+      className="h-screen"
+      onLayout={(sizes: number[]) => {
+        document.cookie = `react-resizable-panels:layout=${JSON.stringify(sizes)}`;
+      }}>
+      <ResizablePanel defaultSize={DEFAULT_SIDEBAR_WIDTH} minSize={MIN_SIDEBAR_WIDTH} maxSize={MAX_SIDEBAR_WIDTH} className="border-r border-border">
+        <ScrollArea className="h-full">
+          <BookmarkTree />
+        </ScrollArea>
+      </ResizablePanel>
+      <ResizableHandle />
+      <ResizablePanel>
+        <ScrollArea className="h-full">
+          <BookmarkList />
+        </ScrollArea>
+      </ResizablePanel>
+    </ResizablePanelGroup>
   );
 };
 
