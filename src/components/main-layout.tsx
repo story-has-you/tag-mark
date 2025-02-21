@@ -13,6 +13,8 @@ import { Bookmark, Moon, Search, Sun, Tags } from "lucide-react";
 import React, { useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 
+import KeyboardShortcut from "~components/keyboard-shortcut";
+
 const fadeIn = {
   initial: { opacity: 0 },
   animate: {
@@ -65,10 +67,7 @@ const MainLayout: React.FC = () => {
                   <Button variant="outline" className="gap-2 bg-white/80 dark:bg-slate-800/80 border-slate-200/50 dark:border-slate-700/50" onClick={() => setSearchOpen(true)}>
                     <Search className="h-4 w-4" />
                     <span className="hidden sm:inline">搜索...</span>
-                    <kbd className="hidden sm:inline-flex pointer-events-none h-5 select-none items-center gap-1 rounded border border-slate-200/50 dark:border-slate-700/50 bg-slate-100 dark:bg-slate-800 px-1.5 font-mono text-xs font-medium">
-                      <span className="text-xs">⌘</span>
-                      <span className="text-xl">K</span>
-                    </kbd>
+                    <KeyboardShortcut command keys={["K"]} />
                   </Button>
 
                   {/* 主题切换按钮 */}

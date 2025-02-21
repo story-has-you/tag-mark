@@ -1,6 +1,7 @@
 import BookmarkItem from "@/components/bookmark/bookmark-item";
 import BookmarkDeleteDialog from "@/components/bookmark/dialogs/bookmark-delete-dialog";
 import BookmarkEditDialog from "@/components/bookmark/dialogs/bookmark-edit-dialog";
+import KeyboardShortcut from "@/components/keyboard-shortcut";
 import TagDeleteDialog from "@/components/tag/dialogs/tag-delete-dialog";
 import TagEditDialog from "@/components/tag/dialogs/tag-edit-dialog";
 import TagItem from "@/components/tag/tag-item";
@@ -13,12 +14,12 @@ import { useBookmarkDialogs } from "@/hooks/bookmark/use-bookmark-dialogs";
 import { useBookmarkOperations } from "@/hooks/bookmark/use-bookmark-operations";
 import { useScrollPosition } from "@/hooks/bookmark/use-scroll-position";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
+import BookmarkService from "@/services/bookmark-service";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bookmark, Clock, Edit2, ExternalLink, Hash, Route, Tags, Trash2 } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
-
-import BookmarkService from "~services/bookmark-service";
+import { useHotkeys } from "react-hotkeys-hook";
 
 const TagDetail: React.FC = () => {
   const { selectedTag, setSelectedTag } = useTagManagement();
@@ -87,6 +88,35 @@ const TagDetail: React.FC = () => {
       console.error("Failed to delete tag:", error);
     }
   };
+
+  // 添加快捷键支持
+  useHotkeys(
+    "mod+o",
+    (e) => {
+      e.preventDefault();
+      handleOpenAll();
+    },
+    { enableOnFormTags: true }
+  );
+
+  // 添加快捷键支持
+  useHotkeys(
+    "mod+E",
+    (e) => {
+      e.preventDefault();
+      setEditDialogOpen(true);
+    },
+    { enableOnFormTags: true }
+  );
+
+  useHotkeys(
+    "mod+Delete",
+    (e) => {
+      e.preventDefault();
+      setDeleteDialogOpen(true);
+    },
+    { enableOnFormTags: true }
+  );
 
   const handleOpenAll = async () => {
     try {
@@ -181,14 +211,17 @@ const TagDetail: React.FC = () => {
                   <Button variant="outline" size="sm" className="hover:bg-primary/10" onClick={handleOpenAll}>
                     <ExternalLink className="h-4 w-4" />
                     打开全部
+                    <KeyboardShortcut command keys={["O"]} />
                   </Button>
                   <Button variant="outline" size="sm" onClick={() => setEditDialogOpen(true)} className="hover:bg-primary/10">
                     <Edit2 className="h-4 w-4" />
                     编辑
+                    <KeyboardShortcut command keys={["E"]} />
                   </Button>
                   <Button variant="destructive" size="sm" onClick={() => setDeleteDialogOpen(true)} className="hover:bg-destructive/90">
                     <Trash2 className="h-4 w-4" />
                     删除
+                    <KeyboardShortcut command keys={["Del"]} />
                   </Button>
                 </div>
               </div>
