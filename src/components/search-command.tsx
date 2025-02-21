@@ -2,7 +2,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { useBookmark } from "@/hooks/bookmark/use-bookmark";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
 import BookmarkService from "@/services/bookmark-service";
-import { Bookmark, ExternalLink, Tag } from "lucide-react";
+import { Bookmark, ExternalLink, Search, Tag } from "lucide-react";
 import React from "react";
 
 interface SearchCommandProps {
@@ -33,7 +33,10 @@ const SearchCommand: React.FC<SearchCommandProps> = ({ onClose, onSelectTab }) =
 
   return (
     <Command className="rounded-lg border border-slate-200/50 dark:border-slate-700/50 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-      <CommandInput placeholder="搜索标签或书签..." className="border-none focus:ring-0" />
+      <div className="flex items-center border-b px-3 w-full">
+        <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+        <CommandInput placeholder="搜索标签或书签..." className="border-none focus:ring-0" />
+      </div>
       <CommandList>
         <CommandEmpty>未找到相关结果</CommandEmpty>
         <CommandGroup heading="标签" className="px-2">
