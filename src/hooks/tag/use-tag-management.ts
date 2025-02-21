@@ -110,6 +110,8 @@ export const useTagManagement = () => {
     await loadTags();
   };
 
+  const getTagById = useCallback((id: string) => tags.find((tag) => tag.id === id), [tags]);
+
   // 初始加载
   useEffect(() => {
     loadTags();
@@ -119,6 +121,7 @@ export const useTagManagement = () => {
     loading,
     error,
     tags,
+    getTagById,
     updateTag,
     deleteTag,
     getTagBookmarks,

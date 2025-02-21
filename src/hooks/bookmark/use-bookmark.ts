@@ -57,6 +57,8 @@ export const useBookmark = () => {
     [fetchBookmarks, setLoading]
   );
 
+  const getBookmarkById = useCallback(async (id: string) => await BookmarkService.getInstance().getBookmarkById(id), [bookmarks]);
+
   useEffect(() => {
     fetchBookmarks();
   }, []);
@@ -64,6 +66,7 @@ export const useBookmark = () => {
   return {
     bookmarks,
     loading,
+    getBookmarkById,
     fetchBookmarks,
     searchBookmarks,
     updateBookmark,
