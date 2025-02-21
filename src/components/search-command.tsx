@@ -2,8 +2,10 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { useBookmark } from "@/hooks/bookmark/use-bookmark";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
 import BookmarkService from "@/services/bookmark-service";
-import { Bookmark, ExternalLink, Search, Tag } from "lucide-react";
+import { ExternalLink, Search, Tag } from "lucide-react";
 import React from "react";
+
+import BookmarkFavicon from "~components/bookmark/bookmark-favicon";
 
 interface SearchCommandProps {
   onClose?: () => void;
@@ -32,7 +34,7 @@ const SearchCommand: React.FC<SearchCommandProps> = ({ onClose, onSelectTab }) =
   };
 
   return (
-    <Command className="rounded-lg border border-slate-200/50 dark:border-slate-700/50 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+    <Command className="rounded-lg border border-slate-200/50 dark:border-slate-700/50 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm mt-4">
       <div className="flex items-center border-b px-3 w-full">
         <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
         <CommandInput placeholder="搜索标签或书签..." className="border-none focus:ring-0" />
@@ -54,11 +56,11 @@ const SearchCommand: React.FC<SearchCommandProps> = ({ onClose, onSelectTab }) =
           {openableBookmarks.map((bookmark) => (
             <CommandItem
               key={bookmark.id}
-              value={bookmark.title}
+              value={`${bookmark.title} ${bookmark.url}`}
               onSelect={() => handleSelect("bookmark", bookmark.id)}
               className="flex items-center justify-between px-2 py-1.5 rounded-md">
               <div className="flex items-center flex-1 min-w-0">
-                <Bookmark className="flex-shrink-0 mr-2 h-4 w-4" />
+                <BookmarkFavicon url={bookmark.url || ""} className="flex-shrink-0 w-4 h-4 mr-2" />
                 <span className="truncate">{bookmark.title}</span>
               </div>
               {bookmark.url && <ExternalLink className="flex-shrink-0 ml-2 h-3 w-3 text-muted-foreground" />}
