@@ -154,6 +154,15 @@ class BookmarkService {
       throw new Error("Failed to open bookmarks in group");
     }
   }
+
+  public async createTab(url: string) {
+    try {
+      chrome.tabs.create({ url });
+    } catch (error) {
+      console.error("创建标签页失败:", error);
+      throw new Error("Failed to create tab");
+    }
+  }
 }
 
 export default BookmarkService;

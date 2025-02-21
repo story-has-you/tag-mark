@@ -1,19 +1,21 @@
 import BookmarkService from "@/services/bookmark-service";
 import { bookmarkLoadingAtom, bookmarksAtom, selectedNodeAtom } from "@/store/bookmark";
-import type { BookmarkUpdateParams } from "@/types/bookmark";
+import type { BookmarkTreeNode, BookmarkUpdateParams } from "@/types/bookmark";
 import { useAtom } from "jotai";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useBookmark = () => {
   const [bookmarks, setBookmarks] = useAtom(bookmarksAtom);
   const [loading, setLoading] = useAtom(bookmarkLoadingAtom);
   const [selectedNode, setSelectedNode] = useAtom(selectedNodeAtom);
+  const [openableBookmarks, setOpenableBookmarks] = useState<BookmarkTreeNode[]>([]);
 
   const fetchBookmarks = useCallback(async () => {
     try {
       setLoading(true);
       const data = await BookmarkService.getInstance().getAllBookmarks();
       setBookmarks(data);
+      setOpenableBookmarks(getOpenableBookmarks(data));
     } finally {
       setLoading(false);
     }
@@ -60,6 +62,31 @@ export const useBookmark = () => {
 
   const getBookmarkById = useCallback(async (id: string) => await BookmarkService.getInstance().getBookmarkById(id), [bookmarks]);
 
+  // 新增：获取所有可打开的书签
+  const getOpenableBookmarks = useCallback(
+    (nodes: BookmarkTreeNode[]) => {
+      const result: BookmarkTreeNode[] = [];
+
+      const traverse = (node: BookmarkTreeNode) => {
+        // 如果是可打开的书签，添加到结果中
+        if (node.url) {
+          result.push(node);
+        }
+
+        // 如果有子节点，递归处理
+        if (node.children) {
+          node.children.forEach(traverse);
+        }
+      };
+
+      // 遍历所有根节点
+      nodes.forEach(traverse);
+
+      return result;
+    },
+    [bookmarks]
+  );
+
   useEffect(() => {
     fetchBookmarks();
   }, []);
@@ -68,6 +95,7 @@ export const useBookmark = () => {
     bookmarks,
     loading,
     selectedNode,
+    openableBookmarks,
     getBookmarkById,
     fetchBookmarks,
     searchBookmarks,

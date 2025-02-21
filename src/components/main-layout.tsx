@@ -3,10 +3,11 @@ import BookmarkManager from "@/components/bookmark/bookmark-manager";
 import SearchCommand from "@/components/search-command";
 import TagManager from "@/components/tag/tag-manager";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Toaster } from "@/components/ui/toaster";
 import { useTheme } from "@/hooks/use-theme";
+import { DialogTitle } from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bookmark, Moon, Search, Sun, Tags } from "lucide-react";
 import React, { useState } from "react";
@@ -78,9 +79,11 @@ const MainLayout: React.FC = () => {
 
               {/* 搜索弹窗 */}
               <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
+                <DialogTitle></DialogTitle>
                 <DialogContent className="p-0 gap-0 max-w-2xl">
                   <SearchCommand onClose={() => setSearchOpen(false)} onSelectTab={setActiveTab} />
                 </DialogContent>
+                <DialogDescription></DialogDescription>
               </Dialog>
 
               <AnimatePresence mode="wait" initial={false}>

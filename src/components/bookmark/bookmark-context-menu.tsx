@@ -1,6 +1,7 @@
 import BookmarkAddTagDialog from "@/components/bookmark/dialogs/bookmark-add-tag-dialog";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
 import { useBookmarkDialog } from "@/hooks/bookmark/use-bookmark-dialog";
+import BookmarkService from "@/services/bookmark-service";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { ExternalLink, Pencil, Tag, Trash2 } from "lucide-react";
 import React from "react";
@@ -16,7 +17,7 @@ const BookmarkContextMenu: React.FC<BookmarkContextMenuProps> = ({ children, boo
   const addTagDialog = useBookmarkDialog();
   const handleOpenInNewTab = () => {
     if (bookmark.url) {
-      chrome.tabs.create({ url: bookmark.url });
+      BookmarkService.getInstance().createTab(bookmark.url);
     }
   };
 
