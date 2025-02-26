@@ -1,6 +1,7 @@
 import BookmarkItem from "@/components/bookmark/bookmark-item";
 import BookmarkDeleteDialog from "@/components/bookmark/dialogs/bookmark-delete-dialog";
 import BookmarkEditDialog from "@/components/bookmark/dialogs/bookmark-edit-dialog";
+import { useTranslation } from "@/components/i18n-context";
 import KeyboardShortcut from "@/components/keyboard-shortcut";
 import TagDeleteDialog from "@/components/tag/dialogs/tag-delete-dialog";
 import TagEditDialog from "@/components/tag/dialogs/tag-edit-dialog";
@@ -20,9 +21,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Bookmark, Clock, Edit2, ExternalLink, Hash, Route, Tags, Trash2 } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
 
-import { useKeyboardShortcut } from "~hooks/use-hotkeys";
+import { useKeyboardShortcut } from "@/hooks/use-hotkeys";
 
 const TagDetail: React.FC = () => {
+  const { t, format } = useTranslation();
   const { selectedTag, setSelectedTag } = useTagManagement();
   const { loading, getChildTags, getTagBookmarks, deleteTag, updateTag } = useTagManagement();
 
@@ -114,7 +116,7 @@ const TagDetail: React.FC = () => {
   }
 
   if (!selectedTag) {
-    return <div className="flex items-center justify-center h-full text-muted-foreground">请选择一个标签</div>;
+    return <div className="flex items-center justify-center h-full text-muted-foreground">{t("tag_tree_select_tag")}</div>;
   }
 
   const renderBookmarkList = () => {
@@ -131,7 +133,7 @@ const TagDetail: React.FC = () => {
     if (bookmarks.length === 0) {
       return (
         <Alert variant="default" className="bg-muted/50 border-none">
-          <AlertDescription className="flex items-center justify-center h-24 text-muted-foreground">该标签下没有直接关联的书签</AlertDescription>
+          <AlertDescription className="flex items-center justify-center h-24 text-muted-foreground">{t("tag_detail_no_bookmarks")}</AlertDescription>
         </Alert>
       );
     }
@@ -170,13 +172,19 @@ const TagDetail: React.FC = () => {
                   <div className="space-y-2 text-sm text-muted-foreground">
                     <div className="flex items-center gap-2">
                       <Route className="h-4 w-4" />
-                      <span>路径: {selectedTag.fullPath || selectedTag.name}</span>
+                      <span>
+                        {t("tag_detail_path")}: {selectedTag.fullPath || selectedTag.name}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4" />
                       <div className="space-x-4">
-                        <span>创建: {new Date(selectedTag.createdAt).toLocaleString()}</span>
-                        <span>更新: {new Date(selectedTag.updatedAt).toLocaleString()}</span>
+                        <span>
+                          {t("tag_detail_created")}: {new Date(selectedTag.createdAt).toLocaleString()}
+                        </span>
+                        <span>
+                          {t("tag_detail_updated")}: {new Date(selectedTag.updatedAt).toLocaleString()}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -184,17 +192,17 @@ const TagDetail: React.FC = () => {
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm" className="hover:bg-primary/10" onClick={handleOpenAll}>
                     <ExternalLink className="h-4 w-4" />
-                    打开全部
+                    {t("button_open_all")}
                     <KeyboardShortcut command keys={["O"]} />
                   </Button>
                   <Button variant="outline" size="sm" onClick={() => setEditDialogOpen(true)} className="hover:bg-primary/10">
                     <Edit2 className="h-4 w-4" />
-                    编辑
+                    {t("button_edit")}
                     <KeyboardShortcut command keys={["E"]} />
                   </Button>
                   <Button variant="destructive" size="sm" onClick={() => setDeleteDialogOpen(true)} className="hover:bg-destructive/90">
                     <Trash2 className="h-4 w-4" />
-                    删除
+                    {t("button_delete")}
                     <KeyboardShortcut command keys={["Del"]} />
                   </Button>
                 </div>
@@ -207,7 +215,9 @@ const TagDetail: React.FC = () => {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
               <div className="flex items-center gap-2 px-2">
                 <Tags className="h-4 w-4 text-muted-foreground" />
-                <h3 className="text-sm font-medium">子标签 ({childTags.length})</h3>
+                <h3 className="text-sm font-medium">
+                  {t("tag_detail_sub_tags")} ({childTags.length})
+                </h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {childTags.map((tag, index) => (
@@ -223,7 +233,9 @@ const TagDetail: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-2 px-2">
               <Bookmark className="h-4 w-4 text-muted-foreground" />
-              <h3 className="text-sm font-medium">关联书签 ({bookmarks.length})</h3>
+              <h3 className="text-sm font-medium">
+                {t("tag_detail_related_bookmarks")} ({bookmarks.length})
+              </h3>
             </div>
             {renderBookmarkList()}
           </div>

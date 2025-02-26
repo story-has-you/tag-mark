@@ -7,7 +7,7 @@ import type { Tag, UpdateTagParams } from "@/types/tag";
 import { useAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
 
-import BookmarkService from "~services/bookmark-service";
+import BookmarkService from "@/services/bookmark-service";
 
 export const useTagManagement = () => {
   const [tags, setTags] = useAtom(tagsAtom);

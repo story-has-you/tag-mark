@@ -7,7 +7,7 @@ import type { Tag } from "@/types/tag";
 import { useAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
 
-import TagName from "~lib/tag-name";
+import TagName from "@/lib/tag-name";
 
 export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
   const [bookmarkTags, setBookmarkTags] = useAtom(bookmarkTagsAtom);

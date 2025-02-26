@@ -1,6 +1,7 @@
 import BookmarkItem from "@/components/bookmark/bookmark-item";
 import BookmarkDeleteDialog from "@/components/bookmark/dialogs/bookmark-delete-dialog";
 import BookmarkEditDialog from "@/components/bookmark/dialogs/bookmark-edit-dialog";
+import { useTranslation } from "@/components/i18n-context";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useBookmark } from "@/hooks/bookmark/use-bookmark";
 import { useBookmarkDialogs } from "@/hooks/bookmark/use-bookmark-dialogs";
@@ -11,6 +12,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import React from "react";
 
 const BookmarkList: React.FC = () => {
+  const { t } = useTranslation();
   const { selectedNode } = useBookmark();
   const { bookmarks, updateLocalBookmark, deleteLocalBookmark } = useBookmarkList(selectedNode);
   const { parentRef, saveScrollPosition, restoreScrollPosition } = useScrollPosition();
@@ -26,7 +28,7 @@ const BookmarkList: React.FC = () => {
   });
 
   if (!selectedNode) {
-    return <div className="flex items-center justify-center h-full text-muted-foreground">请选择一个文件夹</div>;
+    return <div className="flex items-center justify-center h-full text-muted-foreground">{t("bookmark_list_select_folder")}</div>;
   }
 
   return (
@@ -35,7 +37,7 @@ const BookmarkList: React.FC = () => {
         <h2 className="text-lg font-semibold mb-4">{selectedNode.title}</h2>
         {bookmarks.length === 0 ? (
           <Alert>
-            <AlertDescription>该文件夹下没有书签</AlertDescription>
+            <AlertDescription>{t("bookmark_list_no_bookmarks")}</AlertDescription>
           </Alert>
         ) : (
           <div ref={parentRef} className="h-[calc(100vh-8rem)] overflow-auto" style={{ contain: "strict" }}>

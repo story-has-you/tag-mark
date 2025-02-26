@@ -1,3 +1,4 @@
+import { useTranslation } from "@/components/i18n-context";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -15,6 +16,7 @@ interface TagEditDialogProps {
 }
 
 const TagEditDialog: React.FC<TagEditDialogProps> = ({ open, tag, onOpenChange, onConfirm }) => {
+  const { t } = useTranslation();
   const [name, setName] = React.useState("");
   const [parentId, setParentId] = React.useState<string | undefined>();
   const [error, setError] = React.useState<string | null>(null);
@@ -142,7 +144,7 @@ const TagEditDialog: React.FC<TagEditDialogProps> = ({ open, tag, onOpenChange, 
   const handleConfirm = () => {
     const trimmedName = name.trim();
     if (!trimmedName) {
-      setError("标签名称不能为空");
+      setError(t("tag_edit_dialog_name_empty"));
       return;
     }
 
@@ -151,7 +153,7 @@ const TagEditDialog: React.FC<TagEditDialogProps> = ({ open, tag, onOpenChange, 
     const isNameDuplicated = siblingTags.some((t) => t.name.toLowerCase() === trimmedName.toLowerCase() && t.id !== tag?.id);
 
     if (isNameDuplicated) {
-      setError("同级标签名称不能重复");
+      setError(t("tag_edit_dialog_name_duplicate"));
       return;
     }
 
@@ -162,13 +164,13 @@ const TagEditDialog: React.FC<TagEditDialogProps> = ({ open, tag, onOpenChange, 
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{tag ? "编辑标签" : "新建标签"}</DialogTitle>
+          <DialogTitle>{tag ? t("tag_edit_dialog_title") : t("tag_edit_dialog_new_title")}</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">标签名称</label>
+            <label className="text-sm font-medium">{t("tag_edit_dialog_tag_name")}</label>
             <Input
-              placeholder="请输入标签名称"
+              placeholder={t("tag_edit_dialog_tag_name")}
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
@@ -177,7 +179,7 @@ const TagEditDialog: React.FC<TagEditDialogProps> = ({ open, tag, onOpenChange, 
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium">父标签</label>
+            <label className="text-sm font-medium">{t("tag_edit_dialog_parent_tag")}</label>
             <Select
               value={parentId || "none"}
               onValueChange={(value) => {
@@ -185,10 +187,10 @@ const TagEditDialog: React.FC<TagEditDialogProps> = ({ open, tag, onOpenChange, 
                 setError(null);
               }}>
               <SelectTrigger>
-                <SelectValue placeholder="选择父标签" />
+                <SelectValue placeholder={t("tag_edit_dialog_parent_tag")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="none">无</SelectItem>
+                <SelectItem value="none">{t("tag_edit_dialog_none")}</SelectItem>
                 {availableParentTags.map((t) => (
                   <SelectItem key={t.id} value={t.id}>
                     {t.fullPath || t.name}
@@ -196,7 +198,7 @@ const TagEditDialog: React.FC<TagEditDialogProps> = ({ open, tag, onOpenChange, 
                 ))}
               </SelectContent>
             </Select>
-            {hasFilteredParentTags && <div className="text-xs text-muted-foreground mt-1">注意：已排除包含同名标签 "{name.trim()}" 的父标签及其祖先标签</div>}
+            {hasFilteredParentTags && <div className="text-xs text-muted-foreground mt-1">{t("tag_edit_dialog_parent_hint")}</div>}
           </div>
           {error && (
             <Alert variant="destructive">
@@ -206,10 +208,10 @@ const TagEditDialog: React.FC<TagEditDialogProps> = ({ open, tag, onOpenChange, 
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            取消
+            {t("button_cancel")}
           </Button>
           <Button onClick={handleConfirm} disabled={!name.trim()}>
-            确认
+            {t("button_confirm")}
           </Button>
         </DialogFooter>
       </DialogContent>

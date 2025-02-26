@@ -1,3 +1,4 @@
+import BookmarkFavicon from "@/components/bookmark/bookmark-favicon";
 import { useTranslation } from "@/components/i18n-context";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { useBookmark } from "@/hooks/bookmark/use-bookmark";
@@ -5,8 +6,6 @@ import { useTagManagement } from "@/hooks/tag/use-tag-management";
 import BookmarkService from "@/services/bookmark-service";
 import { ExternalLink, Search, Tag } from "lucide-react";
 import React from "react";
-
-import BookmarkFavicon from "~components/bookmark/bookmark-favicon";
 
 interface SearchCommandProps {
   onClose?: () => void;

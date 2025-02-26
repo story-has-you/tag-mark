@@ -1,5 +1,5 @@
-import TagService from "~services/tag-service";
-import type { Tag } from "~types/tag";
+import TagService from "@/services/tag-service";
+import type { Tag } from "@/types/tag";
 
 class TagName {
   private readonly paths: string[];

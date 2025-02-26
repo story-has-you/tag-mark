@@ -1,9 +1,8 @@
+import TagDetail from "@/components/tag/tag-detail";
 import TagTree from "@/components/tag/tag-tree";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import React from "react";
-
-import TagDetail from "~components/tag/tag-detail";
 
 const MIN_SIDEBAR_WIDTH = 15;
 const DEFAULT_SIDEBAR_WIDTH = 25;

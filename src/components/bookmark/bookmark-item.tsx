@@ -6,7 +6,7 @@ import type { BookmarkTreeNode } from "@/types/bookmark";
 import { motion } from "framer-motion";
 import React, { memo } from "react";
 
-import BookmarkTag from "~components/bookmark/bookmark-tag";
+import BookmarkTag from "@/components/bookmark/bookmark-tag";
 
 interface BookmarkItemProps {
   bookmark: BookmarkTreeNode;
