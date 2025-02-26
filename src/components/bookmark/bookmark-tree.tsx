@@ -72,4 +72,3 @@ const BookmarkTree: React.FC = () => {
 };
 
 export { BookmarkTree, TreeNode };
-

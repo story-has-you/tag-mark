@@ -1,8 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
 import { Globe } from "lucide-react";
 import React, { useState } from "react";
-
-import { cn } from "@/lib/utils";
 
 interface FaviconProps {
   url: string;
@@ -37,12 +36,7 @@ const BookmarkFavicon: React.FC<FaviconProps> = ({ url, size = 16, className }) 
 
   return (
     <Avatar className={className}>
-      <AvatarImage
-        src={faviconUrl}
-        alt={`${domain} favicon`}
-        onError={() => setError(true)}
-        className="object-contain"
-      />
+      <AvatarImage src={faviconUrl} alt={`${domain} favicon`} onError={() => setError(true)} className="object-contain" />
       <AvatarFallback>
         <Globe className={cn("text-muted-foreground", className)} />
       </AvatarFallback>

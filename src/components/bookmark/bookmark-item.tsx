@@ -1,12 +1,11 @@
 import BookmarkContextMenu from "@/components/bookmark/bookmark-context-menu";
 import BookmarkFavicon from "@/components/bookmark/bookmark-favicon";
+import BookmarkTag from "@/components/bookmark/bookmark-tag";
 import { Card, CardContent } from "@/components/ui/card";
 import { useBookmarkTagManagement } from "@/hooks/bookmark/use-bookmark-tag-management";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { motion } from "framer-motion";
 import React, { memo } from "react";
-
-import BookmarkTag from "@/components/bookmark/bookmark-tag";
 
 interface BookmarkItemProps {
   bookmark: BookmarkTreeNode;

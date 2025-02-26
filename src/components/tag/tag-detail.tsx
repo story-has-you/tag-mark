@@ -15,13 +15,12 @@ import { useBookmarkDialogs } from "@/hooks/bookmark/use-bookmark-dialogs";
 import { useBookmarkOperations } from "@/hooks/bookmark/use-bookmark-operations";
 import { useScrollPosition } from "@/hooks/bookmark/use-scroll-position";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
+import { useKeyboardShortcut } from "@/hooks/use-hotkeys";
 import BookmarkService from "@/services/bookmark-service";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bookmark, Clock, Edit2, ExternalLink, Hash, Route, Tags, Trash2 } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
-
-import { useKeyboardShortcut } from "@/hooks/use-hotkeys";
 
 const TagDetail: React.FC = () => {
   const { t, format } = useTranslation();

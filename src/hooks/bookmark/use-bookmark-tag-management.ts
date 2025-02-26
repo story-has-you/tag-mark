@@ -1,4 +1,5 @@
 import { useToast } from "@/hooks/use-toast";
+import TagName from "@/lib/tag-name";
 import TagBookmarkRelationService from "@/services/tag-bookmark-relation-service";
 import TagService from "@/services/tag-service";
 import { bookmarkTagsAtom } from "@/store/bookmark";
@@ -6,8 +7,6 @@ import type { BookmarkTreeNode } from "@/types/bookmark";
 import type { Tag } from "@/types/tag";
 import { useAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
-
-import TagName from "@/lib/tag-name";
 
 export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
   const [bookmarkTags, setBookmarkTags] = useAtom(bookmarkTagsAtom);

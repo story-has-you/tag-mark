@@ -1,9 +1,8 @@
 import { useBookmark } from "@/hooks/bookmark/use-bookmark";
 import { useToast } from "@/hooks/use-toast";
+import TagBookmarkRelationService from "@/services/tag-bookmark-relation-service";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { useCallback } from "react";
-
-import TagBookmarkRelationService from "@/services/tag-bookmark-relation-service";
 
 export const useBookmarkOperations = (
   updateLocalBookmark: (bookmark: BookmarkTreeNode) => void,

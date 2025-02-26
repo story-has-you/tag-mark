@@ -1,4 +1,3 @@
-
 // hooks/use-tag-suggestions.ts
 import type { Tag } from "@/types/tag";
 import { useEffect, useState } from "react";
@@ -12,9 +11,7 @@ export const useTagSuggestions = (allTags: Tag[], input: string) => {
       return;
     }
 
-    const filtered = allTags.filter(tag => 
-      tag.name.toLowerCase().includes(input.toLowerCase())
-    );
+    const filtered = allTags.filter((tag) => tag.name.toLowerCase().includes(input.toLowerCase()));
     setSuggestions(filtered);
   }, [input, allTags]);
 

@@ -44,9 +44,7 @@ class TagBookmarkRelationService {
       const relations = await this.getAllRelations();
 
       // 检查是否已存在相同的关联关系
-      const existingRelation = relations.find(
-        (relation) => relation.tagId === tagId && relation.bookmarkId === bookmarkId
-      );
+      const existingRelation = relations.find((relation) => relation.tagId === tagId && relation.bookmarkId === bookmarkId);
 
       if (existingRelation) {
         return existingRelation;
@@ -74,9 +72,7 @@ class TagBookmarkRelationService {
   public async deleteRelation(tagId: string, bookmarkId: string): Promise<void> {
     try {
       const relations = await this.getAllRelations();
-      const filteredRelations = relations.filter(
-        (relation) => !(relation.tagId === tagId && relation.bookmarkId === bookmarkId)
-      );
+      const filteredRelations = relations.filter((relation) => !(relation.tagId === tagId && relation.bookmarkId === bookmarkId));
       await chrome.storage.local.set({ [STORAGE_KEY]: filteredRelations });
     } catch (error) {
       console.error("删除关联关系失败:", error);
@@ -118,9 +114,7 @@ class TagBookmarkRelationService {
   public async getTagsByBookmarkId(bookmarkId: string): Promise<Tag[]> {
     try {
       const relations = await this.getAllRelations();
-      const tagIds = relations
-        .filter((relation) => relation.bookmarkId === bookmarkId)
-        .map((relation) => relation.tagId);
+      const tagIds = relations.filter((relation) => relation.bookmarkId === bookmarkId).map((relation) => relation.tagId);
 
       const allTags = await this.tagService.getAllTags();
       return allTags.filter((tag) => tagIds.includes(tag.id));
@@ -136,9 +130,7 @@ class TagBookmarkRelationService {
   public async getBookmarksByTagId(tagId: string): Promise<BookmarkTreeNode[]> {
     try {
       const relations = await this.getAllRelations();
-      const bookmarkIds = relations
-        .filter((relation) => relation.tagId === tagId)
-        .map((relation) => relation.bookmarkId);
+      const bookmarkIds = relations.filter((relation) => relation.tagId === tagId).map((relation) => relation.bookmarkId);
 
       const promises = bookmarkIds.map((id) => this.bookmarkService.getBookmarkById(id));
       const bookmarks = await Promise.all(promises);
