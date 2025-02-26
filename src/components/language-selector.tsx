@@ -7,7 +7,7 @@ import React from "react";
 // 支持的语言列表
 const SUPPORTED_LOCALES = [
   { code: "en", name: "English" },
-  { code: "zh", name: "中文" }
+  { code: "zh", name: "简体中文" }
 ];
 
 interface LanguageSelectorProps {
