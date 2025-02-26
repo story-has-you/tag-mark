@@ -63,9 +63,6 @@ const MainLayout: React.FC = () => {
                     <KeyboardShortcut command keys={["K"]} />
                   </Button>
 
-                  {/* 语言选择器 */}
-                  <LanguageSelector />
-
                   {/* 快捷键开关 */}
                   <Button variant="outline" className="gap-2 bg-white/80 dark:bg-slate-800/80 border border-slate-200/50 dark:border-slate-700/50">
                     <Keyboard className="h-4 w-4" />
@@ -76,6 +73,9 @@ const MainLayout: React.FC = () => {
                   <Button variant="outline" size="icon" onClick={toggleTheme} className="bg-white/80 dark:bg-slate-800/80">
                     {theme === "dark" ? <Sun className="h-4 w-4 text-yellow-500" /> : <Moon className="h-4 w-4 text-slate-700" />}
                   </Button>
+
+                  {/* 语言选择器 */}
+                  <LanguageSelector />
                 </div>
               </div>
 

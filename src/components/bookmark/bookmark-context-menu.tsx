@@ -27,7 +27,7 @@ const BookmarkContextMenu: React.FC<BookmarkContextMenuProps> = ({ children, boo
   return (
     <ContextMenu>
       <ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
-      <ContextMenuContent className="w-56">
+      <ContextMenuContent className="w-52">
         <ContextMenuItem onClick={() => addTagDialog.openDialog(bookmark)}>
           <Tag className="mr-2 h-4 w-4" />
           {t("bookmark_context_menu_add_tag")}

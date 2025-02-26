@@ -15,7 +15,7 @@ interface LanguageSelectorProps {
 }
 
 const LanguageSelector: React.FC<LanguageSelectorProps> = ({ className }) => {
-  const { locale, t, changeLocale } = useTranslation();
+  const { locale, changeLocale } = useTranslation();
   const [isChanging, setIsChanging] = React.useState(false);
 
   const handleChange = async (value: string) => {
