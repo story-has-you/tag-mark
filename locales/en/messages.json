@@ -1,36 +1,331 @@
 {
-  "appName": {
+  "app_name": {
     "message": "Tag Mark",
-    "description": "The name of the extension"
+    "description": "Extension name"
   },
-  "appDescription": {
+  "app_description": {
     "message": "Seamlessly organize bookmarks with nested tags and custom hotkeys.",
-    "description": "The description of the extension"
+    "description": "Extension description"
   },
-  "tagManagement": {
+
+  "button_cancel": {
+    "message": "Cancel",
+    "description": "Cancel button text"
+  },
+  "button_confirm": {
+    "message": "Confirm",
+    "description": "Confirm button text"
+  },
+  "button_save": {
+    "message": "Save",
+    "description": "Save button text"
+  },
+  "button_delete": {
+    "message": "Delete",
+    "description": "Delete button text"
+  },
+  "button_edit": {
+    "message": "Edit",
+    "description": "Edit button text"
+  },
+  "button_add_tag": {
+    "message": "Add Tag",
+    "description": "Add tag button text"
+  },
+  "button_open_all": {
+    "message": "Open All",
+    "description": "Open all button text"
+  },
+
+  "main_layout_tag_management": {
     "message": "Tag Management",
     "description": "Tab label for tag management"
   },
-  "bookmarkManagement": {
+  "main_layout_bookmark_management": {
     "message": "Bookmark Management",
     "description": "Tab label for bookmark management"
   },
-  "search": {
+  "main_layout_search": {
     "message": "Search...",
-    "description": "Placeholder text for search input"
+    "description": "Search button text"
   },
-  "noBookmarks": {
+  "main_layout_keyboard_shortcuts": {
+    "message": "Keyboard shortcuts",
+    "description": "Keyboard shortcuts toggle"
+  },
+
+  "search_command_title": {
+    "message": "Search bookmarks and tags",
+    "description": "Search dialog title"
+  },
+  "search_command_help": {
+    "message": "Use ↑↓ to navigate, Enter to select, Esc to close",
+    "description": "Search dialog help text"
+  },
+  "search_command_no_results": {
+    "message": "No results found",
+    "description": "No search results message"
+  },
+  "search_command_tags": {
+    "message": "Tags",
+    "description": "Tags section header"
+  },
+  "search_command_bookmarks": {
+    "message": "Bookmarks",
+    "description": "Bookmarks section header"
+  },
+
+  "language_selector_language": {
+    "message": "Language",
+    "description": "Language label"
+  },
+  "language_selector_english": {
+    "message": "English",
+    "description": "English language option"
+  },
+  "language_selector_chinese": {
+    "message": "中文",
+    "description": "Chinese language option"
+  },
+
+  "bookmark_list_select_folder": {
+    "message": "Please select a folder",
+    "description": "Message when no folder is selected"
+  },
+  "bookmark_list_no_bookmarks": {
     "message": "No bookmarks in this folder",
-    "description": "Message shown when folder has no bookmarks"
+    "description": "Empty state for bookmark list"
   },
-  "confirmDelete": {
+
+  "bookmark_context_menu_add_tag": {
+    "message": "Add tag",
+    "description": "Context menu option to add tag"
+  },
+  "bookmark_context_menu_open_bookmark": {
+    "message": "Open bookmark",
+    "description": "Context menu option to open bookmark"
+  },
+  "bookmark_context_menu_edit_bookmark": {
+    "message": "Edit bookmark",
+    "description": "Context menu option to edit bookmark"
+  },
+  "bookmark_context_menu_delete_bookmark": {
+    "message": "Delete bookmark",
+    "description": "Context menu option to delete bookmark"
+  },
+
+  "bookmark_edit_dialog_title": {
+    "message": "Edit Bookmark",
+    "description": "Edit bookmark dialog title"
+  },
+  "bookmark_edit_dialog_bookmark_title": {
+    "message": "Title",
+    "description": "Bookmark title field label"
+  },
+  "bookmark_edit_dialog_url": {
+    "message": "URL",
+    "description": "Bookmark URL field label"
+  },
+
+  "bookmark_delete_dialog_title": {
+    "message": "Delete Bookmark",
+    "description": "Delete bookmark dialog title"
+  },
+  "bookmark_delete_dialog_confirm_message": {
     "message": "Are you sure you want to delete bookmark \"$BOOKMARK_TITLE$\"? This action cannot be undone.",
-    "description": "Confirmation message for deleting a bookmark",
+    "description": "Delete bookmark confirmation message",
     "placeholders": {
       "bookmark_title": {
         "content": "$1",
         "example": "Example Bookmark"
       }
     }
+  },
+
+  "bookmark_add_tag_dialog_title": {
+    "message": "Manage Tags",
+    "description": "Add tag dialog title"
+  },
+  "bookmark_add_tag_dialog_bookmark_info": {
+    "message": "Bookmark Information",
+    "description": "Bookmark info section title"
+  },
+  "bookmark_add_tag_dialog_add_tags": {
+    "message": "Add Tags",
+    "description": "Add tags section title"
+  },
+  "bookmark_add_tag_dialog_tag_count": {
+    "message": "Added $COUNT$ tags",
+    "description": "Tag count text",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "bookmark_add_tag_dialog_tag_placeholder": {
+    "message": "Enter tag name, press Enter to add...",
+    "description": "Tag input placeholder"
+  },
+  "bookmark_add_tag_dialog_added_tags": {
+    "message": "Added Tags",
+    "description": "Added tags section title"
+  },
+  "bookmark_add_tag_dialog_no_tags": {
+    "message": "No tags added yet. Please add a tag above.",
+    "description": "Empty state for added tags"
+  },
+
+  "tag_tree_select_tag": {
+    "message": "Please select a tag",
+    "description": "Message when no tag is selected"
+  },
+
+  "tag_detail_path": {
+    "message": "Path",
+    "description": "Tag path label"
+  },
+  "tag_detail_created": {
+    "message": "Created",
+    "description": "Created date label"
+  },
+  "tag_detail_updated": {
+    "message": "Updated",
+    "description": "Updated date label"
+  },
+  "tag_detail_sub_tags": {
+    "message": "Sub-tags",
+    "description": "Sub-tags section header"
+  },
+  "tag_detail_related_bookmarks": {
+    "message": "Related Bookmarks",
+    "description": "Related bookmarks section header"
+  },
+  "tag_detail_no_bookmarks": {
+    "message": "No bookmarks associated with this tag",
+    "description": "Empty state for tag bookmarks"
+  },
+
+  "tag_edit_dialog_title": {
+    "message": "Edit Tag",
+    "description": "Edit tag dialog title"
+  },
+  "tag_edit_dialog_new_title": {
+    "message": "New Tag",
+    "description": "New tag dialog title"
+  },
+  "tag_edit_dialog_tag_name": {
+    "message": "Tag name",
+    "description": "Tag name field label"
+  },
+  "tag_edit_dialog_parent_tag": {
+    "message": "Parent tag",
+    "description": "Parent tag field label"
+  },
+  "tag_edit_dialog_none": {
+    "message": "None",
+    "description": "None option for parent tag select"
+  },
+  "tag_edit_dialog_name_empty": {
+    "message": "Tag name cannot be empty",
+    "description": "Error for empty tag name"
+  },
+  "tag_edit_dialog_name_duplicate": {
+    "message": "Tag name already exists at this level",
+    "description": "Error for duplicate tag name"
+  },
+  "tag_edit_dialog_parent_hint": {
+    "message": "Note: Tags with the same name have been excluded from parent options",
+    "description": "Hint about excluded parent tags"
+  },
+
+  "tag_delete_dialog_title": {
+    "message": "Delete Tag",
+    "description": "Delete tag dialog title"
+  },
+  "tag_delete_dialog_confirm_message": {
+    "message": "How do you want to delete tag \"$TAG_NAME$\"?",
+    "description": "Delete tag confirmation message",
+    "placeholders": {
+      "tag_name": {
+        "content": "$1",
+        "example": "Example Tag"
+      }
+    }
+  },
+  "tag_delete_dialog_warning": {
+    "message": "Warning: This tag has $COUNT$ sub-tags, which will become top-level tags after deletion.",
+    "description": "Warning about sub-tags when deleting",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "tag_delete_dialog_delete_tag_only": {
+    "message": "Delete tag only",
+    "description": "Option to delete just the tag"
+  },
+  "tag_delete_dialog_delete_with_bookmarks": {
+    "message": "Delete tag and associated bookmarks",
+    "description": "Option to delete tag and its bookmarks"
+  },
+
+  "tag_suggestions_placeholder": {
+    "message": "Enter tag name, press Enter to add...",
+    "description": "Tag suggestions input placeholder"
+  },
+
+  "toast_tag_added": {
+    "message": "Tag added",
+    "description": "Toast title for tag added"
+  },
+  "toast_tag_added_desc": {
+    "message": "Tag \"$TAG_NAME$\" has been added",
+    "description": "Toast description for tag added",
+    "placeholders": {
+      "tag_name": {
+        "content": "$1",
+        "example": "Example Tag"
+      }
+    }
+  },
+  "toast_tag_removed": {
+    "message": "Tag removed",
+    "description": "Toast title for tag removed"
+  },
+  "toast_tag_removed_desc": {
+    "message": "Tag has been successfully removed",
+    "description": "Toast description for tag removed"
+  },
+  "toast_bookmark_edited": {
+    "message": "Bookmark updated",
+    "description": "Toast title for bookmark edited"
+  },
+  "toast_bookmark_edited_desc": {
+    "message": "Bookmark has been updated",
+    "description": "Toast description for bookmark edited"
+  },
+  "toast_bookmark_deleted": {
+    "message": "Bookmark deleted",
+    "description": "Toast title for bookmark deleted"
+  },
+  "toast_bookmark_deleted_desc": {
+    "message": "Bookmark and its related tags have been deleted",
+    "description": "Toast description for bookmark deleted"
+  },
+  "toast_load_failed": {
+    "message": "Failed to load",
+    "description": "Toast title for load failed"
+  },
+  "toast_save_failed": {
+    "message": "Failed to save",
+    "description": "Toast title for save failed"
+  },
+  "toast_delete_failed": {
+    "message": "Failed to delete",
+    "description": "Toast title for delete failed"
   }
 }

@@ -1,3 +1,4 @@
+import { useTranslation } from "@/components/i18n-context";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { useBookmark } from "@/hooks/bookmark/use-bookmark";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
@@ -13,6 +14,7 @@ interface SearchCommandProps {
 }
 
 const SearchCommand: React.FC<SearchCommandProps> = ({ onClose, onSelectTab }) => {
+  const { t } = useTranslation();
   const { openableBookmarks, getBookmarkById } = useBookmark();
   const { tags, getTagById, setSelectedTag } = useTagManagement();
 
@@ -37,11 +39,11 @@ const SearchCommand: React.FC<SearchCommandProps> = ({ onClose, onSelectTab }) =
     <Command className="rounded-lg border border-slate-200/50 dark:border-slate-700/50 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm mt-4">
       <div className="flex items-center border-b px-3 w-full">
         <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
-        <CommandInput placeholder="搜索标签或书签..." className="border-none focus:ring-0" />
+        <CommandInput placeholder={t("main_layout_search")} className="border-none focus:ring-0" />
       </div>
       <CommandList>
-        <CommandEmpty>未找到相关结果</CommandEmpty>
-        <CommandGroup heading="标签" className="px-2">
+        <CommandEmpty>{t("search_command_no_results")}</CommandEmpty>
+        <CommandGroup heading={t("search_command_tags")} className="px-2">
           {tags.map((tag) => (
             <CommandItem key={tag.id} value={tag.name} onSelect={() => handleSelect("tag", tag.id)} className="flex items-center px-2 py-1.5 rounded-md">
               <Tag className="flex-shrink-0 mr-2 h-4 w-4" />
@@ -52,7 +54,7 @@ const SearchCommand: React.FC<SearchCommandProps> = ({ onClose, onSelectTab }) =
             </CommandItem>
           ))}
         </CommandGroup>
-        <CommandGroup heading="书签" className="px-2">
+        <CommandGroup heading={t("search_command_bookmarks")} className="px-2">
           {openableBookmarks.map((bookmark) => (
             <CommandItem
               key={bookmark.id}

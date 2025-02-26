@@ -1,36 +1,331 @@
 {
-  "appName": {
+  "app_name": {
     "message": "标签管理器",
-    "description": "The name of the extension"
+    "description": "Extension name"
   },
-  "appDescription": {
+  "app_description": {
     "message": "使用嵌套标签和自定义快捷键无缝组织书签。",
-    "description": "The description of the extension"
+    "description": "Extension description"
   },
-  "tagManagement": {
+
+  "button_cancel": {
+    "message": "取消",
+    "description": "Cancel button text"
+  },
+  "button_confirm": {
+    "message": "确认",
+    "description": "Confirm button text"
+  },
+  "button_save": {
+    "message": "保存",
+    "description": "Save button text"
+  },
+  "button_delete": {
+    "message": "删除",
+    "description": "Delete button text"
+  },
+  "button_edit": {
+    "message": "编辑",
+    "description": "Edit button text"
+  },
+  "button_add_tag": {
+    "message": "添加标签",
+    "description": "Add tag button text"
+  },
+  "button_open_all": {
+    "message": "打开全部",
+    "description": "Open all button text"
+  },
+
+  "main_layout_tag_management": {
     "message": "标签管理",
     "description": "Tab label for tag management"
   },
-  "bookmarkManagement": {
+  "main_layout_bookmark_management": {
     "message": "书签管理",
     "description": "Tab label for bookmark management"
   },
-  "search": {
+  "main_layout_search": {
     "message": "搜索...",
-    "description": "Placeholder text for search input"
+    "description": "Search button text"
   },
-  "noBookmarks": {
+  "main_layout_keyboard_shortcuts": {
+    "message": "键盘快捷键",
+    "description": "Keyboard shortcuts toggle"
+  },
+
+  "search_command_title": {
+    "message": "搜索书签和标签",
+    "description": "Search dialog title"
+  },
+  "search_command_help": {
+    "message": "使用 ↑↓ 键选择，回车确认，Esc 关闭",
+    "description": "Search dialog help text"
+  },
+  "search_command_no_results": {
+    "message": "未找到相关结果",
+    "description": "No search results message"
+  },
+  "search_command_tags": {
+    "message": "标签",
+    "description": "Tags section header"
+  },
+  "search_command_bookmarks": {
+    "message": "书签",
+    "description": "Bookmarks section header"
+  },
+
+  "language_selector_language": {
+    "message": "语言",
+    "description": "Language label"
+  },
+  "language_selector_english": {
+    "message": "English",
+    "description": "English language option"
+  },
+  "language_selector_chinese": {
+    "message": "中文",
+    "description": "Chinese language option"
+  },
+
+  "bookmark_list_select_folder": {
+    "message": "请选择一个文件夹",
+    "description": "Message when no folder is selected"
+  },
+  "bookmark_list_no_bookmarks": {
     "message": "该文件夹下没有书签",
-    "description": "Message shown when folder has no bookmarks"
+    "description": "Empty state for bookmark list"
   },
-  "confirmDelete": {
+
+  "bookmark_context_menu_add_tag": {
+    "message": "添加标签",
+    "description": "Context menu option to add tag"
+  },
+  "bookmark_context_menu_open_bookmark": {
+    "message": "打开书签",
+    "description": "Context menu option to open bookmark"
+  },
+  "bookmark_context_menu_edit_bookmark": {
+    "message": "编辑书签",
+    "description": "Context menu option to edit bookmark"
+  },
+  "bookmark_context_menu_delete_bookmark": {
+    "message": "删除书签",
+    "description": "Context menu option to delete bookmark"
+  },
+
+  "bookmark_edit_dialog_title": {
+    "message": "编辑书签",
+    "description": "Edit bookmark dialog title"
+  },
+  "bookmark_edit_dialog_bookmark_title": {
+    "message": "标题",
+    "description": "Bookmark title field label"
+  },
+  "bookmark_edit_dialog_url": {
+    "message": "网址",
+    "description": "Bookmark URL field label"
+  },
+
+  "bookmark_delete_dialog_title": {
+    "message": "删除书签",
+    "description": "Delete bookmark dialog title"
+  },
+  "bookmark_delete_dialog_confirm_message": {
     "message": "你确定要删除书签 \"$BOOKMARK_TITLE$\" 吗？此操作无法撤销。",
-    "description": "Confirmation message for deleting a bookmark",
+    "description": "Delete bookmark confirmation message",
     "placeholders": {
       "bookmark_title": {
         "content": "$1",
         "example": "Example Bookmark"
       }
     }
+  },
+
+  "bookmark_add_tag_dialog_title": {
+    "message": "标签管理",
+    "description": "Add tag dialog title"
+  },
+  "bookmark_add_tag_dialog_bookmark_info": {
+    "message": "书签信息",
+    "description": "Bookmark info section title"
+  },
+  "bookmark_add_tag_dialog_add_tags": {
+    "message": "添加标签",
+    "description": "Add tags section title"
+  },
+  "bookmark_add_tag_dialog_tag_count": {
+    "message": "已添加 $COUNT$ 个标签",
+    "description": "Tag count text",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "bookmark_add_tag_dialog_tag_placeholder": {
+    "message": "输入标签名称，回车添加...",
+    "description": "Tag input placeholder"
+  },
+  "bookmark_add_tag_dialog_added_tags": {
+    "message": "已添加标签",
+    "description": "Added tags section title"
+  },
+  "bookmark_add_tag_dialog_no_tags": {
+    "message": "暂无标签，请在上方添加",
+    "description": "Empty state for added tags"
+  },
+
+  "tag_tree_select_tag": {
+    "message": "请选择一个标签",
+    "description": "Message when no tag is selected"
+  },
+
+  "tag_detail_path": {
+    "message": "路径",
+    "description": "Tag path label"
+  },
+  "tag_detail_created": {
+    "message": "创建",
+    "description": "Created date label"
+  },
+  "tag_detail_updated": {
+    "message": "更新",
+    "description": "Updated date label"
+  },
+  "tag_detail_sub_tags": {
+    "message": "子标签",
+    "description": "Sub-tags section header"
+  },
+  "tag_detail_related_bookmarks": {
+    "message": "关联书签",
+    "description": "Related bookmarks section header"
+  },
+  "tag_detail_no_bookmarks": {
+    "message": "该标签下没有直接关联的书签",
+    "description": "Empty state for tag bookmarks"
+  },
+
+  "tag_edit_dialog_title": {
+    "message": "编辑标签",
+    "description": "Edit tag dialog title"
+  },
+  "tag_edit_dialog_new_title": {
+    "message": "新建标签",
+    "description": "New tag dialog title"
+  },
+  "tag_edit_dialog_tag_name": {
+    "message": "标签名称",
+    "description": "Tag name field label"
+  },
+  "tag_edit_dialog_parent_tag": {
+    "message": "父标签",
+    "description": "Parent tag field label"
+  },
+  "tag_edit_dialog_none": {
+    "message": "无",
+    "description": "None option for parent tag select"
+  },
+  "tag_edit_dialog_name_empty": {
+    "message": "标签名称不能为空",
+    "description": "Error for empty tag name"
+  },
+  "tag_edit_dialog_name_duplicate": {
+    "message": "同级标签名称不能重复",
+    "description": "Error for duplicate tag name"
+  },
+  "tag_edit_dialog_parent_hint": {
+    "message": "注意：已排除包含同名标签的父标签选项",
+    "description": "Hint about excluded parent tags"
+  },
+
+  "tag_delete_dialog_title": {
+    "message": "删除标签",
+    "description": "Delete tag dialog title"
+  },
+  "tag_delete_dialog_confirm_message": {
+    "message": "您要如何删除标签 \"$TAG_NAME$\"？",
+    "description": "Delete tag confirmation message",
+    "placeholders": {
+      "tag_name": {
+        "content": "$1",
+        "example": "Example Tag"
+      }
+    }
+  },
+  "tag_delete_dialog_warning": {
+    "message": "警告：该标签下有 $COUNT$ 个子标签，删除后子标签将变为顶级标签。",
+    "description": "Warning about sub-tags when deleting",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "tag_delete_dialog_delete_tag_only": {
+    "message": "仅删除标签",
+    "description": "Option to delete just the tag"
+  },
+  "tag_delete_dialog_delete_with_bookmarks": {
+    "message": "删除标签和关联书签",
+    "description": "Option to delete tag and its bookmarks"
+  },
+
+  "tag_suggestions_placeholder": {
+    "message": "输入标签名称，回车添加...",
+    "description": "Tag suggestions input placeholder"
+  },
+
+  "toast_tag_added": {
+    "message": "已添加标签",
+    "description": "Toast title for tag added"
+  },
+  "toast_tag_added_desc": {
+    "message": "标签 \"$TAG_NAME$\" 已添加",
+    "description": "Toast description for tag added",
+    "placeholders": {
+      "tag_name": {
+        "content": "$1",
+        "example": "Example Tag"
+      }
+    }
+  },
+  "toast_tag_removed": {
+    "message": "已移除标签",
+    "description": "Toast title for tag removed"
+  },
+  "toast_tag_removed_desc": {
+    "message": "标签已成功移除",
+    "description": "Toast description for tag removed"
+  },
+  "toast_bookmark_edited": {
+    "message": "已更新书签",
+    "description": "Toast title for bookmark edited"
+  },
+  "toast_bookmark_edited_desc": {
+    "message": "书签已更新",
+    "description": "Toast description for bookmark edited"
+  },
+  "toast_bookmark_deleted": {
+    "message": "已删除书签",
+    "description": "Toast title for bookmark deleted"
+  },
+  "toast_bookmark_deleted_desc": {
+    "message": "书签及其相关标签已被删除",
+    "description": "Toast description for bookmark deleted"
+  },
+  "toast_load_failed": {
+    "message": "加载失败",
+    "description": "Toast title for load failed"
+  },
+  "toast_save_failed": {
+    "message": "保存失败",
+    "description": "Toast title for save failed"
+  },
+  "toast_delete_failed": {
+    "message": "删除失败",
+    "description": "Toast title for delete failed"
   }
 }

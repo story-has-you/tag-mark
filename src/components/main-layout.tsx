@@ -47,11 +47,11 @@ const MainLayout: React.FC = () => {
                 <TabsList className="bg-white/80 dark:bg-slate-800/80">
                   <TabsTrigger value="tags" className="gap-2 px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                     <Tags className="h-4 w-4" />
-                    {t("tagManagement")}
+                    {t("main_layout_tag_management")}
                   </TabsTrigger>
                   <TabsTrigger value="bookmarks" className="gap-2 px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                     <Bookmark className="h-4 w-4" />
-                    {t("bookmarkManagement")}
+                    {t("main_layout_bookmark_management")}
                   </TabsTrigger>
                 </TabsList>
 
@@ -59,20 +59,23 @@ const MainLayout: React.FC = () => {
                   {/* 搜索按钮 */}
                   <Button variant="outline" className="gap-2 bg-white/80 dark:bg-slate-800/80 border-slate-200/50 dark:border-slate-700/50" onClick={() => setSearchOpen(true)}>
                     <Search className="h-4 w-4" />
-                    <span className="hidden sm:inline">{t("search")}</span>
+                    <span className="hidden sm:inline">{t("main_layout_search")}</span>
                     <KeyboardShortcut command keys={["K"]} />
                   </Button>
+
+                  {/* 语言选择器 */}
+                  <LanguageSelector />
+
                   {/* 快捷键开关 */}
                   <Button variant="outline" className="gap-2 bg-white/80 dark:bg-slate-800/80 border border-slate-200/50 dark:border-slate-700/50">
                     <Keyboard className="h-4 w-4" />
                     <Switch checked={hotkeyEnabled} onCheckedChange={setHotkeyEnabled} />
                   </Button>
+
                   {/* 主题切换按钮 */}
                   <Button variant="outline" size="icon" onClick={toggleTheme} className="bg-white/80 dark:bg-slate-800/80">
                     {theme === "dark" ? <Sun className="h-4 w-4 text-yellow-500" /> : <Moon className="h-4 w-4 text-slate-700" />}
                   </Button>
-
-                  <LanguageSelector />
                 </div>
               </div>
 
@@ -80,8 +83,8 @@ const MainLayout: React.FC = () => {
               <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
                 <DialogContent className="p-4 gap-0 max-w-4xl w-[90vw]">
                   <DialogHeader>
-                    <DialogTitle className="text-lg">搜索书签和标签</DialogTitle>
-                    <DialogDescription className="text-sm text-muted-foreground">使用 ↑↓ 键选择，回车确认，Esc 关闭</DialogDescription>
+                    <DialogTitle className="text-lg">{t("search_command_title")}</DialogTitle>
+                    <DialogDescription className="text-sm text-muted-foreground">{t("search_command_help")}</DialogDescription>
                   </DialogHeader>
                   <SearchCommand onClose={() => setSearchOpen(false)} onSelectTab={setActiveTab} />
                 </DialogContent>

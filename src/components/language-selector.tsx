@@ -2,12 +2,12 @@ import { useTranslation } from "@/components/i18n-context";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { Globe } from "lucide-react";
-import React, { useState } from "react";
+import React from "react";
 
+// 支持的语言列表
 const SUPPORTED_LOCALES = [
   { code: "en", name: "English" },
   { code: "zh", name: "中文" }
-  // 根据需要添加更多语言
 ];
 
 interface LanguageSelectorProps {
@@ -16,7 +16,7 @@ interface LanguageSelectorProps {
 
 const LanguageSelector: React.FC<LanguageSelectorProps> = ({ className }) => {
   const { locale, t, changeLocale } = useTranslation();
-  const [isChanging, setIsChanging] = useState(false);
+  const [isChanging, setIsChanging] = React.useState(false);
 
   const handleChange = async (value: string) => {
     if (value === locale) return;
@@ -29,7 +29,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ className }) => {
     }
   };
 
-  // 获取当前语言名称显示
+  // 获取当前语言名称
   const getCurrentLanguageName = () => {
     return SUPPORTED_LOCALES.find((lang) => lang.code === locale)?.name || "English";
   };
