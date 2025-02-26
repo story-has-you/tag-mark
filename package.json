@@ -59,6 +59,7 @@
       "bookmarks",
       "storage",
       "tabGroups"
-    ]
+    ],
+    "default_locale": "en"
   }
 }

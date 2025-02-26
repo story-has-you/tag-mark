@@ -1,6 +1,7 @@
-// main-layout.tsx
 import BookmarkManager from "@/components/bookmark/bookmark-manager";
+import { useTranslation } from "@/components/i18n-context";
 import KeyboardShortcut from "@/components/keyboard-shortcut";
+import LanguageSelector from "@/components/language-selector";
 import SearchCommand from "@/components/search-command";
 import TagManager from "@/components/tag/tag-manager";
 import { Button } from "@/components/ui/button";
@@ -28,6 +29,7 @@ const fadeIn = {
 };
 
 const MainLayout: React.FC = () => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<"tags" | "bookmarks">("tags");
   const [searchOpen, setSearchOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
@@ -45,11 +47,11 @@ const MainLayout: React.FC = () => {
                 <TabsList className="bg-white/80 dark:bg-slate-800/80">
                   <TabsTrigger value="tags" className="gap-2 px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                     <Tags className="h-4 w-4" />
-                    标签管理
+                    {t("tagManagement")}
                   </TabsTrigger>
                   <TabsTrigger value="bookmarks" className="gap-2 px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                     <Bookmark className="h-4 w-4" />
-                    书签管理
+                    {t("bookmarkManagement")}
                   </TabsTrigger>
                 </TabsList>
 
@@ -57,7 +59,7 @@ const MainLayout: React.FC = () => {
                   {/* 搜索按钮 */}
                   <Button variant="outline" className="gap-2 bg-white/80 dark:bg-slate-800/80 border-slate-200/50 dark:border-slate-700/50" onClick={() => setSearchOpen(true)}>
                     <Search className="h-4 w-4" />
-                    <span className="hidden sm:inline">搜索...</span>
+                    <span className="hidden sm:inline">{t("search")}</span>
                     <KeyboardShortcut command keys={["K"]} />
                   </Button>
                   {/* 快捷键开关 */}
@@ -69,6 +71,8 @@ const MainLayout: React.FC = () => {
                   <Button variant="outline" size="icon" onClick={toggleTheme} className="bg-white/80 dark:bg-slate-800/80">
                     {theme === "dark" ? <Sun className="h-4 w-4 text-yellow-500" /> : <Moon className="h-4 w-4 text-slate-700" />}
                   </Button>
+
+                  <LanguageSelector />
                 </div>
               </div>
 

@@ -1,0 +1,36 @@
+{
+  "appName": {
+    "message": "标签管理器",
+    "description": "The name of the extension"
+  },
+  "appDescription": {
+    "message": "使用嵌套标签和自定义快捷键无缝组织书签。",
+    "description": "The description of the extension"
+  },
+  "tagManagement": {
+    "message": "标签管理",
+    "description": "Tab label for tag management"
+  },
+  "bookmarkManagement": {
+    "message": "书签管理",
+    "description": "Tab label for bookmark management"
+  },
+  "search": {
+    "message": "搜索...",
+    "description": "Placeholder text for search input"
+  },
+  "noBookmarks": {
+    "message": "该文件夹下没有书签",
+    "description": "Message shown when folder has no bookmarks"
+  },
+  "confirmDelete": {
+    "message": "你确定要删除书签 \"$BOOKMARK_TITLE$\" 吗？此操作无法撤销。",
+    "description": "Confirmation message for deleting a bookmark",
+    "placeholders": {
+      "bookmark_title": {
+        "content": "$1",
+        "example": "Example Bookmark"
+      }
+    }
+  }
+}

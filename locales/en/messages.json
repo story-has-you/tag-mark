@@ -1,0 +1,36 @@
+{
+  "appName": {
+    "message": "Tag Mark",
+    "description": "The name of the extension"
+  },
+  "appDescription": {
+    "message": "Seamlessly organize bookmarks with nested tags and custom hotkeys.",
+    "description": "The description of the extension"
+  },
+  "tagManagement": {
+    "message": "Tag Management",
+    "description": "Tab label for tag management"
+  },
+  "bookmarkManagement": {
+    "message": "Bookmark Management",
+    "description": "Tab label for bookmark management"
+  },
+  "search": {
+    "message": "Search...",
+    "description": "Placeholder text for search input"
+  },
+  "noBookmarks": {
+    "message": "No bookmarks in this folder",
+    "description": "Message shown when folder has no bookmarks"
+  },
+  "confirmDelete": {
+    "message": "Are you sure you want to delete bookmark \"$BOOKMARK_TITLE$\"? This action cannot be undone.",
+    "description": "Confirmation message for deleting a bookmark",
+    "placeholders": {
+      "bookmark_title": {
+        "content": "$1",
+        "example": "Example Bookmark"
+      }
+    }
+  }
+}
