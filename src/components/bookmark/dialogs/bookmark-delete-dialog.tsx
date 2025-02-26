@@ -1,3 +1,4 @@
+import { useTranslation } from "@/components/i18n-context";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,16 +20,18 @@ interface DeleteBookmarkDialogProps {
 }
 
 const BookmarkDeleteDialog: React.FC<DeleteBookmarkDialogProps> = ({ open, bookmark, onOpenChange, onConfirm }) => {
+  const { t, format } = useTranslation();
+
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>确认删除</AlertDialogTitle>
-          <AlertDialogDescription>你确定要删除书签 "{bookmark?.title}" 吗？此操作无法撤销。</AlertDialogDescription>
+          <AlertDialogTitle>{t("bookmark_delete_dialog_title")}</AlertDialogTitle>
+          <AlertDialogDescription>{bookmark?.title && format("bookmark_delete_dialog_confirm_message", bookmark.title)}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>取消</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm}>删除</AlertDialogAction>
+          <AlertDialogCancel>{t("button_cancel")}</AlertDialogCancel>
+          <AlertDialogAction onClick={onConfirm}>{t("button_delete")}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

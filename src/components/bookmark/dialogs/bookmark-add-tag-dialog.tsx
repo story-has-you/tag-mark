@@ -1,3 +1,4 @@
+import { useTranslation } from "@/components/i18n-context";
 import TagSuggestions from "@/components/tag/tag-suggestions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,7 @@ interface BookmarkAddTagDialogProps {
 }
 
 const BookmarkAddTagDialog: React.FC<BookmarkAddTagDialogProps> = ({ open, bookmark, onOpenChange }) => {
+  const { t, format } = useTranslation();
   const { tags, loading, input, setInput, handleAddTag, handleDeleteTag, allTags } = useBookmarkTagManagement(bookmark);
   const suggestions = useTagSuggestions(allTags, input);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -33,14 +35,14 @@ const BookmarkAddTagDialog: React.FC<BookmarkAddTagDialogProps> = ({ open, bookm
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-xl">
             <Tag className="h-5 w-5" />
-            标签管理
+            {t("bookmark_add_tag_dialog_title")}
           </DialogTitle>
         </DialogHeader>
 
         <div className="flex flex-col space-y-6 py-4">
           {/* 书签信息 */}
           <div className="space-y-2">
-            <h3 className="text-sm font-medium text-muted-foreground">书签信息</h3>
+            <h3 className="text-sm font-medium text-muted-foreground">{t("bookmark_add_tag_dialog_bookmark_info")}</h3>
             <div className="rounded-lg border bg-card p-4">
               <h4 className="font-medium">{bookmark?.title}</h4>
               <p className="text-sm text-muted-foreground truncate">{bookmark?.url}</p>
@@ -50,44 +52,27 @@ const BookmarkAddTagDialog: React.FC<BookmarkAddTagDialogProps> = ({ open, bookm
           {/* 标签输入区域 */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-muted-foreground">添加标签</h3>
-              <span className="text-xs text-muted-foreground">已添加 {tags.length} 个标签</span>
+              <h3 className="text-sm font-medium text-muted-foreground">{t("bookmark_add_tag_dialog_add_tags")}</h3>
+              <span className="text-xs text-muted-foreground">{format("bookmark_add_tag_dialog_tag_count", tags.length.toString())}</span>
             </div>
-            <TagSuggestions
-              value={input}
-              suggestions={suggestions}
-              onValueChange={setInput}
-              onEnter={handleAddTag}
-              disabled={loading}
-              allTags={allTags}
-              tags={tags}
-            />
+            <TagSuggestions value={input} suggestions={suggestions} onValueChange={setInput} onEnter={handleAddTag} disabled={loading} allTags={allTags} tags={tags} />
           </div>
 
           {/* 标签展示区域 */}
           <div className="space-y-2">
-            <h3 className="text-sm font-medium text-muted-foreground">已添加标签</h3>
+            <h3 className="text-sm font-medium text-muted-foreground">{t("bookmark_add_tag_dialog_added_tags")}</h3>
             <div className="min-h-[100px] rounded-lg border bg-card p-4">
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag) => (
-                  <Badge
-                    key={tag.id}
-                    variant="secondary"
-                    className={cn("flex items-center gap-1 px-3 py-1", "hover:bg-secondary/80 transition-colors")}>
+                  <Badge key={tag.id} variant="secondary" className={cn("flex items-center gap-1 px-3 py-1", "hover:bg-secondary/80 transition-colors")}>
                     {tag.fullPath}
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-4 w-4 p-0 hover:bg-transparent"
-                      onClick={() => handleDeleteTag(tag.id)}>
-                      <span className="sr-only">删除标签</span>×
+                    <Button variant="ghost" size="icon" className="h-4 w-4 p-0 hover:bg-transparent" onClick={() => handleDeleteTag(tag.id)}>
+                      <span className="sr-only">{t("button_delete")}</span>×
                     </Button>
                   </Badge>
                 ))}
                 {tags.length === 0 && !loading && (
-                  <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground">
-                    暂无标签，请在上方添加
-                  </div>
+                  <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground">{t("bookmark_add_tag_dialog_no_tags")}</div>
                 )}
               </div>
             </div>

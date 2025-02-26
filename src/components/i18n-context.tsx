@@ -4,7 +4,7 @@ import React, { createContext, useContext, useMemo, type ReactNode } from "react
 interface I18nContextType {
   locale: string;
   isLoaded: boolean;
-  t: (messageName: string, substitutions?: string | string[]) => string;
+  t: (messageName: string) => string;
   format: (messageName: string, ...args: string[]) => string;
   changeLocale: (locale: string) => Promise<void>;
 }

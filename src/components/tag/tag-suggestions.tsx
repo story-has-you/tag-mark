@@ -1,3 +1,4 @@
+import { useTranslation } from "@/components/i18n-context";
 import { Button } from "@/components/ui/button";
 import { Command, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import type { Tag } from "@/types/tag";
@@ -14,6 +15,7 @@ interface TagSuggestionsProps {
 }
 
 const TagSuggestions: React.FC<TagSuggestionsProps> = ({ value, suggestions, onValueChange, onEnter, disabled, allTags, tags }) => {
+  const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -59,7 +61,7 @@ const TagSuggestions: React.FC<TagSuggestionsProps> = ({ value, suggestions, onV
           <span className="text-base text-muted-foreground pl-3">#</span>
           <CommandInput
             ref={inputRef}
-            placeholder="输入标签名称，回车添加..."
+            placeholder={t("bookmark_add_tag_dialog_tag_placeholder")}
             value={value}
             onValueChange={onValueChange}
             onKeyDown={handleKeyDown}
@@ -68,7 +70,7 @@ const TagSuggestions: React.FC<TagSuggestionsProps> = ({ value, suggestions, onV
           />
         </div>
         <Button variant="default" disabled={disabled || !value.trim()} onClick={handleAddClick}>
-          添加标签
+          {t("button_add_tag")}
         </Button>
       </div>
       <CommandList className="max-h-[156px] overflow-y-auto">{items()}</CommandList>

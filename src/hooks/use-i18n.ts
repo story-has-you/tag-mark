@@ -19,7 +19,6 @@ export const useI18n = () => {
       }
 
       // 否则尝试加载语言文件
-      // 注意：在开发环境中动态导入可能更复杂，这里简化处理
       let localeMessages;
       try {
         // 通过fetch加载消息文件
@@ -75,24 +74,15 @@ export const useI18n = () => {
 
   // 获取翻译消息的函数
   const getMessage = useCallback(
-    (messageName: string, substitutions?: string | string[]) => {
+    (messageName: string): string => {
       // 首先尝试从我们加载的消息中获取
       const message = messages[messageName];
       if (message) {
-        // 简单替换占位符处理
-        if (substitutions) {
-          const subs = Array.isArray(substitutions) ? substitutions : [substitutions];
-          let result = message;
-          subs.forEach((sub, index) => {
-            result = result.replace(`$${index + 1}`, sub);
-          });
-          return result;
-        }
         return message;
       }
 
       // 然后尝试从Chrome API获取（作为后备）
-      const chromeMessage = chrome.i18n.getMessage(messageName, substitutions);
+      const chromeMessage = chrome.i18n.getMessage(messageName);
       if (chromeMessage) {
         return chromeMessage;
       }
@@ -101,6 +91,38 @@ export const useI18n = () => {
       return messageName;
     },
     [messages]
+  );
+
+  // 增强版格式化消息函数 - 处理多种占位符格式
+  const formatMessage = useCallback(
+    (messageName: string, ...args: string[]): string => {
+      let template = getMessage(messageName);
+
+      if (!template) return messageName;
+
+      // 处理两种占位符格式:
+
+      // 1. 处理序号占位符，如 $1, $2, ...
+      args.forEach((arg, index) => {
+        const placeholderRegex = new RegExp(`\\$${index + 1}`, "g");
+        template = template.replace(placeholderRegex, arg);
+      });
+
+      // 2. 处理命名占位符，如 $BOOKMARK_TITLE$, $TAG_NAME$
+      // 这是特殊处理，我们假设第一个参数用于替换消息中的第一个命名占位符
+      if (args.length > 0) {
+        // 查找第一个 $NAME$ 格式的占位符
+        const namedPlaceholderRegex = /\$[A-Z_]+\$/;
+        const match = template.match(namedPlaceholderRegex);
+
+        if (match && match[0]) {
+          template = template.replace(match[0], args[0]);
+        }
+      }
+
+      return template;
+    },
+    [getMessage]
   );
 
   // 更改当前语言的函数
@@ -122,9 +144,9 @@ export const useI18n = () => {
   return {
     locale,
     isLoaded,
+    messages,
     getMessage,
-    changeLocale,
-    // 这是格式化函数，与getMessage功能类似但参数形式不同
-    formatMessage: getMessage
+    formatMessage,
+    changeLocale
   };
 };
