@@ -96,8 +96,10 @@ class TagService {
 
   /**
    * 删除标签
+   * @param id 要删除的标签ID
+   * @param deleteDescendants 是否删除子标签（级联删除）
    */
-  public async deleteTag(id: string): Promise<void> {
+  public async deleteTag(id: string, deleteDescendants: boolean = false): Promise<void> {
     try {
       const tags = await this.getAllTags();
 
@@ -108,20 +110,44 @@ class TagService {
         throw new Error("Tag not found");
       }
 
-      // 找到所有子标签并更新它们的 parentId
-      const updatedTags = tags.map((tag) => {
-        if (tag.parentId === id) {
-          return {
-            ...tag,
-            parentId: null,
-            updatedAt: Date.now()
-          };
-        }
-        return tag;
-      });
+      let updatedTags: any[];
 
-      // 从数组中移除要删除的标签
-      updatedTags.splice(deleteIndex, 1);
+      if (deleteDescendants) {
+        // 删除所有子孙标签
+        // 辅助函数：递归找到所有子孙标签ID
+        const findDescendantIds = (parentId: string, tagsArray: Tag[]): string[] => {
+          const descendants: string[] = [];
+          for (const tag of tagsArray) {
+            if (tag.parentId === parentId) {
+              descendants.push(tag.id);
+              descendants.push(...findDescendantIds(tag.id, tagsArray));
+            }
+          }
+          return descendants;
+        };
+
+        // 获取所有需要删除的标签ID
+        const descendantIds = findDescendantIds(id, tags);
+        const allTagsToDelete = [id, ...descendantIds];
+
+        // 过滤掉需要删除的标签
+        updatedTags = tags.filter((tag) => !allTagsToDelete.includes(tag.id));
+      } else {
+        // 只删除当前标签，子标签变为顶级标签
+        updatedTags = tags.map((tag) => {
+          if (tag.parentId === id) {
+            return {
+              ...tag,
+              parentId: null,
+              updatedAt: Date.now()
+            };
+          }
+          return tag;
+        });
+
+        // 从数组中移除要删除的标签
+        updatedTags.splice(deleteIndex, 1);
+      }
 
       // 保存更新后的标签数组
       await chrome.storage.local.set({ [STORAGE_KEY]: updatedTags });

@@ -30,8 +30,10 @@ export const useTagManagement = () => {
       }));
       setTags(tagsWithPath);
       setError(null);
+      return allTags; // 返回获取的标签数据
     } catch (err) {
       setError(err instanceof Error ? err : new Error("Failed to load tags"));
+      return []; // 出错时返回空数组
     } finally {
       setLoading(false);
     }
@@ -48,16 +50,15 @@ export const useTagManagement = () => {
   const updateTag = async (id: string, params: UpdateTagParams): Promise<Tag> => {
     params.name = params.name.replace(/^#/, "");
     const updatedTag = await tagService.updateTag(id, params);
-    await loadTags(); // 重新加载以更新路径
-
-    // 返回更新后的完整标签信息
-    const allTags = await tagService.getAllTags();
+    const allTags = await loadTags(); // 重新加载并返回获取的标签
+  
+    // 使用loadTags获取的数据计算fullPath
     return {
       ...updatedTag,
       fullPath: TagName.buildFullPathWithAllTags(updatedTag, allTags)
     };
-  };
-
+  }
+  
   // 删除标签
   const deleteTag = async (id: string, deleteWithBookmarks: boolean): Promise<void> => {
     try {
@@ -67,7 +68,7 @@ export const useTagManagement = () => {
         if (!bookmarks) {
           return;
         }
-
+  
         // 并行删除所有关联的书签
         await Promise.all(
           bookmarks.map(async (bookmark) => {
@@ -80,16 +81,18 @@ export const useTagManagement = () => {
           })
         );
       }
-
+  
       // 删除关联关系和标签
       await relationService.deleteRelationsByTagId(id);
-      await tagService.deleteTag(id);
+      // 传递参数，以确定是否级联删除子标签
+      await tagService.deleteTag(id, deleteWithBookmarks);
       await loadTags();
     } catch (error) {
       console.error("Failed to delete tag and related items:", error);
       throw error;
     }
   };
+
   // 获取标签关联的书签
   const getTagBookmarks = async (tagId: string): Promise<BookmarkTreeNode[]> => {
     return await relationService.getBookmarksByTagId(tagId);

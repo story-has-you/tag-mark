@@ -41,7 +41,6 @@ export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
     }
   }, [bookmark?.id, setBookmarkTags, toast]);
 
-  // 添加标签
   const handleAddTag = useCallback(
     async (tagPath: string) => {
       if (!bookmark?.id) return;
@@ -58,6 +57,9 @@ export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
         let parentId: string | undefined = undefined;
         let lastTag: Tag | undefined = undefined;
 
+        // 记录创建的标签ID，用于可能的回滚
+        const createdTagIds: string[] = [];
+
         // 按层级处理每个标签
         for (let depth = 0; depth < tagName.getDepth(); depth++) {
           // 验证父标签
@@ -72,27 +74,44 @@ export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
             lastTag = existingTag;
             parentId = existingTag.id;
           } else {
-            // 创建新标签
-            const newTag = await TagService.getInstance().createTag({
-              name: currentName,
-              parentId: parentId
-            });
-            lastTag = newTag;
-            parentId = newTag.id;
-            allTags.push(newTag);
+            try {
+              // 创建新标签
+              const newTag = await TagService.getInstance().createTag({
+                name: currentName,
+                parentId: parentId
+              });
+              lastTag = newTag;
+              parentId = newTag.id;
+
+              // 为新标签计算并设置fullPath
+              newTag.fullPath = TagName.buildFullPathWithAllTags(newTag, [...allTags, newTag]);
+
+              allTags.push(newTag);
+              createdTagIds.push(newTag.id); // 记录创建的标签ID
+            } catch (error) {
+              // 创建标签失败，回滚已创建的标签
+              await rollbackCreatedTags(createdTagIds);
+              throw error;
+            }
           }
         }
 
         // 创建书签和最后一个标签的关联
         if (lastTag) {
-          await TagBookmarkRelationService.getInstance().createRelation(lastTag.id, bookmark.id);
-          await loadTags();
+          try {
+            await TagBookmarkRelationService.getInstance().createRelation(lastTag.id, bookmark.id);
+            await loadTags();
 
-          toast({
-            title: "已添加标签",
-            description: `标签 "${tagName.getFullPath()}" 已添加`
-          });
-          setInput("");
+            toast({
+              title: "已添加标签",
+              description: `标签 "${tagName.getFullPath()}" 已添加`
+            });
+            setInput("");
+          } catch (error) {
+            // 关联失败，回滚创建的标签
+            await rollbackCreatedTags(createdTagIds);
+            throw error;
+          }
         }
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : "添加标签时发生错误";
@@ -105,6 +124,20 @@ export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
     },
     [bookmark?.id, loadTags, toast]
   );
+
+  // 添加回滚函数，用于回滚已创建的标签
+  const rollbackCreatedTags = async (tagIds: string[]): Promise<void> => {
+    if (tagIds.length === 0) return;
+
+    try {
+      for (const tagId of tagIds) {
+        await TagService.getInstance().deleteTag(tagId);
+      }
+    } catch (error) {
+      console.error("回滚标签失败:", error);
+      // 即使回滚失败，也继续处理
+    }
+  };
 
   // 删除标签
   const handleDeleteTag = useCallback(
