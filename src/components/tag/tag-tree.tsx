@@ -17,10 +17,13 @@ const TreeNode: React.FC<TreeNodeProps> = React.memo(({ tag, level, childTags, o
   const [isOpen, setIsOpen] = React.useState(false);
   const { selectedTag } = useTagManagement();
   const isSelected = selectedTag?.id === tag.id;
-
   const hasChildTags = childTags.length > 0;
 
-  // 分离展开/折叠处理
+  // 计算最大缩进值，防止过度缩进
+  const maxIndentLevel = 7;
+  const effectiveLevel = Math.min(level, maxIndentLevel);
+  const showDeepIndicator = level > maxIndentLevel;
+
   const handleToggle = React.useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
@@ -31,7 +34,6 @@ const TreeNode: React.FC<TreeNodeProps> = React.memo(({ tag, level, childTags, o
     [hasChildTags]
   );
 
-  // 分离选择处理
   const handleSelect = React.useCallback(
     (e: React.MouseEvent) => {
       e.preventDefault();
@@ -42,31 +44,40 @@ const TreeNode: React.FC<TreeNodeProps> = React.memo(({ tag, level, childTags, o
   );
 
   return (
-    <div className="py-2">
+    <div className="py-1">
+      {" "}
+      {/* 减少垂直间距 */}
       <div className="flex">
         {/* 展开/折叠按钮 */}
         {hasChildTags ? (
-          <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-accent" onClick={handleToggle}>
+          <Button variant="ghost" size="sm" className="h-6 w-6 p-0 flex-shrink-0 hover:bg-accent" onClick={handleToggle}>
             {isOpen ? <ChevronDown className="h-4 w-4 text-muted-foreground" /> : <ChevronRight className="h-4 w-4 text-muted-foreground" />}
           </Button>
         ) : (
-          <div className="w-8" /> // 占位
+          <div className="w-6 flex-shrink-0" /> // 减小占位宽度
         )}
 
         {/* 标签按钮 */}
         <Button
           variant={isSelected ? "secondary" : "ghost"}
-          className={cn("flex-1 justify-start gap-2 px-2 py-1.5 h-auto", isSelected && "bg-accent")}
-          style={{ paddingLeft: `${level * 1}rem` }}
+          className={cn(
+            "flex-1 justify-start gap-1 px-1 py-1 h-auto text-sm",
+            isSelected && "bg-accent",
+            showDeepIndicator && "border-l-2 border-primary/30" // 为深层级添加边框指示
+          )}
+          style={{ paddingLeft: `${effectiveLevel * 0.75}rem` }} // 减小缩进倍数
           onClick={handleSelect}>
-          <TagIcon className={cn("h-4 w-4", isSelected ? "text-primary" : "text-muted-foreground")} />
-          <span className="text-base truncate">#{tag.name}</span>
+          <TagIcon className={cn("h-3.5 w-3.5 flex-shrink-0", isSelected ? "text-primary" : "text-muted-foreground")} />
+          <span className="truncate">#{tag.name}</span>
         </Button>
       </div>
-
       {/* 子节点 */}
       {isOpen && hasChildTags && (
-        <div className="border-l border-border ml-8">
+        <div
+          className={cn(
+            "border-l border-border",
+            level < maxIndentLevel ? "ml-5" : "ml-2" // 深层级时减少左边距
+          )}>
           {childTags.map((childTag) => (
             <TreeNode key={childTag.id} tag={childTag} level={level + 1} childTags={tagMap.get(childTag.id) || []} onSelect={onSelect} tagMap={tagMap} />
           ))}

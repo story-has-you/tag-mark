@@ -29,27 +29,43 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level }) => {
     }
   };
 
+  // 计算最大缩进值，防止过度缩进
+  const maxIndentLevel = 7; // 设置最大缩进级别
+  const effectiveLevel = Math.min(level, maxIndentLevel);
+  // 深层级时添加视觉指示器
+  const showDeepIndicator = level > maxIndentLevel;
+
   return (
-    <div className="py-2">
+    <div className="py-1">
+      {" "}
+      {/* 减少垂直间距 */}
       <Button
         variant={isSelected ? "secondary" : "ghost"}
-        className={cn("w-full justify-start gap-2 px-2 py-1.5 h-auto", isSelected && "bg-accent")}
-        style={{ paddingLeft: `${level * 1.5}rem` }}
+        className={cn(
+          "w-full justify-start gap-2 px-2 py-1 h-auto",
+          isSelected && "bg-accent",
+          showDeepIndicator && "border-l-2 border-primary/30" // 为深层级添加边框指示
+        )}
+        style={{ paddingLeft: `${effectiveLevel * 1}rem` }} // 减小缩进倍数并限制最大级别
         onClick={handleClick}>
         {hasChildFolders ? (
           isOpen ? (
-            <ChevronDown className="h-4 w-4 text-muted-foreground" />
+            <ChevronDown className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
           ) : (
-            <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            <ChevronRight className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
           )
         ) : (
-          <span className="w-4" />
+          <span className="w-4 flex-shrink-0" />
         )}
-        <Folder className={cn("h-4 w-4", isSelected ? "text-primary" : "text-muted-foreground")} />
-        <span className="text-base truncate">{node.title}</span>
+        <Folder className={cn("h-4 w-4 flex-shrink-0", isSelected ? "text-primary" : "text-muted-foreground")} />
+        <span className="text-sm truncate">{node.title}</span>
       </Button>
       {isOpen && hasChildFolders && (
-        <div className="border-l border-border ml-4">
+        <div
+          className={cn(
+            "border-l border-border",
+            level < maxIndentLevel ? "ml-4" : "ml-2" // 深层级时减少左边距
+          )}>
           {childFolders.map((child) => (
             <TreeNode key={child.id} node={child} level={level + 1} />
           ))}
