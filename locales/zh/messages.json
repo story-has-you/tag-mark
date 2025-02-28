@@ -435,5 +435,83 @@
   "settings_import_error_description": {
     "message": "导入数据时出现问题。请确保文件是有效的标签管理器备份。",
     "description": "Import error toast description"
+  },
+  "bookmark_edit_dialog_url_error": {
+    "message": "请输入有效的 URL (以 http:// 或 https:// 开头)",
+    "description": "URL格式错误提示"
+  },
+  "bookmark_edit_dialog_title_empty": {
+    "message": "书签标题不能为空",
+    "description": "书签标题为空错误提示"
+  },
+  "button_saving": {
+    "message": "保存中...",
+    "description": "保存进行中文本"
+  },
+
+  "toast_edit_success": {
+    "message": "编辑成功",
+    "description": "编辑成功提示标题"
+  },
+  "toast_edit_success_description": {
+    "message": "书签\"$TITLE$\"已更新",
+    "description": "书签更新成功提示",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "示例书签"
+      }
+    }
+  },
+  "toast_edit_failed": {
+    "message": "编辑失败",
+    "description": "编辑失败提示标题"
+  },
+  "toast_edit_error_description": {
+    "message": "更新书签时发生错误",
+    "description": "书签更新错误提示"
+  },
+
+  "toast_delete_success": {
+    "message": "删除成功",
+    "description": "删除成功提示标题"
+  },
+  "toast_delete_success_description": {
+    "message": "书签及其相关标签已被删除",
+    "description": "书签删除成功提示"
+  },
+  "toast_delete_error_description": {
+    "message": "删除书签时发生错误，请重试",
+    "description": "书签删除错误提示"
+  },
+
+  "error_boundary_title": {
+    "message": "出现错误",
+    "description": "错误边界标题"
+  },
+  "error_boundary_unknown": {
+    "message": "应用遇到了一个未知错误",
+    "description": "错误边界中的未知错误消息"
+  },
+  "error_boundary_recover": {
+    "message": "尝试恢复",
+    "description": "尝试从错误恢复的按钮文本"
+  },
+
+  "hotkey_open_search": {
+    "message": "打开搜索",
+    "description": "打开搜索的快捷键描述"
+  },
+  "hotkey_open_all_bookmarks": {
+    "message": "打开所有书签",
+    "description": "打开所有书签的快捷键描述"
+  },
+  "hotkey_edit_bookmark": {
+    "message": "编辑书签",
+    "description": "编辑书签的快捷键描述"
+  },
+  "hotkey_delete_bookmark": {
+    "message": "删除书签",
+    "description": "删除书签的快捷键描述"
   }
 }

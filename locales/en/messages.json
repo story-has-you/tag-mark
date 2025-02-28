@@ -435,5 +435,83 @@
   "settings_import_error_description": {
     "message": "There was a problem importing your data. Make sure the file is a valid Tag Mark backup.",
     "description": "Import error toast description"
+  },
+  "bookmark_edit_dialog_url_error": {
+    "message": "Please enter a valid URL (starting with http:// or https://)",
+    "description": "Error message for invalid URL format"
+  },
+  "bookmark_edit_dialog_title_empty": {
+    "message": "Bookmark title cannot be empty",
+    "description": "Error message for empty bookmark title"
+  },
+  "button_saving": {
+    "message": "Saving...",
+    "description": "Text shown when saving is in progress"
+  },
+
+  "toast_edit_success": {
+    "message": "Edit Successful",
+    "description": "Toast title for successful edit"
+  },
+  "toast_edit_success_description": {
+    "message": "Bookmark \"$TITLE$\" has been updated",
+    "description": "Toast message for successful bookmark update",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Example Bookmark"
+      }
+    }
+  },
+  "toast_edit_failed": {
+    "message": "Edit Failed",
+    "description": "Toast title for failed edit"
+  },
+  "toast_edit_error_description": {
+    "message": "An error occurred while updating the bookmark",
+    "description": "Toast message for bookmark update error"
+  },
+
+  "toast_delete_success": {
+    "message": "Delete Successful",
+    "description": "Toast title for successful delete"
+  },
+  "toast_delete_success_description": {
+    "message": "Bookmark and its related tags have been deleted",
+    "description": "Toast message for successful bookmark deletion"
+  },
+  "toast_delete_error_description": {
+    "message": "An error occurred while deleting the bookmark, please try again",
+    "description": "Toast message for bookmark deletion error"
+  },
+
+  "error_boundary_title": {
+    "message": "An error occurred",
+    "description": "Error boundary title"
+  },
+  "error_boundary_unknown": {
+    "message": "The application encountered an unknown error",
+    "description": "Unknown error message in error boundary"
+  },
+  "error_boundary_recover": {
+    "message": "Try to recover",
+    "description": "Button text to attempt recovery from error"
+  },
+
+  "hotkey_open_search": {
+    "message": "Open search",
+    "description": "Hotkey description for opening search"
+  },
+  "hotkey_open_all_bookmarks": {
+    "message": "Open all bookmarks",
+    "description": "Hotkey description for opening all bookmarks"
+  },
+  "hotkey_edit_bookmark": {
+    "message": "Edit bookmark",
+    "description": "Hotkey description for editing bookmark"
+  },
+  "hotkey_delete_bookmark": {
+    "message": "Delete bookmark",
+    "description": "Hotkey description for deleting bookmark"
   }
 }

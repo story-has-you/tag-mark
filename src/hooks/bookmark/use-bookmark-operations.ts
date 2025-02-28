@@ -1,3 +1,4 @@
+import { useTranslation } from "@/components/i18n-context"; // 添加导入
 import { useBookmark } from "@/hooks/bookmark/use-bookmark";
 import { useToast } from "@/hooks/use-toast";
 import TagBookmarkRelationService from "@/services/tag-bookmark-relation-service";
@@ -12,6 +13,7 @@ export const useBookmarkOperations = (
 ) => {
   const { deleteBookmark, updateBookmark } = useBookmark();
   const { toast } = useToast();
+  const { t, format } = useTranslation(); // 添加 useTranslation
 
   const deleteBookmarkTagRelations = useCallback(async (bookmarkId: string) => {
     try {
@@ -36,15 +38,15 @@ export const useBookmarkOperations = (
       updateLocalBookmark(updatedBookmark);
 
       toast({
-        title: "编辑成功",
-        description: `书签"${title}"已更新`
+        title: t("toast_edit_success"),
+        description: format("toast_edit_success_description", title)
       });
       onSuccess();
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "编辑失败",
-        description: "更新书签时发生错误"
+        title: t("toast_edit_failed"),
+        description: t("toast_edit_error_description")
       });
     } finally {
       onRestoreScroll();
@@ -62,15 +64,15 @@ export const useBookmarkOperations = (
       deleteLocalBookmark(bookmark.id);
 
       toast({
-        title: "删除成功",
-        description: "书签及其相关标签已被删除"
+        title: t("toast_delete_success"),
+        description: t("toast_delete_success_description")
       });
       onSuccess();
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "删除失败",
-        description: "删除书签时发生错误，请重试"
+        title: t("toast_delete_failed"),
+        description: t("toast_delete_error_description")
       });
     } finally {
       onRestoreScroll();

@@ -21,7 +21,7 @@ const BookmarkEditDialog: React.FC<EditBookmarkDialogProps> = ({ open, bookmark,
   const [urlError, setUrlError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // URL 验证
+  // 在组件内部的验证URL函数中
   const validateUrl = (value: string) => {
     if (!value) {
       setUrlError("");
@@ -29,7 +29,7 @@ const BookmarkEditDialog: React.FC<EditBookmarkDialogProps> = ({ open, bookmark,
     }
 
     if (!isValidUrl(value)) {
-      setUrlError("请输入有效的 URL (以 http:// 或 https:// 开头)");
+      setUrlError(t("bookmark_edit_dialog_url_error"));
     } else {
       setUrlError("");
     }
@@ -79,7 +79,7 @@ const BookmarkEditDialog: React.FC<EditBookmarkDialogProps> = ({ open, bookmark,
           <div className="grid gap-2">
             <Label htmlFor="title">{t("bookmark_edit_dialog_bookmark_title")}</Label>
             <Input id="title" value={title} onChange={(e) => setTitle(e.target.value)} className={!title.trim() ? "border-red-500" : ""} />
-            {!title.trim() && <p className="text-xs text-red-500">书签标题不能为空</p>}
+            {!title.trim() && <p className="text-xs text-red-500">{t("bookmark_edit_dialog_title_empty")}</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="url">{t("bookmark_edit_dialog_url")}</Label>
@@ -93,7 +93,7 @@ const BookmarkEditDialog: React.FC<EditBookmarkDialogProps> = ({ open, bookmark,
             {t("button_cancel")}
           </Button>
           <Button onClick={handleSubmit} disabled={!title.trim() || (url && !!urlError) || isSubmitting}>
-            {isSubmitting ? "保存中..." : t("button_save")}
+            {isSubmitting ? t("button_saving") : t("button_save")}
           </Button>
         </DialogFooter>
       </DialogContent>

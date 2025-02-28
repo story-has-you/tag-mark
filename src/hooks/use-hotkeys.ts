@@ -1,3 +1,4 @@
+import { useTranslation } from "@/components/i18n-context"; // 添加导入
 import { hotkeyEnabledAtom } from "@/store/settings";
 import { useAtom } from "jotai";
 import { useHotkeys } from "react-hotkeys-hook";
@@ -18,31 +19,32 @@ export type HotkeyConfig = {
 
 export const useKeyboardShortcut = ({ onSearch, onOpenAll, onEdit, onDelete }: KeyboardShortcutOptions) => {
   const [hotkeyEnabled, setHotkeyEnabled] = useAtom(hotkeyEnabledAtom);
+  const { t } = useTranslation(); // 添加useTranslation
 
   // 定义所有应用快捷键
   const hotkeys: HotkeyConfig[] = [
     {
       key: "mod+k",
       handler: onSearch,
-      description: "打开搜索",
+      description: t("hotkey_open_search"),
       group: "search"
     },
     {
       key: "mod+o",
       handler: onOpenAll,
-      description: "打开所有书签",
+      description: t("hotkey_open_all_bookmarks"),
       group: "bookmark"
     },
     {
       key: "mod+e",
       handler: onEdit,
-      description: "编辑书签",
+      description: t("hotkey_edit_bookmark"),
       group: "bookmark"
     },
     {
       key: "mod+delete",
       handler: onDelete,
-      description: "删除书签",
+      description: t("hotkey_delete_bookmark"),
       group: "bookmark"
     }
   ];
