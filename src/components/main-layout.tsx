@@ -6,15 +6,13 @@ import SearchCommand from "@/components/search-command";
 import SettingsPage from "@/components/settings/settings-page";
 import TagManager from "@/components/tag/tag-manager";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
-import { Switch } from "@/components/ui/switch";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Toaster } from "@/components/ui/toaster";
 import { useKeyboardShortcut } from "@/hooks/use-hotkeys";
 import { useTheme } from "@/hooks/use-theme";
-import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
-import { Bookmark, Keyboard, Moon, Search, Settings, Sun, Tags } from "lucide-react";
+import { Bookmark, Moon, Search, Settings, Sun, Tags } from "lucide-react";
 import React, { useState } from "react";
 
 const fadeIn = {
@@ -31,8 +29,9 @@ const fadeIn = {
 
 const MainLayout: React.FC = () => {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<"tags" | "bookmarks" | "settings">("tags");
+  const [activeTab, setActiveTab] = useState<"tags" | "bookmarks">("tags");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { hotkeyEnabled, setHotkeyEnabled } = useKeyboardShortcut({ onSearch: () => setSearchOpen(true) });
 
@@ -43,7 +42,7 @@ const MainLayout: React.FC = () => {
       <div className="relative">
         <div className="mx-auto max-w-[1600px] w-[95%] py-4">
           <div className="flex items-center justify-between">
-            <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "tags" | "bookmarks" | "settings")} className="w-full">
+            <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "tags" | "bookmarks")} className="w-full">
               <div className="flex items-center justify-between mb-6">
                 <TabsList className="bg-white/80 dark:bg-slate-800/80">
                   <TabsTrigger value="tags" className="gap-2 px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
@@ -53,10 +52,6 @@ const MainLayout: React.FC = () => {
                   <TabsTrigger value="bookmarks" className="gap-2 px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                     <Bookmark className="h-4 w-4" />
                     {t("main_layout_bookmark_management")}
-                  </TabsTrigger>
-                  <TabsTrigger value="settings" className="gap-2 px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                    <Settings className="h-4 w-4" />
-                    {t("main_layout_settings")}
                   </TabsTrigger>
                 </TabsList>
 
@@ -71,15 +66,18 @@ const MainLayout: React.FC = () => {
                   {/* 语言选择器 */}
                   <LanguageSelector />
 
-                  {/* 快捷键开关 */}
-                  <Button variant="outline" className="gap-2 bg-white/80 dark:bg-slate-800/80 border border-slate-200/50 dark:border-slate-700/50">
-                    <Keyboard className="h-4 w-4" />
-                    <Switch checked={hotkeyEnabled} onCheckedChange={setHotkeyEnabled} />
+                  {/* 主题切换按钮 */}
+                  <Button variant="outline" size="icon" onClick={toggleTheme} className="bg-white/80 dark:bg-slate-800/80 border-slate-200/50 dark:border-slate-700/50">
+                    {theme === "dark" ? <Sun className="h-4 w-4 text-yellow-500" /> : <Moon className="h-4 w-4 text-slate-700" />}
                   </Button>
 
-                  {/* 主题切换按钮 */}
-                  <Button variant="outline" size="icon" onClick={toggleTheme} className="bg-white/80 dark:bg-slate-800/80">
-                    {theme === "dark" ? <Sun className="h-4 w-4 text-yellow-500" /> : <Moon className="h-4 w-4 text-slate-700" />}
+                  {/* 设置按钮 */}
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => setSettingsOpen(true)}
+                    className="bg-white/80 dark:bg-slate-800/80 border-slate-200/50 dark:border-slate-700/50">
+                    <Settings className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
@@ -87,11 +85,14 @@ const MainLayout: React.FC = () => {
               {/* 搜索弹窗 */}
               <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
                 <DialogContent className="p-4 gap-0 max-w-4xl w-[90vw]">
-                  <DialogHeader>
-                    <DialogTitle className="text-lg">{t("search_command_title")}</DialogTitle>
-                    <DialogDescription className="text-sm text-muted-foreground">{t("search_command_help")}</DialogDescription>
-                  </DialogHeader>
                   <SearchCommand onClose={() => setSearchOpen(false)} onSelectTab={setActiveTab} />
+                </DialogContent>
+              </Dialog>
+
+              {/* 设置弹窗 */}
+              <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
+                <DialogContent className="p-0 max-w-4xl w-[90vw] max-h-[85vh] overflow-hidden">
+                  <SettingsPage onClose={() => setSettingsOpen(false)} />
                 </DialogContent>
               </Dialog>
 
@@ -109,10 +110,6 @@ const MainLayout: React.FC = () => {
 
                       <TabsContent value="tags" className="h-full m-0 p-0">
                         <TagManager />
-                      </TabsContent>
-
-                      <TabsContent value="settings" className="h-full m-0 p-0">
-                        <SettingsPage />
                       </TabsContent>
                     </div>
                   </div>
