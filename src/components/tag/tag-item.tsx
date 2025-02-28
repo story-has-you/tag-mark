@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { sanitizeInput } from "@/lib/security-utils";
 import type { Tag } from "@/types/tag";
 import React from "react";
 
@@ -14,7 +15,7 @@ const TagItem: React.FC<TagItemProps> = ({ tag, onSelect }) => {
       <CardContent className="p-3">
         <div className="flex items-center gap-3">
           <div className="flex flex-col min-w-0">
-            <span className="text-sm font-medium truncate">#{tag.name}</span>
+            <span className="text-sm font-medium truncate">#{sanitizeInput(tag.name)}</span>
             {tag.fullPath && <span className="text-xs text-muted-foreground truncate">{tag.fullPath}</span>}
           </div>
         </div>

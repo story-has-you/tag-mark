@@ -1,3 +1,4 @@
+import { safeGetFromStorage } from "@/lib/storage-utils";
 import type { CreateTagParams, Tag, UpdateTagParams } from "@/types/tag";
 
 const STORAGE_KEY = "tags";
@@ -19,7 +20,7 @@ class TagService {
   }
 
   /**
-   * 获取所有标签 - 增加缓存机制
+   * 获取所有标签 - 增加缓存机制和安全处理
    */
   public async getAllTags(): Promise<Tag[]> {
     const currentTime = Date.now();
@@ -30,14 +31,17 @@ class TagService {
     }
 
     try {
-      const result = await chrome.storage.local.get(STORAGE_KEY);
-      const tags = result[STORAGE_KEY] || [];
+      // 使用安全的存储访问函数
+      const tags = await safeGetFromStorage<Tag[]>(STORAGE_KEY, []);
+
+      // 数据验证：确保返回的是有效的标签数组
+      const validTags = Array.isArray(tags) ? tags.filter((tag) => tag && typeof tag === "object" && typeof tag.id === "string" && typeof tag.name === "string") : [];
 
       // 更新缓存
-      this.tagsCache = tags;
+      this.tagsCache = validTags;
       this.lastCacheTime = currentTime;
 
-      return [...tags]; // 返回副本
+      return [...validTags]; // 返回副本
     } catch (error) {
       console.error("获取标签失败:", error);
       // 如果出错但有缓存，尝试返回过期缓存
