@@ -65,6 +65,7 @@ export const useKeyboardShortcut = ({ onSearch, onOpenAll, onEdit, onDelete }: K
   // 返回快捷键状态和快捷键列表(方便显示快捷键提示)
   return {
     hotkeyEnabled,
-    setHotkeyEnabled
+    setHotkeyEnabled,
+    hotkeys
   };
 };

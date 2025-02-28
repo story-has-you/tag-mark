@@ -327,5 +327,113 @@
   "toast_delete_failed": {
     "message": "Failed to delete",
     "description": "Toast title for delete failed"
+  },
+  "main_layout_settings": {
+    "message": "Settings",
+    "description": "Tab label for settings"
+  },
+
+  "settings_title": {
+    "message": "Settings",
+    "description": "Settings page title"
+  },
+  "settings_description": {
+    "message": "Configure your Tag Mark extension preferences",
+    "description": "Settings page description"
+  },
+
+  "settings_keyboard_shortcuts": {
+    "message": "Keyboard Shortcuts",
+    "description": "Keyboard shortcuts section title"
+  },
+  "settings_keyboard_shortcuts_description": {
+    "message": "Configure keyboard shortcuts for quick access to features",
+    "description": "Keyboard shortcuts section description"
+  },
+  "settings_enable_shortcuts": {
+    "message": "Enable keyboard shortcuts",
+    "description": "Enable shortcuts toggle label"
+  },
+  "settings_enable_shortcuts_description": {
+    "message": "Toggle keyboard shortcuts throughout the extension",
+    "description": "Enable shortcuts toggle description"
+  },
+  "settings_no_hotkeys": {
+    "message": "No keyboard shortcuts configured",
+    "description": "Message when no hotkeys are available"
+  },
+  "settings_hotkeys_search": {
+    "message": "Search",
+    "description": "Search hotkeys group title"
+  },
+  "settings_hotkeys_bookmark": {
+    "message": "Bookmark Management",
+    "description": "Bookmark hotkeys group title"
+  },
+
+  "settings_data_management": {
+    "message": "Data Management",
+    "description": "Data management section title"
+  },
+  "settings_data_management_description": {
+    "message": "Backup and restore your tags and bookmark data",
+    "description": "Data management section description"
+  },
+  "settings_export_data": {
+    "message": "Export Data",
+    "description": "Export data title"
+  },
+  "settings_export_data_description": {
+    "message": "Export all your tags and associated bookmarks as a JSON file",
+    "description": "Export data description"
+  },
+  "settings_export_button": {
+    "message": "Export to File",
+    "description": "Export button text"
+  },
+  "settings_import_data": {
+    "message": "Import Data",
+    "description": "Import data title"
+  },
+  "settings_import_data_description": {
+    "message": "Import tags and bookmark associations from a previously exported file",
+    "description": "Import data description"
+  },
+  "settings_import_button": {
+    "message": "Import from File",
+    "description": "Import button text"
+  },
+
+  "settings_export_success_title": {
+    "message": "Export Successful",
+    "description": "Export success toast title"
+  },
+  "settings_export_success_description": {
+    "message": "Your data has been exported successfully",
+    "description": "Export success toast description"
+  },
+  "settings_export_error_title": {
+    "message": "Export Failed",
+    "description": "Export error toast title"
+  },
+  "settings_export_error_description": {
+    "message": "There was a problem exporting your data",
+    "description": "Export error toast description"
+  },
+  "settings_import_success_title": {
+    "message": "Import Successful",
+    "description": "Import success toast title"
+  },
+  "settings_import_success_description": {
+    "message": "Your data has been imported successfully",
+    "description": "Import success toast description"
+  },
+  "settings_import_error_title": {
+    "message": "Import Failed",
+    "description": "Import error toast title"
+  },
+  "settings_import_error_description": {
+    "message": "There was a problem importing your data. Make sure the file is a valid Tag Mark backup.",
+    "description": "Import error toast description"
   }
 }

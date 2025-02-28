@@ -3,6 +3,7 @@ import { useTranslation } from "@/components/i18n-context";
 import KeyboardShortcut from "@/components/keyboard-shortcut";
 import LanguageSelector from "@/components/language-selector";
 import SearchCommand from "@/components/search-command";
+import SettingsPage from "@/components/settings/settings-page";
 import TagManager from "@/components/tag/tag-manager";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
@@ -13,7 +14,7 @@ import { useKeyboardShortcut } from "@/hooks/use-hotkeys";
 import { useTheme } from "@/hooks/use-theme";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
-import { Bookmark, Keyboard, Moon, Search, Sun, Tags } from "lucide-react";
+import { Bookmark, Keyboard, Moon, Search, Settings, Sun, Tags } from "lucide-react";
 import React, { useState } from "react";
 
 const fadeIn = {
@@ -30,7 +31,7 @@ const fadeIn = {
 
 const MainLayout: React.FC = () => {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<"tags" | "bookmarks">("tags");
+  const [activeTab, setActiveTab] = useState<"tags" | "bookmarks" | "settings">("tags");
   const [searchOpen, setSearchOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { hotkeyEnabled, setHotkeyEnabled } = useKeyboardShortcut({ onSearch: () => setSearchOpen(true) });
@@ -42,7 +43,7 @@ const MainLayout: React.FC = () => {
       <div className="relative">
         <div className="mx-auto max-w-[1600px] w-[95%] py-4">
           <div className="flex items-center justify-between">
-            <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "tags" | "bookmarks")} className="w-full">
+            <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "tags" | "bookmarks" | "settings")} className="w-full">
               <div className="flex items-center justify-between mb-6">
                 <TabsList className="bg-white/80 dark:bg-slate-800/80">
                   <TabsTrigger value="tags" className="gap-2 px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
@@ -52,6 +53,10 @@ const MainLayout: React.FC = () => {
                   <TabsTrigger value="bookmarks" className="gap-2 px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                     <Bookmark className="h-4 w-4" />
                     {t("main_layout_bookmark_management")}
+                  </TabsTrigger>
+                  <TabsTrigger value="settings" className="gap-2 px-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                    <Settings className="h-4 w-4" />
+                    {t("main_layout_settings")}
                   </TabsTrigger>
                 </TabsList>
 
@@ -63,6 +68,9 @@ const MainLayout: React.FC = () => {
                     <KeyboardShortcut command keys={["K"]} />
                   </Button>
 
+                  {/* 语言选择器 */}
+                  <LanguageSelector />
+
                   {/* 快捷键开关 */}
                   <Button variant="outline" className="gap-2 bg-white/80 dark:bg-slate-800/80 border border-slate-200/50 dark:border-slate-700/50">
                     <Keyboard className="h-4 w-4" />
@@ -73,9 +81,6 @@ const MainLayout: React.FC = () => {
                   <Button variant="outline" size="icon" onClick={toggleTheme} className="bg-white/80 dark:bg-slate-800/80">
                     {theme === "dark" ? <Sun className="h-4 w-4 text-yellow-500" /> : <Moon className="h-4 w-4 text-slate-700" />}
                   </Button>
-
-                  {/* 语言选择器 */}
-                  <LanguageSelector />
                 </div>
               </div>
 
@@ -97,13 +102,17 @@ const MainLayout: React.FC = () => {
                     <div className="absolute inset-0 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-2xl" />
 
                     {/* 内容层 */}
-                    <div className="relative h-full p-6">
-                      <TabsContent value="bookmarks" className="h-full m-0">
+                    <div className="relative h-full">
+                      <TabsContent value="bookmarks" className="h-full m-0 p-0">
                         <BookmarkManager />
                       </TabsContent>
 
-                      <TabsContent value="tags" className="h-full m-0">
+                      <TabsContent value="tags" className="h-full m-0 p-0">
                         <TagManager />
+                      </TabsContent>
+
+                      <TabsContent value="settings" className="h-full m-0 p-0">
+                        <SettingsPage />
                       </TabsContent>
                     </div>
                   </div>

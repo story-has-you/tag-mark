@@ -327,5 +327,113 @@
   "toast_delete_failed": {
     "message": "删除失败",
     "description": "Toast title for delete failed"
+  },
+  "main_layout_settings": {
+    "message": "设置",
+    "description": "Tab label for settings"
+  },
+
+  "settings_title": {
+    "message": "设置",
+    "description": "Settings page title"
+  },
+  "settings_description": {
+    "message": "配置您的标签管理器扩展偏好",
+    "description": "Settings page description"
+  },
+
+  "settings_keyboard_shortcuts": {
+    "message": "键盘快捷键",
+    "description": "Keyboard shortcuts section title"
+  },
+  "settings_keyboard_shortcuts_description": {
+    "message": "配置键盘快捷键以快速访问各种功能",
+    "description": "Keyboard shortcuts section description"
+  },
+  "settings_enable_shortcuts": {
+    "message": "启用键盘快捷键",
+    "description": "Enable shortcuts toggle label"
+  },
+  "settings_enable_shortcuts_description": {
+    "message": "在扩展中启用或禁用所有键盘快捷键",
+    "description": "Enable shortcuts toggle description"
+  },
+  "settings_no_hotkeys": {
+    "message": "没有配置键盘快捷键",
+    "description": "Message when no hotkeys are available"
+  },
+  "settings_hotkeys_search": {
+    "message": "搜索",
+    "description": "Search hotkeys group title"
+  },
+  "settings_hotkeys_bookmark": {
+    "message": "书签管理",
+    "description": "Bookmark hotkeys group title"
+  },
+
+  "settings_data_management": {
+    "message": "数据管理",
+    "description": "Data management section title"
+  },
+  "settings_data_management_description": {
+    "message": "备份和恢复您的标签和书签数据",
+    "description": "Data management section description"
+  },
+  "settings_export_data": {
+    "message": "导出数据",
+    "description": "Export data title"
+  },
+  "settings_export_data_description": {
+    "message": "将所有标签和关联的书签导出为 JSON 文件",
+    "description": "Export data description"
+  },
+  "settings_export_button": {
+    "message": "导出到文件",
+    "description": "Export button text"
+  },
+  "settings_import_data": {
+    "message": "导入数据",
+    "description": "Import data title"
+  },
+  "settings_import_data_description": {
+    "message": "从之前导出的文件中导入标签和书签关联",
+    "description": "Import data description"
+  },
+  "settings_import_button": {
+    "message": "从文件导入",
+    "description": "Import button text"
+  },
+
+  "settings_export_success_title": {
+    "message": "导出成功",
+    "description": "Export success toast title"
+  },
+  "settings_export_success_description": {
+    "message": "您的数据已成功导出",
+    "description": "Export success toast description"
+  },
+  "settings_export_error_title": {
+    "message": "导出失败",
+    "description": "Export error toast title"
+  },
+  "settings_export_error_description": {
+    "message": "导出数据时出现问题",
+    "description": "Export error toast description"
+  },
+  "settings_import_success_title": {
+    "message": "导入成功",
+    "description": "Import success toast title"
+  },
+  "settings_import_success_description": {
+    "message": "您的数据已成功导入",
+    "description": "Import success toast description"
+  },
+  "settings_import_error_title": {
+    "message": "导入失败",
+    "description": "Import error toast title"
+  },
+  "settings_import_error_description": {
+    "message": "导入数据时出现问题。请确保文件是有效的标签管理器备份。",
+    "description": "Import error toast description"
   }
 }
