@@ -8,7 +8,7 @@ import { useTagSuggestions } from "@/hooks/tag/use-tag-suggestions";
 import { cn } from "@/lib/utils";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { Tag } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 interface BookmarkAddTagDialogProps {
   open: boolean;
@@ -20,12 +20,10 @@ const BookmarkAddTagDialog: React.FC<BookmarkAddTagDialogProps> = ({ open, bookm
   const { t, format } = useTranslation();
   const { tags, loading, input, setInput, handleAddTag, handleDeleteTag, allTags } = useBookmarkTagManagement(bookmark);
   const suggestions = useTagSuggestions(allTags, input);
-  const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
     if (!open) {
       setInput("");
-      setShowSuggestions(false);
     }
   }, [open, setInput]);
 

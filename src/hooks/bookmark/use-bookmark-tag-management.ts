@@ -23,8 +23,26 @@ export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
     try {
       const tags = await TagBookmarkRelationService.getInstance().getTagsByBookmarkId(bookmark.id);
       const allTags = await TagService.getInstance().getAllTags();
-      tags.forEach((tag) => (tag.fullPath = TagName.buildFullPathWithAllTags(tag, allTags)));
-      allTags.forEach((tag) => (tag.fullPath = TagName.buildFullPathWithAllTags(tag, allTags)));
+
+      // 安全地设置 fullPath
+      tags.forEach((tag) => {
+        try {
+          tag.fullPath = TagName.buildFullPathWithAllTags(tag, allTags);
+        } catch (error) {
+          console.error(`构建标签 ${tag.name} 的路径失败:`, error);
+          tag.fullPath = `#${tag.name} (路径错误)`;
+        }
+      });
+
+      allTags.forEach((tag) => {
+        try {
+          tag.fullPath = TagName.buildFullPathWithAllTags(tag, allTags);
+        } catch (error) {
+          console.error(`构建标签 ${tag.name} 的路径失败:`, error);
+          tag.fullPath = `#${tag.name} (路径错误)`;
+        }
+      });
+
       setBookmarkTags((prev) => ({
         ...prev,
         [bookmark.id]: tags

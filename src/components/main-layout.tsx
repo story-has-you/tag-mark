@@ -1,3 +1,4 @@
+import ErrorBoundary from "@/components/error-boundary";
 import { useTranslation } from "@/components/i18n-context";
 import KeyboardShortcut from "@/components/keyboard-shortcut";
 import LanguageSelector from "@/components/language-selector";
@@ -111,15 +112,19 @@ const MainLayout: React.FC = () => {
                     {/* 内容层 */}
                     <div className="relative h-full p-6">
                       <TabsContent value="bookmarks" className="h-full m-0">
-                        <Suspense fallback={<LoadingFallback />}>
-                          <BookmarkManager />
-                        </Suspense>
+                        <ErrorBoundary>
+                          <Suspense fallback={<LoadingFallback />}>
+                            <BookmarkManager />
+                          </Suspense>
+                        </ErrorBoundary>
                       </TabsContent>
 
                       <TabsContent value="tags" className="h-full m-0">
-                        <Suspense fallback={<LoadingFallback />}>
-                          <TagManager />
-                        </Suspense>
+                        <ErrorBoundary>
+                          <Suspense fallback={<LoadingFallback />}>
+                            <TagManager />
+                          </Suspense>
+                        </ErrorBoundary>
                       </TabsContent>
                     </div>
                   </div>

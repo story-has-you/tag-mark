@@ -18,22 +18,35 @@ export const useTagManagement = () => {
   const relationService = TagBookmarkRelationService.getInstance();
   const bookmarkService = BookmarkService.getInstance();
 
-  // 加载所有标签
+  // 修改 loadTags 函数中的标签路径构建
   const loadTags = useCallback(async () => {
     try {
       setLoading(true);
       const allTags = await tagService.getAllTags();
-      // 构建完整路径
-      const tagsWithPath = allTags.map((tag) => ({
-        ...tag,
-        fullPath: TagName.buildFullPathWithAllTags(tag, allTags)
-      }));
+
+      // 构建完整路径，添加安全处理
+      const tagsWithPath = allTags.map((tag) => {
+        try {
+          return {
+            ...tag,
+            fullPath: TagName.buildFullPathWithAllTags(tag, allTags)
+          };
+        } catch (error) {
+          // 如果单个标签路径构建失败，记录错误但不中断整个处理
+          console.error(`构建标签 ${tag.name} 的路径失败:`, error);
+          return {
+            ...tag,
+            fullPath: `#${tag.name} (路径错误)`
+          };
+        }
+      });
+
       setTags(tagsWithPath);
       setError(null);
-      return allTags; // 返回获取的标签数据
+      return allTags;
     } catch (err) {
       setError(err instanceof Error ? err : new Error("Failed to load tags"));
-      return []; // 出错时返回空数组
+      return [];
     } finally {
       setLoading(false);
     }
@@ -51,14 +64,14 @@ export const useTagManagement = () => {
     params.name = params.name.replace(/^#/, "");
     const updatedTag = await tagService.updateTag(id, params);
     const allTags = await loadTags(); // 重新加载并返回获取的标签
-  
+
     // 使用loadTags获取的数据计算fullPath
     return {
       ...updatedTag,
       fullPath: TagName.buildFullPathWithAllTags(updatedTag, allTags)
     };
-  }
-  
+  };
+
   // 删除标签
   const deleteTag = async (id: string, deleteWithBookmarks: boolean): Promise<void> => {
     try {
@@ -68,7 +81,7 @@ export const useTagManagement = () => {
         if (!bookmarks) {
           return;
         }
-  
+
         // 并行删除所有关联的书签
         await Promise.all(
           bookmarks.map(async (bookmark) => {
@@ -81,7 +94,7 @@ export const useTagManagement = () => {
           })
         );
       }
-  
+
       // 删除关联关系和标签
       await relationService.deleteRelationsByTagId(id);
       // 传递参数，以确定是否级联删除子标签

@@ -84,23 +84,53 @@ class TagName {
 
   public static buildFullPathWithAllTags(tag: Tag, allTags: Tag[]): string {
     const visited = new Set<string>();
-    const paths: string[] = [];
+    const path: Tag[] = []; // 记录完整路径以便于提供更好的错误信息
     let currentTag: Tag | undefined = tag;
-    while (currentTag) {
-      // 检测循环引用
-      if (visited.has(currentTag.id)) {
-        throw new Error(`检测到标签循环引用: ${currentTag.name}`);
+
+    try {
+      while (currentTag) {
+        // 检测循环引用
+        if (visited.has(currentTag.id)) {
+          // 构建循环引用的路径信息，使错误信息更有用
+          const cycleStart = path.findIndex((t) => t.id === currentTag!.id);
+          const cyclePath =
+            path
+              .slice(cycleStart)
+              .map((t) => t.name)
+              .join(" → ") +
+            " → " +
+            currentTag.name;
+          throw new Error(`检测到标签循环引用: ${cyclePath}`);
+        }
+
+        // 记录已访问的标签
+        visited.add(currentTag.id);
+        path.push(currentTag);
+
+        // 查找父标签
+        currentTag = currentTag.parentId ? allTags.find((t) => t.id === currentTag?.parentId) : undefined;
       }
 
-      // 记录已访问的标签
-      visited.add(currentTag.id);
-      paths.unshift(currentTag.name);
+      // 构建完整路径
+      return (
+        "#" +
+        path
+          .map((t) => t.name)
+          .reverse()
+          .join("/")
+      );
+    } catch (error) {
+      // 发生循环引用或其他错误时，返回一个安全的替代值
+      console.error("构建标签路径时出错:", error);
 
-      // 查找父标签
-      currentTag = currentTag.parentId ? allTags.find((t) => t.id === currentTag?.parentId) : undefined;
+      // 如果是循环引用错误，返回一个包含警告的路径
+      if (error instanceof Error && error.message.includes("循环引用")) {
+        return "#" + tag.name + " (路径错误)";
+      }
+
+      // 对于其他错误，返回简单的标签名
+      return "#" + tag.name;
     }
-
-    return "#" + paths.join("/");
   }
 }
 
