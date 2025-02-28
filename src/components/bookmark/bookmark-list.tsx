@@ -9,7 +9,7 @@ import { useBookmarkList } from "@/hooks/bookmark/use-bookmark-list";
 import { useBookmarkOperations } from "@/hooks/bookmark/use-bookmark-operations";
 import { useScrollPosition } from "@/hooks/bookmark/use-scroll-position";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const BookmarkList: React.FC = () => {
   const { t } = useTranslation();
@@ -20,10 +20,23 @@ const BookmarkList: React.FC = () => {
 
   const { handleEdit, handleDelete } = useBookmarkOperations(updateLocalBookmark, deleteLocalBookmark, saveScrollPosition, restoreScrollPosition);
 
+  // 添加参考元素引用及高度状态
+  const [rowHeight, setRowHeight] = useState(72); // 默认高度
+  const measureRef = useRef<HTMLDivElement>(null);
+  // 动态测量行高
+  useEffect(() => {
+    if (measureRef.current && bookmarks.length > 0) {
+      const height = measureRef.current.getBoundingClientRect().height;
+      if (height > 0 && height !== rowHeight) {
+        setRowHeight(height);
+      }
+    }
+  }, [bookmarks]);
+
   const rowVirtualizer = useVirtualizer({
     count: bookmarks.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 72,
+    estimateSize: () => rowHeight, // 使用测量的高度
     overscan: 5
   });
 
@@ -37,10 +50,16 @@ const BookmarkList: React.FC = () => {
         <h2 className="text-lg font-semibold mb-4">{selectedNode.title}</h2>
         {bookmarks.length === 0 ? (
           <Alert>
-            <AlertDescription>{t("bookmark_list_no_bookmarks")}</AlertDescription>
+            <AlertDescription>该文件夹下没有书签</AlertDescription>
           </Alert>
         ) : (
           <div ref={parentRef} className="h-[calc(100vh-8rem)] overflow-auto" style={{ contain: "strict" }}>
+            {/* 添加测量元素，使用第一个书签进行测量 */}
+            {bookmarks.length > 0 && (
+              <div ref={measureRef} className="absolute opacity-0 pointer-events-none" aria-hidden="true">
+                <BookmarkItem key={`measure-${bookmarks[0].id}`} bookmark={bookmarks[0]} onEdit={editDialog.openDialog} onDelete={deleteDialog.openDialog} />
+              </div>
+            )}
             <div
               style={{
                 height: `${rowVirtualizer.getTotalSize()}px`,

@@ -4,6 +4,10 @@ const STORAGE_KEY = "tags";
 
 class TagService {
   private static instance: TagService;
+  // 添加缓存属性
+  private tagsCache: Tag[] | null = null;
+  private lastCacheTime: number = 0;
+  private cacheExpiration: number = 5000; // 缓存有效期(毫秒)
 
   private constructor() {}
 
@@ -15,16 +19,40 @@ class TagService {
   }
 
   /**
-   * 获取所有标签
+   * 获取所有标签 - 增加缓存机制
    */
   public async getAllTags(): Promise<Tag[]> {
+    const currentTime = Date.now();
+
+    // 如果缓存有效，直接返回缓存结果
+    if (this.tagsCache && currentTime - this.lastCacheTime < this.cacheExpiration) {
+      return [...this.tagsCache]; // 返回副本以避免外部修改影响缓存
+    }
+
     try {
       const result = await chrome.storage.local.get(STORAGE_KEY);
-      return result[STORAGE_KEY] || [];
+      const tags = result[STORAGE_KEY] || [];
+
+      // 更新缓存
+      this.tagsCache = tags;
+      this.lastCacheTime = currentTime;
+
+      return [...tags]; // 返回副本
     } catch (error) {
       console.error("获取标签失败:", error);
+      // 如果出错但有缓存，尝试返回过期缓存
+      if (this.tagsCache) {
+        return [...this.tagsCache];
+      }
       throw new Error("Failed to fetch tags");
     }
+  }
+
+  /**
+   * 清除缓存
+   */
+  private clearCache(): void {
+    this.tagsCache = null;
   }
 
   /**
@@ -58,7 +86,7 @@ class TagService {
 
       tags.push(newTag);
       await chrome.storage.local.set({ [STORAGE_KEY]: tags });
-
+      this.clearCache(); // 清除缓存
       return newTag;
     } catch (error) {
       console.error("创建标签失败:", error);
@@ -86,7 +114,7 @@ class TagService {
 
       tags[index] = updatedTag;
       await chrome.storage.local.set({ [STORAGE_KEY]: tags });
-
+      this.clearCache(); // 清除缓存
       return updatedTag;
     } catch (error) {
       console.error("更新标签失败:", error);
@@ -148,7 +176,7 @@ class TagService {
         // 从数组中移除要删除的标签
         updatedTags.splice(deleteIndex, 1);
       }
-
+      this.clearCache(); // 清除缓存
       // 保存更新后的标签数组
       await chrome.storage.local.set({ [STORAGE_KEY]: updatedTags });
     } catch (error) {
@@ -165,6 +193,7 @@ class TagService {
       const tags = await this.getAllTags();
       const filteredTags = tags.filter((tag) => !ids.includes(tag.id));
       await chrome.storage.local.set({ [STORAGE_KEY]: filteredTags });
+      this.clearCache(); // 清除缓存
     } catch (error) {
       console.error("批量删除标签失败:", error);
       throw new Error("Failed to delete tags");

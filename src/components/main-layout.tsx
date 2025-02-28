@@ -1,19 +1,16 @@
-import BookmarkManager from "@/components/bookmark/bookmark-manager";
 import { useTranslation } from "@/components/i18n-context";
 import KeyboardShortcut from "@/components/keyboard-shortcut";
 import LanguageSelector from "@/components/language-selector";
 import SearchCommand from "@/components/search-command";
 import SettingsPage from "@/components/settings/settings-page";
-import TagManager from "@/components/tag/tag-manager";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Toaster } from "@/components/ui/toaster";
-import { useKeyboardShortcut } from "@/hooks/use-hotkeys";
 import { useTheme } from "@/hooks/use-theme";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bookmark, Moon, Search, Settings, Sun, Tags } from "lucide-react";
-import React, { useState } from "react";
+import React, { lazy, Suspense, useState } from "react";
 
 const fadeIn = {
   initial: { opacity: 0 },
@@ -27,14 +24,23 @@ const fadeIn = {
   }
 };
 
+// 懒加载标签管理器和书签管理器
+const BookmarkManager = lazy(() => import("@/components/bookmark/bookmark-manager"));
+const TagManager = lazy(() => import("@/components/tag/tag-manager"));
+
 const MainLayout: React.FC = () => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<"tags" | "bookmarks">("tags");
   const [searchOpen, setSearchOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  const { hotkeyEnabled, setHotkeyEnabled } = useKeyboardShortcut({ onSearch: () => setSearchOpen(true) });
 
+  // 添加通用加载组件
+  const LoadingFallback = () => (
+    <div className="flex items-center justify-center h-full w-full">
+      <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
+    </div>
+  );
   return (
     <div className="min-h-screen relative main-layout-bg">
       <Toaster />
@@ -103,13 +109,17 @@ const MainLayout: React.FC = () => {
                     <div className="absolute inset-0 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-2xl" />
 
                     {/* 内容层 */}
-                    <div className="relative h-full">
-                      <TabsContent value="bookmarks" className="h-full m-0 p-0">
-                        <BookmarkManager />
+                    <div className="relative h-full p-6">
+                      <TabsContent value="bookmarks" className="h-full m-0">
+                        <Suspense fallback={<LoadingFallback />}>
+                          <BookmarkManager />
+                        </Suspense>
                       </TabsContent>
 
-                      <TabsContent value="tags" className="h-full m-0 p-0">
-                        <TagManager />
+                      <TabsContent value="tags" className="h-full m-0">
+                        <Suspense fallback={<LoadingFallback />}>
+                          <TagManager />
+                        </Suspense>
                       </TabsContent>
                     </div>
                   </div>

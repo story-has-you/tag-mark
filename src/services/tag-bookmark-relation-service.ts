@@ -10,6 +10,10 @@ class TagBookmarkRelationService {
   private static instance: TagBookmarkRelationService;
   private tagService: TagService;
   private bookmarkService: BookmarkService;
+  // 添加缓存属性
+  private relationsCache: TagBookmarkRelation[] | null = null;
+  private lastCacheTime: number = 0;
+  private cacheExpiration: number = 5000; // 缓存有效期(毫秒)
 
   private constructor() {
     this.tagService = TagService.getInstance();
@@ -24,16 +28,40 @@ class TagBookmarkRelationService {
   }
 
   /**
-   * 获取所有关联关系
+   * 获取所有关联关系 - 增加缓存机制
    */
   public async getAllRelations(): Promise<TagBookmarkRelation[]> {
+    const currentTime = Date.now();
+
+    // 如果缓存有效，直接返回缓存结果
+    if (this.relationsCache && currentTime - this.lastCacheTime < this.cacheExpiration) {
+      return this.relationsCache;
+    }
+
     try {
       const result = await chrome.storage.local.get(STORAGE_KEY);
-      return result[STORAGE_KEY] || [];
+      const relations = result[STORAGE_KEY] || [];
+
+      // 更新缓存
+      this.relationsCache = relations;
+      this.lastCacheTime = currentTime;
+
+      return relations;
     } catch (error) {
       console.error("获取关联关系失败:", error);
+      // 如果出错但有缓存，尝试返回过期缓存
+      if (this.relationsCache) {
+        return this.relationsCache;
+      }
       throw new Error("Failed to fetch relations");
     }
+  }
+
+  /**
+   * 清除缓存
+   */
+  private clearCache(): void {
+    this.relationsCache = null;
   }
 
   /**
@@ -59,6 +87,9 @@ class TagBookmarkRelationService {
       relations.push(newRelation);
       await chrome.storage.local.set({ [STORAGE_KEY]: relations });
 
+      // 清除缓存以保持一致性
+      this.clearCache();
+
       return newRelation;
     } catch (error) {
       console.error("创建关联关系失败:", error);
@@ -74,6 +105,7 @@ class TagBookmarkRelationService {
       const relations = await this.getAllRelations();
       const filteredRelations = relations.filter((relation) => !(relation.tagId === tagId && relation.bookmarkId === bookmarkId));
       await chrome.storage.local.set({ [STORAGE_KEY]: filteredRelations });
+      this.clearCache(); // 清除缓存
     } catch (error) {
       console.error("删除关联关系失败:", error);
       throw new Error("Failed to delete relation");
@@ -88,6 +120,8 @@ class TagBookmarkRelationService {
       const relations = await this.getAllRelations();
       const filteredRelations = relations.filter((relation) => relation.tagId !== tagId);
       await chrome.storage.local.set({ [STORAGE_KEY]: filteredRelations });
+      // 清除缓存以保持一致性
+      this.clearCache();
     } catch (error) {
       console.error("删除标签关联关系失败:", error);
       throw new Error("Failed to delete relations by tag");
@@ -102,6 +136,8 @@ class TagBookmarkRelationService {
       const relations = await this.getAllRelations();
       const filteredRelations = relations.filter((relation) => relation.bookmarkId !== bookmarkId);
       await chrome.storage.local.set({ [STORAGE_KEY]: filteredRelations });
+      // 清除缓存以保持一致性
+      this.clearCache();
     } catch (error) {
       console.error("删除书签关联关系失败:", error);
       throw new Error("Failed to delete relations by bookmark");
@@ -109,13 +145,19 @@ class TagBookmarkRelationService {
   }
 
   /**
-   * 获取书签的所有标签
+   * 优化获取书签的所有标签的方法
    */
   public async getTagsByBookmarkId(bookmarkId: string): Promise<Tag[]> {
     try {
+      // 先获取与该书签相关的所有标签ID
       const relations = await this.getAllRelations();
       const tagIds = relations.filter((relation) => relation.bookmarkId === bookmarkId).map((relation) => relation.tagId);
 
+      if (tagIds.length === 0) {
+        return []; // 如果没有标签，直接返回空数组，避免获取所有标签
+      }
+
+      // 获取所有标签，但只保留与书签相关的标签
       const allTags = await this.tagService.getAllTags();
       return allTags.filter((tag) => tagIds.includes(tag.id));
     } catch (error) {
@@ -125,15 +167,20 @@ class TagBookmarkRelationService {
   }
 
   /**
-   * 获取标签关联的所有书签
+   * 优化获取标签关联的所有书签的方法
    */
   public async getBookmarksByTagId(tagId: string): Promise<BookmarkTreeNode[]> {
     try {
+      // 先获取与该标签相关的所有书签ID
       const relations = await this.getAllRelations();
       const bookmarkIds = relations.filter((relation) => relation.tagId === tagId).map((relation) => relation.bookmarkId);
 
-      const promises = bookmarkIds.map((id) => this.bookmarkService.getBookmarkById(id));
-      const bookmarks = await Promise.all(promises);
+      if (bookmarkIds.length === 0) {
+        return []; // 如果没有书签，直接返回空数组
+      }
+
+      // 优化：使用Promise.all并行获取各书签详情
+      const bookmarks = await Promise.all(bookmarkIds.map((id) => this.bookmarkService.getBookmarkById(id)));
 
       return bookmarks.filter((bookmark): bookmark is BookmarkTreeNode => bookmark !== null);
     } catch (error) {
@@ -163,6 +210,8 @@ class TagBookmarkRelationService {
       // 合并并保存关联关系
       const updatedRelations = [...otherRelations, ...newRelations];
       await chrome.storage.local.set({ [STORAGE_KEY]: updatedRelations });
+      // 清除缓存以保持一致性
+      this.clearCache();
     } catch (error) {
       console.error("更新书签标签失败:", error);
       throw new Error("Failed to update bookmark tags");
