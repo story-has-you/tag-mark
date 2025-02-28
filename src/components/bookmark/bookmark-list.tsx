@@ -9,6 +9,7 @@ import { useBookmarkList } from "@/hooks/bookmark/use-bookmark-list";
 import { useBookmarkOperations } from "@/hooks/bookmark/use-bookmark-operations";
 import { useScrollPosition } from "@/hooks/bookmark/use-scroll-position";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
 const BookmarkList: React.FC = () => {
@@ -66,24 +67,38 @@ const BookmarkList: React.FC = () => {
                 width: "100%",
                 position: "relative"
               }}>
-              {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-                const bookmark = bookmarks[virtualRow.index];
-                return (
-                  <div
-                    key={bookmark.id}
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: `${virtualRow.size}px`,
-                      transform: `translateY(${virtualRow.start}px)`
-                    }}
-                    className="p-1">
-                    <BookmarkItem key={bookmark.id} bookmark={bookmark} onEdit={editDialog.openDialog} onDelete={deleteDialog.openDialog} />
-                  </div>
-                );
-              })}
+              <AnimatePresence>
+                {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                  const bookmark = bookmarks[virtualRow.index];
+                  return (
+                    <motion.div
+                      key={bookmark.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 30,
+                          delay: virtualRow.index * 0.03 // 添加级联效果
+                        }
+                      }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: `${virtualRow.size}px`,
+                        transform: `translateY(${virtualRow.start}px)`
+                      }}
+                      className="p-1">
+                      <BookmarkItem key={bookmark.id} bookmark={bookmark} onEdit={editDialog.openDialog} onDelete={deleteDialog.openDialog} />
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
             </div>
           </div>
         )}

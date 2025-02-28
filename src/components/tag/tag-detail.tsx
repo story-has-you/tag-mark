@@ -6,6 +6,7 @@ import KeyboardShortcut from "@/components/keyboard-shortcut";
 import TagDeleteDialog from "@/components/tag/dialogs/tag-delete-dialog";
 import TagEditDialog from "@/components/tag/dialogs/tag-edit-dialog";
 import TagItem from "@/components/tag/tag-item";
+import TagPathDisplay from "@/components/tag/tag-path-display";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -16,6 +17,7 @@ import { useBookmarkOperations } from "@/hooks/bookmark/use-bookmark-operations"
 import { useScrollPosition } from "@/hooks/bookmark/use-scroll-position";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
 import { useKeyboardShortcut } from "@/hooks/use-hotkeys";
+import { toast } from "@/hooks/use-toast";
 import BookmarkService from "@/services/bookmark-service";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { AnimatePresence, motion } from "framer-motion";
@@ -23,10 +25,10 @@ import { Bookmark, Clock, Edit2, ExternalLink, Hash, Route, Tags, Trash2 } from 
 import React, { useCallback, useEffect, useState } from "react";
 
 const TagDetail: React.FC = () => {
-  const { t, format } = useTranslation();
+  const { t } = useTranslation();
   const { selectedTag, setSelectedTag } = useTagManagement();
   const { loading, getChildTags, getTagBookmarks, deleteTag, updateTag } = useTagManagement();
-
+  const [isLoadingMoreData, setIsLoadingMoreData] = useState(false);
   const [bookmarks, setBookmarks] = useState<BookmarkTreeNode[]>([]);
   const [loadingBookmarks, setLoadingBookmarks] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
@@ -51,13 +53,26 @@ const TagDetail: React.FC = () => {
 
       setLoadingBookmarks(true);
       try {
+        // 显示加载状态
+        setIsLoadingMoreData(true);
+
         // 使用新的方法获取直接关联的书签
         const tagBookmarks = await getTagBookmarks(selectedTag.id);
         setBookmarks(tagBookmarks);
       } catch (err) {
         console.error("Failed to load bookmarks:", err);
+        toast({
+          variant: "destructive",
+          title: "加载失败",
+          description: "无法加载关联书签"
+        });
       } finally {
         setLoadingBookmarks(false);
+
+        // 添加延迟以防止UI闪烁
+        setTimeout(() => {
+          setIsLoadingMoreData(false);
+        }, 300);
       }
     };
 
@@ -132,13 +147,23 @@ const TagDetail: React.FC = () => {
     if (bookmarks.length === 0) {
       return (
         <Alert variant="default" className="bg-muted/50 border-none">
-          <AlertDescription className="flex items-center justify-center h-24 text-muted-foreground">{t("tag_detail_no_bookmarks")}</AlertDescription>
+          <AlertDescription className="flex items-center justify-center h-24 text-muted-foreground">该标签下没有直接关联的书签</AlertDescription>
         </Alert>
       );
     }
 
     return (
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="grid gap-3">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="grid gap-3 relative">
+        {/* 加载中遮罩 */}
+        {isLoadingMoreData && (
+          <div className="absolute inset-0 bg-background/50 backdrop-blur-sm z-10 flex items-center justify-center">
+            <div className="flex flex-col items-center space-y-2">
+              <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
+              <p className="text-sm text-muted-foreground">加载中...</p>
+            </div>
+          </div>
+        )}
+
         <AnimatePresence mode="popLayout">
           {bookmarks.map((bookmark, index) => (
             <motion.div
@@ -171,9 +196,7 @@ const TagDetail: React.FC = () => {
                   <div className="space-y-2 text-sm text-muted-foreground">
                     <div className="flex items-center gap-2">
                       <Route className="h-4 w-4" />
-                      <span>
-                        {t("tag_detail_path")}: {selectedTag.fullPath || selectedTag.name}
-                      </span>
+                      <TagPathDisplay path={selectedTag.fullPath || selectedTag.name} />
                     </div>
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4" />

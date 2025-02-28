@@ -37,7 +37,7 @@ export const useBookmarkOperations = (
 
       toast({
         title: "编辑成功",
-        description: "书签已更新"
+        description: `书签"${title}"已更新`
       });
       onSuccess();
     } catch (error) {
