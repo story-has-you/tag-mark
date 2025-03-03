@@ -52,8 +52,11 @@ class BookmarkService {
    */
   public async getBookmarkById(id: string): Promise<BookmarkTreeNode | null> {
     try {
-      const [bookmark] = await chrome.bookmarks.get(id);
-      return this.processBookmarks([bookmark])[0];
+      const subTree = await chrome.bookmarks.getSubTree(id);
+      if (subTree && subTree.length > 0) {
+        return this.processBookmarks(subTree)[0];
+      }
+      return null;
     } catch (error) {
       if (error instanceof Error && error.message.includes("No bookmark with id")) {
         return null;
