@@ -3,7 +3,7 @@ import { useBookmark } from "@/hooks/bookmark/use-bookmark";
 import { cn } from "@/lib/utils";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { ChevronDown, ChevronRight, Folder } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface TreeNodeProps {
   node: BookmarkTreeNode;
@@ -17,6 +17,34 @@ const TreeNode: React.FC<TreeNodeProps> = ({ node, level }) => {
   const isFolder = !node.url;
   const childFolders = node.children?.filter((child) => !child.url) || [];
   const hasChildFolders = childFolders.length > 0;
+
+  // 新增：检查当前节点是否为选中节点的祖先
+  useEffect(() => {
+    if (selectedNode && isFolder && hasChildFolders) {
+      // 检查是否为直接父节点
+      const isDirectParent = selectedNode.parentId === node.id;
+
+      // 或检查子树中是否包含选中节点（深层父节点）
+      const containsSelectedNode = checkIfContainsNode(node, selectedNode.id);
+
+      if (isDirectParent || containsSelectedNode) {
+        setIsOpen(true);
+      }
+    }
+  }, [selectedNode, node.id, isFolder, hasChildFolders]);
+
+  // 辅助函数：检查节点树中是否包含特定ID的节点
+  const checkIfContainsNode = (node: BookmarkTreeNode, targetId: string): boolean => {
+    if (!node.children) return false;
+
+    // 直接子节点中查找
+    if (node.children.some((child) => child.id === targetId)) {
+      return true;
+    }
+
+    // 递归检查所有子文件夹
+    return node.children.some((child) => !child.url && child.children && checkIfContainsNode(child, targetId));
+  };
 
   if (!isFolder) return null;
 
@@ -88,3 +116,4 @@ const BookmarkTree: React.FC = () => {
 };
 
 export { BookmarkTree, TreeNode };
+

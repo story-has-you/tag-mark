@@ -24,6 +24,37 @@ const TreeNode: React.FC<TreeNodeProps> = React.memo(({ tag, level, childTags, o
   const effectiveLevel = Math.min(level, maxIndentLevel);
   const showDeepIndicator = level > maxIndentLevel;
 
+  // 添加自动展开功能
+  React.useEffect(() => {
+    if (selectedTag && hasChildTags) {
+      // 检查是否为直接父节点
+      if (selectedTag.parentId === tag.id) {
+        setIsOpen(true);
+        return;
+      }
+
+      // 检查是否为间接父节点（祖先节点）
+      const isAncestor = checkIfAncestor(tag.id, selectedTag.id, tagMap);
+      if (isAncestor) {
+        setIsOpen(true);
+      }
+    }
+  }, [selectedTag, tag.id, hasChildTags, tagMap]);
+
+  // 辅助函数：检查 potentialAncestorId 是否为 tagId 的祖先
+  const checkIfAncestor = (potentialAncestorId: string, tagId: string, tagMap: Map<string, Tag[]>): boolean => {
+    // 获取当前标签的直接子标签
+    const children = tagMap.get(potentialAncestorId) || [];
+
+    // 检查直接子标签中是否包含目标标签
+    if (children.some((child) => child.id === tagId)) {
+      return true;
+    }
+
+    // 递归检查所有子标签
+    return children.some((child) => checkIfAncestor(child.id, tagId, tagMap));
+  };
+  
   const handleToggle = React.useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();

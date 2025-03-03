@@ -1,11 +1,10 @@
+import BookmarkFavicon from "@/components/bookmark/bookmark-favicon";
 import { useTranslation } from "@/components/i18n-context";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { useBookmark } from "@/hooks/bookmark/use-bookmark";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
 import { Search, Tag } from "lucide-react";
 import React from "react";
-
-import BookmarkItem from "~components/bookmark/bookmark-item";
 
 interface SearchCommandProps {
   onClose?: () => void;
@@ -14,16 +13,17 @@ interface SearchCommandProps {
 
 const SearchCommand: React.FC<SearchCommandProps> = ({ onClose, onSelectTab }) => {
   const { t } = useTranslation();
-  const { openableBookmarks, getBookmarkById } = useBookmark();
+  const { openableBookmarks, getBookmarkById, setSelectedNode } = useBookmark();
   const { tags, getTagById, setSelectedTag } = useTagManagement();
 
   const handleSelect = async (type: "bookmark" | "tag", id: string) => {
     if (type === "bookmark") {
-      // const bookmark = await getBookmarkById(id);
-      // if (bookmark?.url) {
-      //   BookmarkService.getInstance().createTab(bookmark.url);
-      //   onSelectTab?.("bookmarks");
-      // }
+      const bookmark = await getBookmarkById(id);
+      if (bookmark && bookmark.parentId) {
+        const parentNode = await getBookmarkById(bookmark.parentId);
+        setSelectedNode(parentNode);
+        onSelectTab?.("bookmarks");
+      }
     } else {
       const tag = getTagById(id);
       if (tag) {
@@ -56,7 +56,10 @@ const SearchCommand: React.FC<SearchCommandProps> = ({ onClose, onSelectTab }) =
         <CommandGroup heading={t("search_command_bookmarks")} className="px-2">
           {openableBookmarks.map((bookmark) => (
             <CommandItem key={bookmark.id} value={`${bookmark.title} ${bookmark.url}`} onSelect={() => handleSelect("bookmark", bookmark.id)}>
-              <BookmarkItem bookmark={bookmark} />
+              <div className="flex items-center flex-1 min-w-0">
+                <BookmarkFavicon url={bookmark.url || ""} className="flex-shrink-0 w-4 h-4 mr-2" />
+                <span className="truncate">{bookmark.title}</span>
+              </div>
             </CommandItem>
           ))}
         </CommandGroup>
