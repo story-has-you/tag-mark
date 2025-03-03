@@ -2,7 +2,6 @@ import { useTranslation } from "@/components/i18n-context";
 import HotkeysList from "@/components/settings/hotkeys-list";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -67,9 +66,6 @@ const SettingsPage: React.FC = () => {
 
   return (
     <>
-      <DialogHeader className="px-6 pt-6 flex flex-row items-center justify-between">
-        <DialogTitle className="text-2xl font-bold">{t("settings_title")}</DialogTitle>
-      </DialogHeader>
       <ScrollArea className="max-h-[calc(85vh-80px)] px-6 pb-6">
         <div className="space-y-6 max-w-4xl mx-auto pb-6">
           <p className="text-muted-foreground">{t("settings_description")}</p>

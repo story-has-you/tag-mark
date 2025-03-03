@@ -5,7 +5,7 @@ import LanguageSelector from "@/components/language-selector";
 import SearchCommand from "@/components/search-command";
 import SettingsPage from "@/components/settings/settings-page";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Toaster } from "@/components/ui/toaster";
 import { useTheme } from "@/hooks/use-theme";
@@ -92,14 +92,18 @@ const MainLayout: React.FC = () => {
               {/* 搜索弹窗 */}
               <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
                 <DialogContent className="p-4 gap-0 max-w-4xl w-[90vw]">
+                  <DialogTitle className="sr-only">{t("search_command_title")}</DialogTitle>
                   <SearchCommand onClose={() => setSearchOpen(false)} onSelectTab={setActiveTab} />
+                  <DialogDescription />
                 </DialogContent>
               </Dialog>
 
               {/* 设置弹窗 */}
               <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
                 <DialogContent className="p-0 max-w-4xl w-[90vw] max-h-[85vh] overflow-hidden">
+                  <DialogTitle className="sr-only">{t("settings_title")}</DialogTitle>
                   <SettingsPage />
+                  <DialogDescription />
                 </DialogContent>
               </Dialog>
 
