@@ -3,6 +3,7 @@ import BookmarkFavicon from "@/components/bookmark/bookmark-favicon";
 import BookmarkTag from "@/components/bookmark/bookmark-tag";
 import { Card, CardContent } from "@/components/ui/card";
 import { useBookmarkTagManagement } from "@/hooks/bookmark/use-bookmark-tag-management";
+import { cn } from "@/lib/utils";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { motion } from "framer-motion";
 import React, { memo } from "react";
@@ -11,15 +12,20 @@ interface BookmarkItemProps {
   bookmark: BookmarkTreeNode;
   onEdit?: (bookmark: BookmarkTreeNode) => void;
   onDelete?: (bookmark: BookmarkTreeNode) => void;
+  className?: string;
 }
 
-const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onEdit, onDelete }) => {
+const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onEdit, onDelete, className }) => {
   const { tags, loading } = useBookmarkTagManagement(bookmark);
 
   return (
     <BookmarkContextMenu bookmark={bookmark} onEdit={onEdit} onDelete={onDelete}>
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-        <Card className="overflow-hidden hover:shadow-md transition-all duration-300 border-transparent hover:border-primary/20 dark:bg-slate-900/90 dark:hover:bg-slate-800/90">
+        <Card
+          className={cn(
+            "overflow-hidden hover:shadow-md transition-all duration-300 border-transparent hover:border-primary/20 dark:bg-slate-900/90 dark:hover:bg-slate-800/90",
+            className
+          )}>
           <CardContent className="p-0">
             <div className="flex items-center justify-between gap-3 p-3 hover:bg-accent/50 dark:hover:bg-slate-800/70 transition-all duration-300 group">
               <div className="flex items-center gap-3 min-w-0">
