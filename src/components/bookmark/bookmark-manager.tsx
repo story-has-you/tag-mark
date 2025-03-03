@@ -24,7 +24,8 @@ const BookmarkManager: React.FC = () => {
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel>
-        <ScrollArea className="h-full">
+        {/* 确保 ScrollArea 配置正确且占满整个容器高度 */}
+        <ScrollArea className="h-full w-full">
           <BookmarkList />
         </ScrollArea>
       </ResizablePanel>

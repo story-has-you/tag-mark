@@ -3,6 +3,8 @@ import { useTranslation } from "@/components/i18n-context";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { useBookmark } from "@/hooks/bookmark/use-bookmark";
 import { useTagManagement } from "@/hooks/tag/use-tag-management";
+import { highlightedBookmarkIdAtom } from "@/store/bookmark";
+import { useAtom } from "jotai";
 import { Search, Tag } from "lucide-react";
 import React from "react";
 
@@ -15,16 +17,21 @@ const SearchCommand: React.FC<SearchCommandProps> = ({ onClose, onSelectTab }) =
   const { t } = useTranslation();
   const { openableBookmarks, getBookmarkById, setSelectedNode } = useBookmark();
   const { tags, getTagById, setSelectedTag } = useTagManagement();
+  const [_, setHighlightedBookmarkId] = useAtom(highlightedBookmarkIdAtom);
 
   const handleSelect = async (type: "bookmark" | "tag", id: string) => {
     if (type === "bookmark") {
       const bookmark = await getBookmarkById(id);
+      // 设置高亮书签 ID
+      setHighlightedBookmarkId(id);
       if (bookmark && bookmark.parentId) {
         const parentNode = await getBookmarkById(bookmark.parentId);
         setSelectedNode(parentNode);
         onSelectTab?.("bookmarks");
       }
     } else {
+      // 标签不需要高亮，重置高亮状态
+      setHighlightedBookmarkId(null);
       const tag = getTagById(id);
       if (tag) {
         setSelectedTag(tag);
