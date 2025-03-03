@@ -99,7 +99,7 @@ const MainLayout: React.FC = () => {
               {/* 设置弹窗 */}
               <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
                 <DialogContent className="p-0 max-w-4xl w-[90vw] max-h-[85vh] overflow-hidden">
-                  <SettingsPage onClose={() => setSettingsOpen(false)} />
+                  <SettingsPage />
                 </DialogContent>
               </Dialog>
 

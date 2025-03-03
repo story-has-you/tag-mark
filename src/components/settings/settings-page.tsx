@@ -10,14 +10,10 @@ import { Switch } from "@/components/ui/switch";
 import { useKeyboardShortcut } from "@/hooks/use-hotkeys";
 import { useToast } from "@/hooks/use-toast";
 import DataTransferService from "@/services/data-transfer-service";
-import { Download, FileUp, Keyboard, X } from "lucide-react";
+import { Download, FileUp, Keyboard } from "lucide-react";
 import React, { useRef } from "react";
 
-interface SettingsPageProps {
-  onClose?: () => void;
-}
-
-const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
+const SettingsPage: React.FC = () => {
   const { t } = useTranslation();
   const { toast } = useToast();
   const { hotkeyEnabled, setHotkeyEnabled, hotkeys } = useKeyboardShortcut({});
@@ -73,12 +69,6 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onClose }) => {
     <>
       <DialogHeader className="px-6 pt-6 flex flex-row items-center justify-between">
         <DialogTitle className="text-2xl font-bold">{t("settings_title")}</DialogTitle>
-        {onClose && (
-          <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full">
-            <X className="h-4 w-4" />
-            <span className="sr-only">Close</span>
-          </Button>
-        )}
       </DialogHeader>
       <ScrollArea className="max-h-[calc(85vh-80px)] px-6 pb-6">
         <div className="space-y-6 max-w-4xl mx-auto pb-6">
