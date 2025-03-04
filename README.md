@@ -2,14 +2,12 @@
 
 <div align="center">
 
-![Tag Mark Logo](https://via.placeholder.com/150x150?text=TagMark)
+![Tag Mark Logo](https://story-has-you.github.io/tag-mark/images/icon.png?text=TagMark)
 
 **Seamlessly organize bookmarks with nested tags and custom hotkeys.**
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Chrome Web Store](https://img.shields.io/badge/Chrome-Extension-green)](https://chrome.google.com/webstore)
-
-</div>
 
 ## 🌟 Overview
 
