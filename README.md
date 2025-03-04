@@ -9,6 +9,7 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Chrome Web Store](https://img.shields.io/badge/Chrome-Extension-green)](https://chrome.google.com/webstore)
 </div>
+
 ## 🌟 Overview
 
 Tag Mark is a Chrome extension that redefines bookmark management by breaking free from traditional folder structures. Instead, it uses a powerful nested tag system, allowing you to organize your bookmarks in a more flexible and intuitive way.
