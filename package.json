@@ -54,7 +54,6 @@
     "host_permissions": [
       "https://favicon.im/*",
       "https://www.google.com/s2/favicons?domain=*"
-
     ],
     "permissions": [
       "tabs",
@@ -66,5 +65,15 @@
     "content_security_policy": {
       "extension_pages": "script-src 'self'; object-src 'self'; img-src 'self' https://favicon.im https://www.google.com https://* data:; style-src 'self' 'unsafe-inline';"
     }
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@swc/core",
+      "esbuild",
+      "lmdb",
+      "msgpackr-extract",
+      "sharp"
+    ]
   }
 }
