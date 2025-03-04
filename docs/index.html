@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tag Mark 标签管理器 - 用标签重新定义书签管理</title>
+    <meta name="description" content="Tag Mark是一款功能强大的Chrome扩展，通过嵌套标签系统让您轻松组织和管理浏览器书签。" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+      /* 您可以在这里添加任何自定义样式 */
+      .gradient-primary {
+        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      }
+    </style>
+  </head>
+  <body class="bg-white text-gray-900">
+    <!-- 导航栏 -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+      <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="#" class="text-2xl font-bold text-indigo-600 flex items-center gap-2">
+          <i data-lucide="tag"></i>
+          <span>Tag Mark</span>
+        </a>
+        <nav class="hidden md:flex gap-8">
+          <a href="#features" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors">功能</a>
+          <a href="#use-cases" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors">使用场景</a>
+          <a href="#highlights" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors">特色</a>
+          <a href="#getting-started" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors">快速入门</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- 首页横幅 -->
+    <section class="py-24 gradient-primary text-white">
+      <div class="container mx-auto px-6 text-center">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">用标签重新定义书签管理</h1>
+        <p class="text-xl max-w-3xl mx-auto mb-10 opacity-90">摆脱传统文件夹结构的限制，以更灵活、更直观的方式整理您的网络世界。</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+          <a href="#" class="px-8 py-3 rounded-lg bg-white text-indigo-600 font-medium hover:bg-gray-100 transition-colors">安装扩展</a>
+          <a href="#getting-started" class="px-8 py-3 rounded-lg border-2 border-white text-white font-medium hover:bg-white hover:bg-opacity-10 transition-colors">立即开始</a>
+        </div>
+        <div class="max-w-4xl mx-auto rounded-lg overflow-hidden shadow-2xl">
+          <img src="images/screenshot.png" alt="Tag Mark 界面预览" class="w-full" />
+        </div>
+      </div>
+    </section>
+
+    <!-- 功能部分 -->
+    <section id="features" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">强大功能，简约体验</h2>
+          <p class="max-w-2xl mx-auto text-gray-600">Tag Mark 提供了一套完整的书签管理解决方案，让您的数字生活更加有序。</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- 功能卡片：嵌套标签系统 -->
+          <div class="p-6 rounded-lg bg-white shadow-lg hover:shadow-xl transition-shadow">
+            <div class="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center mb-5">
+              <i data-lucide="tag" class="text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">嵌套标签系统</h3>
+            <p class="text-gray-600">支持多层嵌套标签结构，一个书签可关联多个标签，摆脱传统文件夹单一归属的限制。</p>
+          </div>
+
+          <!-- 更多功能卡片... -->
+          <div class="p-6 rounded-lg bg-white shadow-lg hover:shadow-xl transition-shadow">
+            <div class="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center mb-5">
+              <i data-lucide="bookmark" class="text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">智能书签管理</h3>
+            <p class="text-gray-600">现代化界面设计，轻松浏览、编辑和管理所有书签，批量操作提高工作效率。</p>
+          </div>
+
+          <div class="p-6 rounded-lg bg-white shadow-lg hover:shadow-xl transition-shadow">
+            <div class="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center mb-5">
+              <i data-lucide="keyboard" class="text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">快捷键支持</h3>
+            <p class="text-gray-600">支持键盘快捷键操作，为高效用户提供更快捷的工作方式，提升管理效率。</p>
+          </div>
+
+          <div class="p-6 rounded-lg bg-white shadow-lg hover:shadow-xl transition-shadow">
+            <div class="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center mb-5">
+              <i data-lucide="moon" class="text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">深色/浅色模式</h3>
+            <p class="text-gray-600">支持深色和浅色主题切换，自动适应系统设置，为您提供舒适的视觉体验。</p>
+          </div>
+
+          <div class="p-6 rounded-lg bg-white shadow-lg hover:shadow-xl transition-shadow">
+            <div class="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center mb-5">
+              <i data-lucide="search" class="text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">高级搜索功能</h3>
+            <p class="text-gray-600">强大的搜索系统，同时检索书签和标签内容，快速找到您需要的信息。</p>
+          </div>
+
+          <div class="p-6 rounded-lg bg-white shadow-lg hover:shadow-xl transition-shadow">
+            <div class="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center mb-5">
+              <i data-lucide="download" class="text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">数据备份恢复</h3>
+            <p class="text-gray-600">支持数据导出和导入功能，确保您的书签和标签数据安全，随时可恢复。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 使用场景 -->
+    <section id="use-cases" class="py-20 bg-gray-100">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">多种应用场景</h2>
+          <p class="max-w-2xl mx-auto text-gray-600">无论您是学生、研究人员、专业人士还是普通用户，Tag Mark 都能满足您的需求。</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- 场景1 -->
+          <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+            <img src="images/academic.jpg" alt="学术研究" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-3">学术研究</h3>
+              <p class="text-gray-600">创建如 #研究/人工智能/深度学习 的嵌套标签，将相关论文、工具和参考资料关联起来，形成完整知识网络。</p>
+            </div>
+          </div>
+
+          <!-- 场景2 -->
+          <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+            <img src="images/project.jpg" alt="项目管理" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-3">项目管理</h3>
+              <p class="text-gray-600">为每个项目创建独立标签结构，如 #项目/网站重构/设计参考，轻松切换不同项目环境。</p>
+            </div>
+          </div>
+
+          <!-- 场景3 -->
+          <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+            <img src="images/learning.jpg" alt="学习进阶" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-3">学习进阶</h3>
+              <p class="text-gray-600">创建如 #学习/编程/React/教程 的进阶标签结构，将初级到高级的学习资源有序组织，形成完整学习路径。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 特色亮点 -->
+    <section id="highlights" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">特色亮点</h2>
+          <p class="max-w-2xl mx-auto text-gray-600">精心设计的细节，带来卓越的使用体验。</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="text-center px-6 py-8">
+            <div class="flex justify-center mb-4">
+              <i data-lucide="layers" class="text-4xl text-indigo-600"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">优雅界面</h3>
+            <p class="text-gray-600">简约大气的设计，提供流畅的用户体验，让书签管理成为一种享受。</p>
+          </div>
+
+          <div class="text-center px-6 py-8">
+            <div class="flex justify-center mb-4">
+              <i data-lucide="zap" class="text-4xl text-indigo-600"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">高效操作</h3>
+            <p class="text-gray-600">智能化的交互设计，最大程度减少操作步骤，提高工作效率。</p>
+          </div>
+
+          <div class="text-center px-6 py-8">
+            <div class="flex justify-center mb-4">
+              <i data-lucide="sliders" class="text-4xl text-indigo-600"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">个性化定制</h3>
+            <p class="text-gray-600">可根据个人习惯调整设置，打造专属书签管理方式。</p>
+          </div>
+
+          <div class="text-center px-6 py-8">
+            <div class="flex justify-center mb-4">
+              <i data-lucide="shield" class="text-4xl text-indigo-600"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">数据安全</h3>
+            <p class="text-gray-600">本地存储核心数据，支持备份恢复，保护您的隐私安全。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 快速入门 -->
+    <section id="getting-started" class="py-20 bg-gray-100">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">快速入门</h2>
+          <p class="max-w-2xl mx-auto text-gray-600">只需几个简单步骤，即可开始使用 Tag Mark 管理您的书签。</p>
+        </div>
+        <div class="max-w-3xl mx-auto">
+          <div class="flex gap-6 mb-12">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xl font-bold">1</div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">安装扩展</h3>
+              <p class="text-gray-600">从 Chrome 网上应用店下载并安装 Tag Mark 扩展。</p>
+            </div>
+          </div>
+
+          <div class="flex gap-6 mb-12">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xl font-bold">2</div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">创建标签</h3>
+              <p class="text-gray-600">进入主界面，在"标签管理"选项卡创建您的首个标签结构。</p>
+            </div>
+          </div>
+
+          <div class="flex gap-6 mb-12">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xl font-bold">3</div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">关联书签</h3>
+              <p class="text-gray-600">切换到"书签管理"选项卡，为您的书签添加标签。</p>
+            </div>
+          </div>
+
+          <div class="flex gap-6 mb-12">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xl font-bold">4</div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2">高效搜索</h3>
+              <p class="text-gray-600">使用搜索功能（Ctrl+K/⌘+K）快速定位您需要的内容。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 行动召唤 -->
+    <section class="py-20 gradient-primary text-white">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">立即体验 Tag Mark</h2>
+        <p class="max-w-2xl mx-auto mb-10 opacity-90">重新思考书签整理方式，让您的数字生活更加有序。</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="https://github.com/your-username/tag-mark"
+            class="px-8 py-3 rounded-lg border-2 border-white text-white font-medium hover:bg-white hover:text-indigo-600 transition-colors flex items-center justify-center gap-2">
+            <i data-lucide="github" class="w-5 h-5"></i> 查看源码
+          </a>
+          <a href="#" class="px-8 py-3 rounded-lg bg-white text-indigo-600 font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
+            <i data-lucide="download" class="w-5 h-5"></i> 安装扩展
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="py-12 bg-gray-800 text-white">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <div class="text-2xl font-bold flex items-center gap-2 mb-4">
+              <i data-lucide="tag"></i>
+              <span>Tag Mark</span>
+            </div>
+            <p class="text-gray-400">重新思考书签整理方式</p>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium mb-4">链接</h3>
+            <ul class="space-y-2">
+              <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">功能</a></li>
+              <li><a href="#use-cases" class="text-gray-400 hover:text-white transition-colors">使用场景</a></li>
+              <li><a href="#highlights" class="text-gray-400 hover:text-white transition-colors">特色</a></li>
+              <li><a href="#getting-started" class="text-gray-400 hover:text-white transition-colors">快速入门</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium mb-4">资源</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">文档</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">反馈问题</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">更新日志</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium mb-4">联系我们</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">GitHub</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">电子邮件</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">贡献代码</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="pt-8 border-t border-gray-700 text-center text-gray-400">
+          <p>© 2025 Tag Mark. 开源项目 | 注重隐私 | 持续更新</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // 初始化 Lucide 图标
+      lucide.createIcons();
+
+      // 平滑滚动
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth"
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
