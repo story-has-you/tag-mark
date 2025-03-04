@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { useKeyboardShortcut } from "@/hooks/use-hotkeys";
 import { useToast } from "@/hooks/use-toast";
 import DataTransferService from "@/services/data-transfer-service";
-import { Download, FileUp, Keyboard } from "lucide-react";
+import { Download, FileUp, Keyboard, Settings } from "lucide-react";
 import React, { useRef } from "react";
 
 const SettingsPage: React.FC = () => {
@@ -65,15 +65,24 @@ const SettingsPage: React.FC = () => {
   };
 
   return (
-    <>
-      <ScrollArea className="max-h-[calc(85vh-80px)] px-6 pb-6">
-        <div className="space-y-6 max-w-4xl mx-auto pb-6">
-          <p className="text-muted-foreground">{t("settings_description")}</p>
-          <Separator className="my-6" />
+    <div className="flex flex-col h-[85vh]">
+      {/* 添加标题栏 */}
+      <div className="flex items-center justify-between px-6 py-4 border-b">
+        <div className="flex items-center gap-2">
+          <Settings className="h-5 w-5 text-primary" />
+          <h2 className="text-xl font-semibold">{t("settings_title")}</h2>
+        </div>
+      </div>
 
-          {/* Keyboard Shortcuts Section */}
+      {/* 内容区域 - 使用适合对话框的滚动区域 */}
+      <ScrollArea className="flex-1 w-full">
+        <div className="px-6 py-4 space-y-6 max-w-4xl mx-auto">
+          <p className="text-muted-foreground">{t("settings_description")}</p>
+          <Separator />
+
+          {/* 键盘快捷键部分 */}
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2">
                 <Keyboard className="h-5 w-5" />
                 {t("settings_keyboard_shortcuts")}
@@ -91,19 +100,19 @@ const SettingsPage: React.FC = () => {
 
               <Separator />
 
-              {/* Hotkeys List */}
+              {/* 快捷键列表 */}
               <HotkeysList hotkeys={hotkeys} />
             </CardContent>
           </Card>
 
-          {/* Data Management Section */}
+          {/* 数据管理部分 */}
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-3">
               <CardTitle>{t("settings_data_management")}</CardTitle>
               <CardDescription>{t("settings_data_management_description")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <h3 className="text-lg font-medium">{t("settings_export_data")}</h3>
                 <p className="text-sm text-muted-foreground">{t("settings_export_data_description")}</p>
                 <Button onClick={handleExport} className="gap-2">
@@ -114,7 +123,7 @@ const SettingsPage: React.FC = () => {
 
               <Separator />
 
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <h3 className="text-lg font-medium">{t("settings_import_data")}</h3>
                 <p className="text-sm text-muted-foreground">{t("settings_import_data_description")}</p>
                 <div className="flex items-center gap-2">
@@ -129,7 +138,7 @@ const SettingsPage: React.FC = () => {
           </Card>
         </div>
       </ScrollArea>
-    </>
+    </div>
   );
 };
 

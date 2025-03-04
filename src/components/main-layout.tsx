@@ -91,7 +91,7 @@ const MainLayout: React.FC = () => {
 
               {/* 搜索弹窗 */}
               <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
-                <DialogContent className="p-4 gap-0 max-w-4xl w-[90vw]">
+                <DialogContent className="p-0 gap-0 max-w-4xl w-[90vw] border-0 bg-transparent shadow-none">
                   <DialogTitle className="sr-only">{t("search_command_title")}</DialogTitle>
                   <SearchCommand onClose={() => setSearchOpen(false)} onSelectTab={setActiveTab} />
                   <DialogDescription />
