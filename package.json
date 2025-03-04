@@ -52,7 +52,9 @@
   },
   "manifest": {
     "host_permissions": [
-      "https://*/*"
+      "https://favicon.im/*",
+      "https://www.google.com/s2/favicons?domain=*"
+
     ],
     "permissions": [
       "tabs",

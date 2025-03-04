@@ -17,7 +17,7 @@ const getFaviconUrl = (domain: string, providerIndex: number): string => {
   const encodedDomain = encodeURIComponent(domain);
 
   // 不同的 favicon 提供商
-  const providers = [(d: string) => `https://favicon.im/${d}`, (d: string) => `https://www.google.com/s2/favicons?domain=${d}&sz=64`, (d: string) => `https://${d}/favicon.ico`];
+  const providers = [(d: string) => `https://favicon.im/${d}`, (d: string) => `https://www.google.com/s2/favicons?domain=${d}&sz=64`];
 
   // 确保索引在有效范围内
   const safeIndex = Math.max(0, Math.min(providerIndex, providers.length - 1));
