@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>隐私协议 - Tag Mark 标签管理器</title>
-    <meta name="description" content="Tag Mark 浏览器扩展的隐私协议" />
+    <title data-i18n="privacy_page_title">Tag Mark - Privacy Policy</title>
+    <meta name="description" content="Privacy Policy for the Tag Mark browser extension" data-i18n="privacy_page_description" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
     <script src="js/i18n.js"></script>
@@ -15,107 +15,144 @@
     </style>
   </head>
   <body class="bg-white text-gray-900">
-    <!-- 导航栏 -->
+    <!-- Header/Navigation -->
     <header class="sticky top-0 z-50 bg-white shadow-md">
       <div class="container mx-auto px-6 py-4 flex justify-between items-center">
         <a href="index.html" class="text-2xl font-bold text-indigo-600 flex items-center gap-2">
           <i data-lucide="tag"></i>
           <span>Tag Mark</span>
         </a>
-        <nav class="hidden md:flex gap-8">
-          <a href="index.html#features" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors">功能</a>
-          <a href="index.html#use-cases" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors">使用场景</a>
-          <a href="index.html#highlights" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors">特色</a>
-          <a href="index.html#getting-started" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors">快速入门</a>
+        <nav class="hidden md:flex items-center gap-8">
+          <div class="relative">
+            <!-- Language switcher button -->
+            <button
+              id="language-dropdown-button"
+              class="text-gray-700 hover:text-indigo-600 font-medium transition-colors flex items-center gap-1 px-3 py-1 rounded-md border border-gray-200 hover:border-indigo-300"
+              onclick="toggleLanguageDropdown()">
+              <span id="current-language" data-i18n="language_en">English</span>
+              <i data-lucide="chevron-down" class="w-4 h-4"></i>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="language-dropdown" class="absolute right-0 mt-2 bg-white shadow-md rounded-md overflow-hidden hidden z-50 border border-gray-200 min-w-[120px]">
+              <button onclick="setLanguage('zh')" class="w-full px-4 py-2 text-left hover:bg-gray-100 text-gray-700 flex items-center justify-between">
+                <span data-i18n="language_zh">简体中文</span>
+                <span id="zh-check" class="text-indigo-600 hidden">✓</span>
+              </button>
+              <button onclick="setLanguage('en')" class="w-full px-4 py-2 text-left hover:bg-gray-100 text-gray-700 flex items-center justify-between">
+                <span data-i18n="language_en">English</span>
+                <span id="en-check" class="text-indigo-600">✓</span>
+              </button>
+            </div>
+          </div>
         </nav>
       </div>
     </header>
 
-    <!-- 隐私协议内容 -->
+    <!-- Privacy Policy Content -->
     <section class="py-12">
       <div class="container mx-auto px-6 max-w-4xl">
-        <h1 class="text-3xl font-bold mb-8 text-center">Tag Mark 隐私协议</h1>
+        <h1 class="text-3xl font-bold mb-8 text-center" data-i18n="privacy_title">Privacy Policy</h1>
         <div class="prose prose-lg max-w-none">
-          <p class="mb-4">最后更新日期：2025年3月1日</p>
+          <p class="mb-4" data-i18n="privacy_last_updated">Last updated: March 1, 2025</p>
 
-          <h2 class="text-2xl font-semibold mt-8 mb-4">引言</h2>
-          <p>
-            Tag
-            Mark（"我们"、"我们的"或"本扩展"）重视您的隐私。本隐私协议说明了当您使用我们的浏览器扩展时，我们如何收集、使用、存储和保护您的信息。请仔细阅读本协议，以便全面了解我们的隐私实践。
+          <h2 class="text-2xl font-semibold mt-8 mb-4" data-i18n="privacy_intro_title">Introduction</h2>
+          <p data-i18n="privacy_intro_content">
+            Tag Mark ("we", "our", or "this extension") values your privacy. This privacy policy explains how we collect, use, store, and protect your information when you use our
+            browser extension. Please read this policy carefully to fully understand our privacy practices.
           </p>
 
-          <h2 class="text-2xl font-semibold mt-8 mb-4">信息收集</h2>
-          <p>Tag Mark 是一个本地书签管理扩展，主要功能在您的浏览器本地运行。我们收集以下信息：</p>
+          <h2 class="text-2xl font-semibold mt-8 mb-4" data-i18n="privacy_info_collection_title">Information Collection</h2>
+          <p data-i18n="privacy_info_collection_content">
+            Tag Mark is a local bookmark management extension that primarily operates within your browser. We collect the following information:
+          </p>
           <ul class="list-disc pl-6 mb-4">
-            <li><strong>书签数据</strong>：我们访问您的浏览器书签数据，以便您能够使用标签系统进行组织和管理。</li>
-            <li><strong>标签结构数据</strong>：我们存储您创建的标签结构和书签与标签之间的关联关系。</li>
-            <li><strong>设置偏好</strong>：包括主题选择、语言设置、快捷键配置等用户偏好。</li>
+            <li data-i18n="privacy_info_collection_bookmarks">
+              <strong>Bookmark data:</strong> We access your browser bookmark data to allow you to organize and manage it using our tag system.
+            </li>
+            <li data-i18n="privacy_info_collection_tags">
+              <strong>Tag structure data:</strong> We store the tag structures you create and the associations between bookmarks and tags.
+            </li>
+            <li data-i18n="privacy_info_collection_settings">
+              <strong>Preference settings:</strong> Including theme choice, language settings, keyboard shortcut configurations, and other user preferences.
+            </li>
           </ul>
 
-          <h2 class="text-2xl font-semibold mt-8 mb-4">数据存储</h2>
-          <p>所有数据均存储在您的本地浏览器中：</p>
+          <h2 class="text-2xl font-semibold mt-8 mb-4" data-i18n="privacy_data_storage_title">Data Storage</h2>
+          <p data-i18n="privacy_data_storage_content">All data is stored locally in your browser:</p>
           <ul class="list-disc pl-6 mb-4">
-            <li>所有书签数据、标签结构和关联关系存储在浏览器的本地存储中（Chrome Storage）。</li>
-            <li>Tag Mark 不会将您的数据上传到任何服务器或云存储。</li>
-            <li>如果您启用了浏览器的同步功能，您的数据可能会通过浏览器的同步机制在您的设备间同步。</li>
+            <li data-i18n="privacy_data_storage_local">All bookmark data, tag structures, and associations are stored in your browser's local storage (Chrome Storage).</li>
+            <li data-i18n="privacy_data_storage_no_upload">Tag Mark does not upload your data to any servers or cloud storage.</li>
+            <li data-i18n="privacy_data_storage_sync">
+              If you enable browser sync functionality, your data may be synchronized across your devices through your browser's sync mechanism.
+            </li>
           </ul>
 
-          <h2 class="text-2xl font-semibold mt-8 mb-4">信息使用</h2>
-          <p>我们使用收集的信息：</p>
+          <h2 class="text-2xl font-semibold mt-8 mb-4" data-i18n="privacy_info_usage_title">Information Usage</h2>
+          <p data-i18n="privacy_info_usage_content">We use the collected information to:</p>
           <ul class="list-disc pl-6 mb-4">
-            <li>提供、维护和改进 Tag Mark 的核心功能。</li>
-            <li>根据您的偏好设置，定制您的使用体验。</li>
-            <li>确保扩展的稳定性和性能。</li>
+            <li data-i18n="privacy_info_usage_provide">Provide, maintain, and improve Tag Mark's core functionality.</li>
+            <li data-i18n="privacy_info_usage_customize">Customize your user experience based on your preferences.</li>
+            <li data-i18n="privacy_info_usage_ensure">Ensure the stability and performance of the extension.</li>
           </ul>
 
-          <h2 class="text-2xl font-semibold mt-8 mb-4">信息共享</h2>
-          <p>我们不会共享或出售您的个人信息。以下情况除外：</p>
+          <h2 class="text-2xl font-semibold mt-8 mb-4" data-i18n="privacy_info_sharing_title">Information Sharing</h2>
+          <p data-i18n="privacy_info_sharing_content">We do not share or sell your personal information. Exceptions include:</p>
           <ul class="list-disc pl-6 mb-4">
-            <li>在法律要求的情况下，如遵守法院命令或其他法律程序。</li>
-            <li>为了保护 Tag Mark 的权利、财产或安全，以及我们的用户或公众的安全。</li>
+            <li data-i18n="privacy_info_sharing_legal">When required by law, such as complying with court orders or other legal processes.</li>
+            <li data-i18n="privacy_info_sharing_protection">To protect Tag Mark's rights, property, or safety, as well as the safety of our users or the public.</li>
           </ul>
 
-          <h2 class="text-2xl font-semibold mt-8 mb-4">权限说明</h2>
-          <p>Tag Mark 需要以下浏览器权限才能正常工作：</p>
+          <h2 class="text-2xl font-semibold mt-8 mb-4" data-i18n="privacy_permissions_title">Permissions Explanation</h2>
+          <p data-i18n="privacy_permissions_content">Tag Mark requires the following browser permissions to function properly:</p>
           <ul class="list-disc pl-6 mb-4">
-            <li><strong>bookmarks</strong>：用于访问和管理您的浏览器书签。</li>
-            <li><strong>storage</strong>：用于存储标签数据和用户偏好设置。</li>
-            <li><strong>tabs</strong>：用于在新标签页中打开 Tag Mark 界面。</li>
+            <li data-i18n="privacy_permissions_bookmarks"><strong>bookmarks:</strong> Used to access and manage your browser bookmarks.</li>
+            <li data-i18n="privacy_permissions_storage"><strong>storage:</strong> Used to store tag data and user preferences.</li>
+            <li data-i18n="privacy_permissions_tabs"><strong>tabs:</strong> Used to open the Tag Mark interface in a new tab.</li>
           </ul>
 
-          <h2 class="text-2xl font-semibold mt-8 mb-4">数据安全</h2>
-          <p>我们采取合理的技术措施来保护您的信息：</p>
+          <h2 class="text-2xl font-semibold mt-8 mb-4" data-i18n="privacy_data_security_title">Data Security</h2>
+          <p data-i18n="privacy_data_security_content">We take reasonable technical measures to protect your information:</p>
           <ul class="list-disc pl-6 mb-4">
-            <li>所有数据仅存储在您的本地设备上，不会传输到外部服务器。</li>
-            <li>扩展代码经过审查，确保不存在安全漏洞。</li>
+            <li data-i18n="privacy_data_security_local">All data is stored only on your local device and is not transmitted to external servers.</li>
+            <li data-i18n="privacy_data_security_code">Extension code is reviewed to ensure there are no security vulnerabilities.</li>
           </ul>
 
-          <h2 class="text-2xl font-semibold mt-8 mb-4">儿童隐私</h2>
-          <p>
-            Tag Mark
-            不针对13岁以下的儿童。我们不会有意收集13岁以下儿童的个人信息。如果您是父母或监护人，发现您的孩子向我们提供了个人信息，请联系我们，我们将采取措施从我们的系统中删除这些信息。
+          <h2 class="text-2xl font-semibold mt-8 mb-4" data-i18n="privacy_children_title">Children's Privacy</h2>
+          <p data-i18n="privacy_children_content">
+            Tag Mark is not directed at children under 13 years of age. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and
+            discover that your child has provided us with personal information, please contact us and we will take steps to delete such information from our systems.
           </p>
 
-          <h2 class="text-2xl font-semibold mt-8 mb-4">隐私协议的变更</h2>
-          <p>我们可能会不时更新本隐私协议。我们会在扩展更新时通知您有关变更，并在本页面上发布新的隐私协议。我们鼓励您定期查看本隐私协议，以了解我们如何保护您的信息。</p>
+          <h2 class="text-2xl font-semibold mt-8 mb-4" data-i18n="privacy_changes_title">Changes to Privacy Policy</h2>
+          <p data-i18n="privacy_changes_content">
+            We may update this privacy policy from time to time. We will notify you of any changes when the extension is updated and by posting the new privacy policy on this page.
+            We encourage you to review this privacy policy periodically to stay informed about how we are protecting your information.
+          </p>
 
-          <h2 class="text-2xl font-semibold mt-8 mb-4">数据删除</h2>
-          <p>如果您想删除 Tag Mark 存储的所有数据：</p>
+          <h2 class="text-2xl font-semibold mt-8 mb-4" data-i18n="privacy_data_deletion_title">Data Deletion</h2>
+          <p data-i18n="privacy_data_deletion_content">If you wish to delete all data stored by Tag Mark:</p>
           <ul class="list-disc pl-6 mb-4">
-            <li>您可以在扩展的设置页面中使用"重置数据"功能。</li>
-            <li>卸载扩展将移除存储在本地的所有相关数据。</li>
+            <li data-i18n="privacy_data_deletion_reset">You can use the "Reset Data" function in the extension's settings page.</li>
+            <li data-i18n="privacy_data_deletion_uninstall">Uninstalling the extension will remove all related data stored locally.</li>
           </ul>
 
-          <h2 class="text-2xl font-semibold mt-8 mb-4">联系我们</h2>
-          <p>如果您对本隐私协议有任何疑问或顾虑，请在我们的 GitHub 存储库上提交 issue，或通过以下方式联系我们：</p>
-          <p class="mb-8"><a href="mailto:privacy@tag-mark-extension.com" class="text-indigo-600 hover:text-indigo-800">privacy@tag-mark-extension.com</a></p>
+          <h2 class="text-2xl font-semibold mt-8 mb-4" data-i18n="privacy_contact_title">Contact Us</h2>
+          <p data-i18n="privacy_contact_content">
+            If you have any questions or concerns about this privacy policy, please submit an issue on our GitHub repository or contact us at:
+          </p>
+          <p class="mb-8" data-i18n="privacy_contact_email">
+            <a href="mailto:privacy@tag-mark-extension.com" class="text-indigo-600 hover:text-indigo-800">privacy@tag-mark-extension.com</a>
+          </p>
 
-          <p class="text-center text-gray-600 mt-12">通过使用 Tag Mark 扩展，您同意本隐私协议中描述的数据实践。</p>
+          <p class="text-center text-gray-600 mt-12" data-i18n="privacy_agreement">
+            By using the Tag Mark extension, you agree to the data practices described in this privacy policy.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- 页脚 -->
+    <!-- Footer -->
     <footer class="py-12 bg-gray-800 text-white">
       <div class="container mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -124,44 +161,59 @@
               <i data-lucide="tag"></i>
               <span>Tag Mark</span>
             </div>
-            <p class="text-gray-400">重新思考书签整理方式</p>
+            <p class="text-gray-400" data-i18n="footer_tagline">Rethinking bookmark organization</p>
           </div>
           <div>
-            <h3 class="text-lg font-medium mb-4">链接</h3>
+            <h3 class="text-lg font-medium mb-4" data-i18n="footer_links">Links</h3>
             <ul class="space-y-2">
-              <li><a href="index.html#features" class="text-gray-400 hover:text-white transition-colors">功能</a></li>
-              <li><a href="index.html#use-cases" class="text-gray-400 hover:text-white transition-colors">使用场景</a></li>
-              <li><a href="index.html#highlights" class="text-gray-400 hover:text-white transition-colors">特色</a></li>
-              <li><a href="index.html#getting-started" class="text-gray-400 hover:text-white transition-colors">快速入门</a></li>
+              <li><a href="index.html#features" class="text-gray-400 hover:text-white transition-colors" data-i18n="nav_features">Features</a></li>
+              <li><a href="index.html#use-cases" class="text-gray-400 hover:text-white transition-colors" data-i18n="nav_use_cases">Use Cases</a></li>
+              <li><a href="index.html#highlights" class="text-gray-400 hover:text-white transition-colors" data-i18n="nav_highlights">Highlights</a></li>
+              <li><a href="index.html#getting-started" class="text-gray-400 hover:text-white transition-colors" data-i18n="nav_getting_started">Getting Started</a></li>
             </ul>
           </div>
           <div>
-            <h3 class="text-lg font-medium mb-4">资源</h3>
+            <h3 class="text-lg font-medium mb-4" data-i18n="footer_resources">Resources</h3>
             <ul class="space-y-2">
-              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">文档</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">反馈问题</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">更新日志</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_docs">Documentation</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_faq">FAQ</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_feedback">Feedback</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_changelog">Changelog</a></li>
             </ul>
           </div>
           <div>
-            <h3 class="text-lg font-medium mb-4">联系我们</h3>
+            <h3 class="text-lg font-medium mb-4" data-i18n="footer_contact">Contact Us</h3>
             <ul class="space-y-2">
-              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">GitHub</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">电子邮件</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">贡献代码</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_github">GitHub</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_email">Email</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_contribute">Contribute</a></li>
             </ul>
           </div>
         </div>
         <div class="pt-8 border-t border-gray-700 text-center text-gray-400">
-          <p>© 2025 Tag Mark. 开源项目 | 注重隐私 | 持续更新</p>
+          <p data-i18n="footer_copyright">© 2025 Tag Mark. Open Source | Privacy Focused | Constantly Updated</p>
         </div>
       </div>
     </footer>
 
     <script>
-      // 初始化 Lucide 图标
+      // Initialize Lucide icons
       lucide.createIcons();
+
+      // Initialize with current language
+      document.addEventListener("DOMContentLoaded", () => {
+        // If no language is set, default to English
+        if (!localStorage.getItem("language")) {
+          localStorage.setItem("language", "en");
+        }
+
+        const currentLang = getCurrentLanguage();
+        applyTranslations(currentLang);
+
+        // Update checkmarks based on current language
+        document.getElementById("zh-check").classList.toggle("hidden", currentLang !== "zh");
+        document.getElementById("en-check").classList.toggle("hidden", currentLang !== "en");
+      });
     </script>
   </body>
 </html>
