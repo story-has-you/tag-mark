@@ -33,7 +33,7 @@ Tag Mark is a Chrome extension that redefines bookmark management by breaking fr
 
 ### Installation
 
-1. Install the extension from the [Chrome Web Store](https://chrome.google.com/webstore)
+1. Install the extension from the [Chrome Web Store](https://chromewebstore.google.com/detail/tag-mark/ckjopnhcmafomhkjfcikpeagbgibhiam)
 2. Click on the Tag Mark icon in your browser toolbar to open the main interface
 
 ### Quick Usage Guide
