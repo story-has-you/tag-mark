@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Toaster } from "@/components/ui/toaster";
+import { useKeyboardShortcut } from "@/hooks/use-hotkeys";
 import { useTheme } from "@/hooks/use-theme";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bookmark, Moon, Search, Settings, Sun, Tags } from "lucide-react";
@@ -35,6 +36,7 @@ const MainLayout: React.FC = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  useKeyboardShortcut({ onSearch: () => setSearchOpen(true) });
 
   // 添加通用加载组件
   const LoadingFallback = () => (
