@@ -513,5 +513,49 @@
   "hotkey_delete_bookmark": {
     "message": "删除书签",
     "description": "删除书签的快捷键描述"
+  },
+  "bookmark_batch_tag_dialog_title": {
+    "message": "批量添加标签",
+    "description": "Title for batch tag dialog"
+  },
+  "bookmark_batch_tag_dialog_folder_info": {
+    "message": "文件夹信息",
+    "description": "Folder information section title"
+  },
+  "bookmark_batch_tag_dialog_bookmarks_count": {
+    "message": "共 $COUNT$ 个书签",
+    "description": "Bookmarks count",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "bookmark_batch_tag_dialog_tags_selected": {
+    "message": "已选择 $COUNT$ 个标签",
+    "description": "Selected tags count",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "bookmark_batch_tag_dialog_selected_tags": {
+    "message": "已选择的标签",
+    "description": "Selected tags section title"
+  },
+  "bookmark_batch_tag_dialog_processing": {
+    "message": "处理中...",
+    "description": "Text shown during processing"
+  },
+  "bookmark_batch_tag_dialog_apply": {
+    "message": "应用到所有书签",
+    "description": "Apply button text"
+  },
+  "toast_add_failed": {
+    "message": "添加失败",
+    "description": "Toast title for failed add operation"
   }
 }

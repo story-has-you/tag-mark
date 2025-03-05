@@ -6,6 +6,7 @@ import { useTranslation } from "@/components/i18n-context";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { useBookmark } from "@/hooks/bookmark/use-bookmark";
+import { useBookmarkDialog } from "@/hooks/bookmark/use-bookmark-dialog";
 import { useBookmarkDialogs } from "@/hooks/bookmark/use-bookmark-dialogs";
 import { useBookmarkList } from "@/hooks/bookmark/use-bookmark-list";
 import { useBookmarkOperations } from "@/hooks/bookmark/use-bookmark-operations";
@@ -21,15 +22,12 @@ const BookmarkList: React.FC = () => {
   const { selectedNode } = useBookmark();
   const { bookmarks, updateLocalBookmark, deleteLocalBookmark } = useBookmarkList(selectedNode);
   const { parentRef, saveScrollPosition, restoreScrollPosition } = useScrollPosition();
-  const { editDialog, deleteDialog, handleEditDialogChange, handleDeleteDialogChange } = useBookmarkDialogs();
+  const { editDialog, deleteDialog, batchAddTagDialog, handleEditDialogChange, handleDeleteDialogChange, handleBatchAddTagDialogChange } = useBookmarkDialogs();
   const { handleEdit, handleDelete } = useBookmarkOperations(updateLocalBookmark, deleteLocalBookmark, saveScrollPosition, restoreScrollPosition);
-
+  const addTagDialog = useBookmarkDialog();
   const [highlightedBookmarkId, setHighlightedBookmarkId] = useAtom(highlightedBookmarkIdAtom);
   const [activeHighlightId, setActiveHighlightId] = useState<string | null>(null);
   const highlightedItemRef = useRef<HTMLDivElement>(null);
-
-  // 新增 - 批量添加标签对话框状态
-  const [batchTagDialogOpen, setBatchTagDialogOpen] = useState(false);
 
   // 处理高亮效果
   useEffect(() => {
@@ -70,9 +68,9 @@ const BookmarkList: React.FC = () => {
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">{selectedNode.title}</h2>
         {bookmarks.length > 0 && (
-          <Button variant="outline" size="sm" className="gap-2" onClick={() => setBatchTagDialogOpen(true)}>
+          <Button variant="outline" size="sm" className="gap-2" onClick={() => addTagDialog.openDialog(selectedNode)}>
             <Tag className="h-4 w-4" />
-            批量添加标签
+            {t("bookmark_batch_tag_dialog_title")}
           </Button>
         )}
       </div>
@@ -110,8 +108,8 @@ const BookmarkList: React.FC = () => {
         onConfirm={() => handleDelete(deleteDialog.dialog.bookmark, deleteDialog.closeDialog)}
       />
 
-      {/* 新增 - 批量添加标签对话框 */}
-      <BookmarkBatchAddTagDialog open={batchTagDialogOpen} bookmarks={bookmarks} folderName={selectedNode.title} onOpenChange={setBatchTagDialogOpen} />
+      {/* 使用 hook 中的状态和书签数据 */}
+      <BookmarkBatchAddTagDialog open={batchAddTagDialog.dialog.isOpen} bookmarks={bookmarks} folderName={selectedNode.title} onOpenChange={handleBatchAddTagDialogChange} />
     </div>
   );
 };

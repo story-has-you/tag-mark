@@ -181,6 +181,13 @@ export const useBookmarkTagManagement = (bookmark?: BookmarkTreeNode) => {
     [bookmark?.id, loadTags, toast]
   );
 
+  const handleBatchAddTag = useCallback(() => {
+    if (!bookmark.children) {
+      return;
+    }
+    bookmark.children.forEach((child) => handleAddTag(input));
+  }, [bookmark]);
+
   // 自动加载标签
   useEffect(() => {
     loadTags();
