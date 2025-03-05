@@ -3,6 +3,7 @@ import TagSuggestions from "@/components/tag/tag-suggestions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useBookmarkTagManagement } from "@/hooks/bookmark/use-bookmark-tag-management";
 import { useTagSuggestions } from "@/hooks/tag/use-tag-suggestions";
 import { cn } from "@/lib/utils";
@@ -56,23 +57,25 @@ const BookmarkAddTagDialog: React.FC<BookmarkAddTagDialogProps> = ({ open, bookm
             <TagSuggestions value={input} suggestions={suggestions} onValueChange={setInput} onEnter={handleAddTag} disabled={loading} allTags={allTags} tags={tags} />
           </div>
 
-          {/* 标签展示区域 */}
+          {/* 标签展示区域 - 主要修改部分 */}
           <div className="space-y-2">
             <h3 className="text-sm font-medium text-muted-foreground">{t("bookmark_add_tag_dialog_added_tags")}</h3>
-            <div className="min-h-[100px] rounded-lg border bg-card p-4">
-              <div className="flex flex-wrap gap-2">
-                {tags.map((tag) => (
-                  <Badge key={tag.id} variant="secondary" className={cn("flex items-center gap-1 px-3 py-1", "hover:bg-secondary/80 transition-colors")}>
-                    {tag.fullPath}
-                    <Button variant="ghost" size="icon" className="h-4 w-4 p-0 hover:bg-transparent" onClick={() => handleDeleteTag(tag.id)}>
-                      <span className="sr-only">{t("button_delete")}</span>×
-                    </Button>
-                  </Badge>
-                ))}
-                {tags.length === 0 && !loading && (
-                  <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground">{t("bookmark_add_tag_dialog_no_tags")}</div>
-                )}
-              </div>
+            <div className="min-h-[100px] max-h-[200px] rounded-lg border bg-card">
+              <ScrollArea className="h-full max-h-[200px] p-4">
+                <div className="flex flex-wrap gap-2">
+                  {tags.map((tag) => (
+                    <Badge key={tag.id} variant="secondary" className={cn("flex items-center gap-1 px-3 py-1 max-w-full", "hover:bg-secondary/80 transition-colors")}>
+                      <span className="truncate max-w-[180px]">{tag.fullPath}</span>
+                      <Button variant="ghost" size="icon" className="h-4 w-4 p-0 hover:bg-transparent flex-shrink-0" onClick={() => handleDeleteTag(tag.id)}>
+                        <span className="sr-only">{t("button_delete")}</span>×
+                      </Button>
+                    </Badge>
+                  ))}
+                  {tags.length === 0 && !loading && (
+                    <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground p-4">{t("bookmark_add_tag_dialog_no_tags")}</div>
+                  )}
+                </div>
+              </ScrollArea>
             </div>
           </div>
         </div>

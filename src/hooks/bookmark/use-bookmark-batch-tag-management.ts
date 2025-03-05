@@ -187,18 +187,33 @@ export const useBookmarkBatchTagManagement = (bookmarks: BookmarkTreeNode[]) => 
 
       // 批量添加标签
       for (const bookmark of bookmarks) {
+        // 获取当前书签已有的标签
+        const existingTags = bookmarkTags[bookmark.id] || [];
+
+        // 创建一个新的标签数组，用于存储合并后的标签
+        const mergedTags = [...existingTags];
+
         for (const tag of selectedTags) {
           try {
-            await relationService.createRelation(tag.id, bookmark.id);
-            successCount++;
+            // 检查标签是否已存在，避免重复添加
+            const tagExists = existingTags.some((existingTag) => existingTag.id === tag.id);
+
+            if (!tagExists) {
+              await relationService.createRelation(tag.id, bookmark.id);
+              // 只有当标签不存在时才添加到合并数组
+              mergedTags.push(tag);
+              successCount++;
+            }
           } catch (error) {
             console.error(`给书签 ${bookmark.id} 添加标签 ${tag.id} 失败:`, error);
             // 继续处理其他标签和书签
           }
         }
+
+        // 更新状态，使用合并后的标签数组
         setBookmarkTags((prev) => ({
           ...prev,
-          [bookmark.id]: selectedTags
+          [bookmark.id]: mergedTags
         }));
       }
 
