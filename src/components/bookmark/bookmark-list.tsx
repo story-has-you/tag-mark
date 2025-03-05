@@ -1,3 +1,4 @@
+// src/components/bookmark/bookmark-list.tsx
 import BookmarkItem from "@/components/bookmark/bookmark-item";
 import BookmarkBatchAddTagDialog from "@/components/bookmark/dialogs/bookmark-batch-add-tag-dialog";
 import BookmarkDeleteDialog from "@/components/bookmark/dialogs/bookmark-delete-dialog";
@@ -22,12 +23,12 @@ const BookmarkList: React.FC = () => {
   const { selectedNode } = useBookmark();
   const { bookmarks, updateLocalBookmark, deleteLocalBookmark } = useBookmarkList(selectedNode);
   const { parentRef, saveScrollPosition, restoreScrollPosition } = useScrollPosition();
-  const { editDialog, deleteDialog, batchAddTagDialog, handleEditDialogChange, handleDeleteDialogChange, handleBatchAddTagDialogChange } = useBookmarkDialogs();
+  const { editDialog, deleteDialog, handleEditDialogChange, handleDeleteDialogChange } = useBookmarkDialogs();
   const { handleEdit, handleDelete } = useBookmarkOperations(updateLocalBookmark, deleteLocalBookmark, saveScrollPosition, restoreScrollPosition);
-  const addTagDialog = useBookmarkDialog();
   const [highlightedBookmarkId, setHighlightedBookmarkId] = useAtom(highlightedBookmarkIdAtom);
   const [activeHighlightId, setActiveHighlightId] = useState<string | null>(null);
   const highlightedItemRef = useRef<HTMLDivElement>(null);
+  const addTagDialog = useBookmarkDialog();
 
   // 处理高亮效果
   useEffect(() => {
@@ -47,7 +48,6 @@ const BookmarkList: React.FC = () => {
   // 滚动到高亮项
   useEffect(() => {
     if (activeHighlightId && highlightedItemRef.current && parentRef.current) {
-      // 简化滚动逻辑，使用更可靠的滚动方法
       setTimeout(() => {
         highlightedItemRef.current?.scrollIntoView({
           behavior: "smooth",
@@ -62,9 +62,8 @@ const BookmarkList: React.FC = () => {
   }
 
   return (
-    // 不设置外部容器的滚动属性，依赖于父组件中的 ScrollArea
     <div className="p-4 h-full">
-      {/* 修改标题区域，添加批量标签按钮 */}
+      {/* 标题栏和批量标签按钮 */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">{selectedNode.title}</h2>
         {bookmarks.length > 0 && (
@@ -80,7 +79,6 @@ const BookmarkList: React.FC = () => {
           <AlertDescription>{t("bookmark_list_no_bookmarks")}</AlertDescription>
         </Alert>
       ) : (
-        // 移除所有滚动相关的类，只保留高度设置和内部容器的引用
         <div ref={parentRef} className="h-[calc(100vh-10rem)]">
           <div className="space-y-2 py-1">
             <AnimatePresence initial={false}>
@@ -94,6 +92,7 @@ const BookmarkList: React.FC = () => {
         </div>
       )}
 
+      {/* 编辑书签对话框 */}
       <BookmarkEditDialog
         open={editDialog.dialog.isOpen}
         bookmark={editDialog.dialog.bookmark}
@@ -101,6 +100,7 @@ const BookmarkList: React.FC = () => {
         onConfirm={(title, url) => handleEdit(editDialog.dialog.bookmark, title, url, editDialog.closeDialog)}
       />
 
+      {/* 删除书签对话框 */}
       <BookmarkDeleteDialog
         open={deleteDialog.dialog.isOpen}
         bookmark={deleteDialog.dialog.bookmark}
@@ -108,8 +108,13 @@ const BookmarkList: React.FC = () => {
         onConfirm={() => handleDelete(deleteDialog.dialog.bookmark, deleteDialog.closeDialog)}
       />
 
-      {/* 使用 hook 中的状态和书签数据 */}
-      <BookmarkBatchAddTagDialog open={batchAddTagDialog.dialog.isOpen} bookmarks={bookmarks} folderName={selectedNode.title} onOpenChange={handleBatchAddTagDialogChange} />
+      {/* 批量添加标签对话框 */}
+      <BookmarkBatchAddTagDialog
+        open={addTagDialog.dialog.isOpen}
+        bookmarks={bookmarks}
+        folderName={selectedNode.title}
+        onOpenChange={(isOpen) => addTagDialog.setDialog((prev) => ({ ...prev, isOpen }))}
+      />
     </div>
   );
 };
