@@ -557,5 +557,13 @@
   "toast_add_failed": {
     "message": "添加失败",
     "description": "Toast title for failed add operation"
+  },
+  "settings_click_to_open": {
+    "message": "点击打开书签",
+    "description": "点击打开书签设置的标签"
+  },
+  "settings_click_to_open_description": {
+    "message": "启用点击书签直接在新标签页中打开",
+    "description": "点击打开书签设置的描述"
   }
 }

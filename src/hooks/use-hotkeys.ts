@@ -1,6 +1,6 @@
 import { useTranslation } from "@/components/i18n-context"; // 添加导入
-import { hotkeyEnabledAtom } from "@/store/settings";
-import { useAtom } from "jotai";
+
+import { useSettings } from "@/hooks/use-settings";
 import { useHotkeys } from "react-hotkeys-hook";
 
 interface KeyboardShortcutOptions {
@@ -18,7 +18,8 @@ export type HotkeyConfig = {
 };
 
 export const useKeyboardShortcut = ({ onSearch, onOpenAll, onEdit, onDelete }: KeyboardShortcutOptions) => {
-  const [hotkeyEnabled, setHotkeyEnabled] = useAtom(hotkeyEnabledAtom);
+  const { hotkeyEnabled } = useSettings();
+
   const { t } = useTranslation(); // 添加useTranslation
 
   // 定义所有应用快捷键
@@ -66,8 +67,6 @@ export const useKeyboardShortcut = ({ onSearch, onOpenAll, onEdit, onDelete }: K
 
   // 返回快捷键状态和快捷键列表(方便显示快捷键提示)
   return {
-    hotkeyEnabled,
-    setHotkeyEnabled,
     hotkeys
   };
 };

@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { useKeyboardShortcut } from "@/hooks/use-hotkeys";
+import { useSettings } from "@/hooks/use-settings";
 import { useToast } from "@/hooks/use-toast";
 import DataTransferService from "@/services/data-transfer-service";
 import { Download, FileUp, Keyboard, Settings } from "lucide-react";
@@ -15,9 +16,10 @@ import React, { useRef } from "react";
 const SettingsPage: React.FC = () => {
   const { t } = useTranslation();
   const { toast } = useToast();
-  const { hotkeyEnabled, setHotkeyEnabled, hotkeys } = useKeyboardShortcut({});
+  const { hotkeys } = useKeyboardShortcut({});
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dataTransferService = DataTransferService.getInstance();
+  const { hotkeyEnabled, setHotkeyEnabled, clickToOpenEnabled, setClickToOpenEnabled } = useSettings();
 
   const handleExport = async () => {
     try {
@@ -102,6 +104,15 @@ const SettingsPage: React.FC = () => {
 
               {/* 快捷键列表 */}
               <HotkeysList hotkeys={hotkeys} />
+
+              {/* 添加新的点击打开书签设置项 */}
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label htmlFor="click-to-open-toggle">{t("settings_click_to_open")}</Label>
+                  <p className="text-sm text-muted-foreground">{t("settings_click_to_open_description")}</p>
+                </div>
+                <Switch id="click-to-open-toggle" checked={clickToOpenEnabled} onCheckedChange={setClickToOpenEnabled} />
+              </div>
             </CardContent>
           </Card>
 

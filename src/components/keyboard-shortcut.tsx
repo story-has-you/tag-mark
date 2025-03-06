@@ -1,5 +1,4 @@
-// components/ui/keyboard-shortcut.tsx
-import { useKeyboardShortcut } from "@/hooks/use-hotkeys";
+import { useSettings } from "@/hooks/use-settings";
 import { isMacOS } from "@/lib/platform";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
@@ -16,7 +15,7 @@ interface KeyboardShortcutProps {
 
 const KeyboardShortcut: React.FC<KeyboardShortcutProps> = ({ command = false, alt = false, shift = false, ctrl = false, keys = [], className, size = "sm" }) => {
   const [isMac, setIsMac] = useState(false);
-  const { hotkeyEnabled } = useKeyboardShortcut({});
+  const { hotkeyEnabled } = useSettings();
 
   useEffect(() => {
     isMacOS().then(setIsMac);
