@@ -1,0 +1,534 @@
+{
+  "app_name": {
+    "message": "Gestionnaire de Tags",
+    "description": "Extension name"
+  },
+  "app_description": {
+    "message": "Organisez facilement vos favoris avec des tags imbriqués et des raccourcis clavier personnalisables.",
+    "description": "Extension description"
+  },
+
+  "button_cancel": {
+    "message": "Annuler",
+    "description": "Cancel button text"
+  },
+  "button_confirm": {
+    "message": "Confirmer",
+    "description": "Confirm button text"
+  },
+  "button_save": {
+    "message": "Enregistrer",
+    "description": "Save button text"
+  },
+  "button_delete": {
+    "message": "Supprimer",
+    "description": "Delete button text"
+  },
+  "button_edit": {
+    "message": "Modifier",
+    "description": "Edit button text"
+  },
+  "button_add_tag": {
+    "message": "Ajouter un tag",
+    "description": "Add tag button text"
+  },
+  "button_open_all": {
+    "message": "Tout ouvrir",
+    "description": "Open all button text"
+  },
+
+  "main_layout_tag_management": {
+    "message": "Gestion des tags",
+    "description": "Tab label for tag management"
+  },
+  "main_layout_bookmark_management": {
+    "message": "Gestion des favoris",
+    "description": "Tab label for bookmark management"
+  },
+  "main_layout_search": {
+    "message": "Rechercher...",
+    "description": "Search button text"
+  },
+  "main_layout_keyboard_shortcuts": {
+    "message": "Raccourcis clavier",
+    "description": "Keyboard shortcuts toggle"
+  },
+
+  "search_command_title": {
+    "message": "Rechercher des favoris et des tags",
+    "description": "Search dialog title"
+  },
+  "search_command_help": {
+    "message": "Utilisez ↑↓ pour naviguer, Entrée pour sélectionner, Échap pour fermer",
+    "description": "Search dialog help text"
+  },
+  "search_command_no_results": {
+    "message": "Aucun résultat trouvé",
+    "description": "No search results message"
+  },
+  "search_command_tags": {
+    "message": "Tags",
+    "description": "Tags section header"
+  },
+  "search_command_bookmarks": {
+    "message": "Favoris",
+    "description": "Bookmarks section header"
+  },
+
+  "language_selector_language": {
+    "message": "Langue",
+    "description": "Language label"
+  },
+
+  "bookmark_list_select_folder": {
+    "message": "Veuillez sélectionner un dossier",
+    "description": "Message when no folder is selected"
+  },
+  "bookmark_list_no_bookmarks": {
+    "message": "Aucun favori dans ce dossier",
+    "description": "Empty state for bookmark list"
+  },
+
+  "bookmark_context_menu_add_tag": {
+    "message": "Ajouter un tag",
+    "description": "Context menu option to add tag"
+  },
+  "bookmark_context_menu_open_bookmark": {
+    "message": "Ouvrir le favori",
+    "description": "Context menu option to open bookmark"
+  },
+  "bookmark_context_menu_edit_bookmark": {
+    "message": "Modifier le favori",
+    "description": "Context menu option to edit bookmark"
+  },
+  "bookmark_context_menu_delete_bookmark": {
+    "message": "Supprimer le favori",
+    "description": "Context menu option to delete bookmark"
+  },
+
+  "bookmark_edit_dialog_title": {
+    "message": "Modifier le favori",
+    "description": "Edit bookmark dialog title"
+  },
+  "bookmark_edit_dialog_bookmark_title": {
+    "message": "Titre",
+    "description": "Bookmark title field label"
+  },
+  "bookmark_edit_dialog_url": {
+    "message": "URL",
+    "description": "Bookmark URL field label"
+  },
+
+  "bookmark_delete_dialog_title": {
+    "message": "Supprimer le favori",
+    "description": "Delete bookmark dialog title"
+  },
+  "bookmark_delete_dialog_confirm_message": {
+    "message": "Êtes-vous sûr de vouloir supprimer le favori \"$BOOKMARK_TITLE$\" ? Cette action ne peut pas être annulée.",
+    "description": "Delete bookmark confirmation message",
+    "placeholders": {
+      "bookmark_title": {
+        "content": "$1",
+        "example": "Example Bookmark"
+      }
+    }
+  },
+
+  "bookmark_add_tag_dialog_title": {
+    "message": "Gérer les tags",
+    "description": "Add tag dialog title"
+  },
+  "bookmark_add_tag_dialog_bookmark_info": {
+    "message": "Information sur le favori",
+    "description": "Bookmark info section title"
+  },
+  "bookmark_add_tag_dialog_add_tags": {
+    "message": "Ajouter des tags",
+    "description": "Add tags section title"
+  },
+  "bookmark_add_tag_dialog_tag_count": {
+    "message": "$COUNT$ tags ajoutés",
+    "description": "Tag count text",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "bookmark_add_tag_dialog_tag_placeholder": {
+    "message": "Entrez le nom du tag, appuyez sur Entrée pour ajouter...",
+    "description": "Tag input placeholder"
+  },
+  "bookmark_add_tag_dialog_added_tags": {
+    "message": "Tags ajoutés",
+    "description": "Added tags section title"
+  },
+  "bookmark_add_tag_dialog_no_tags": {
+    "message": "Aucun tag ajouté. Veuillez ajouter un tag ci-dessus.",
+    "description": "Empty state for added tags"
+  },
+
+  "tag_tree_select_tag": {
+    "message": "Veuillez sélectionner un tag",
+    "description": "Message when no tag is selected"
+  },
+
+  "tag_detail_created": {
+    "message": "Créé",
+    "description": "Created date label"
+  },
+  "tag_detail_updated": {
+    "message": "Mis à jour",
+    "description": "Updated date label"
+  },
+  "tag_detail_sub_tags": {
+    "message": "Sous-tags",
+    "description": "Sub-tags section header"
+  },
+  "tag_detail_related_bookmarks": {
+    "message": "Favoris associés",
+    "description": "Related bookmarks section header"
+  },
+  "tag_detail_no_bookmarks": {
+    "message": "Aucun favori associé à ce tag",
+    "description": "Empty state for tag bookmarks"
+  },
+
+  "tag_edit_dialog_title": {
+    "message": "Modifier le tag",
+    "description": "Edit tag dialog title"
+  },
+  "tag_edit_dialog_new_title": {
+    "message": "Nouveau tag",
+    "description": "New tag dialog title"
+  },
+  "tag_edit_dialog_tag_name": {
+    "message": "Nom du tag",
+    "description": "Tag name field label"
+  },
+  "tag_edit_dialog_parent_tag": {
+    "message": "Tag parent",
+    "description": "Parent tag field label"
+  },
+  "tag_edit_dialog_none": {
+    "message": "Aucun",
+    "description": "None option for parent tag select"
+  },
+  "tag_edit_dialog_name_empty": {
+    "message": "Le nom du tag ne peut pas être vide",
+    "description": "Error for empty tag name"
+  },
+  "tag_edit_dialog_name_duplicate": {
+    "message": "Un tag avec ce nom existe déjà à ce niveau",
+    "description": "Error for duplicate tag name"
+  },
+  "tag_edit_dialog_parent_hint": {
+    "message": "Remarque : Les tags portant le même nom ont été exclus des options parent",
+    "description": "Hint about excluded parent tags"
+  },
+
+  "tag_delete_dialog_title": {
+    "message": "Supprimer le tag",
+    "description": "Delete tag dialog title"
+  },
+  "tag_delete_dialog_confirm_message": {
+    "message": "Comment souhaitez-vous supprimer le tag \"$TAG_NAME$\" ?",
+    "description": "Delete tag confirmation message",
+    "placeholders": {
+      "tag_name": {
+        "content": "$1",
+        "example": "Example Tag"
+      }
+    }
+  },
+  "tag_delete_dialog_warning": {
+    "message": "Attention : Ce tag a $COUNT$ sous-tags qui deviendront des tags de premier niveau après la suppression.",
+    "description": "Warning about sub-tags when deleting",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "tag_delete_dialog_delete_tag_only": {
+    "message": "Supprimer uniquement le tag",
+    "description": "Option to delete just the tag"
+  },
+  "tag_delete_dialog_delete_with_bookmarks": {
+    "message": "Supprimer le tag et les favoris associés",
+    "description": "Option to delete tag and its bookmarks"
+  },
+
+  "tag_suggestions_placeholder": {
+    "message": "Entrez le nom du tag, appuyez sur Entrée pour ajouter...",
+    "description": "Tag suggestions input placeholder"
+  },
+
+  "toast_tag_added": {
+    "message": "Tag ajouté",
+    "description": "Toast title for tag added"
+  },
+  "toast_tag_added_desc": {
+    "message": "Le tag \"$TAG_NAME$\" a été ajouté",
+    "description": "Toast description for tag added",
+    "placeholders": {
+      "tag_name": {
+        "content": "$1",
+        "example": "Example Tag"
+      }
+    }
+  },
+  "toast_tag_removed": {
+    "message": "Tag supprimé",
+    "description": "Toast title for tag removed"
+  },
+  "toast_tag_removed_desc": {
+    "message": "Le tag a été supprimé avec succès",
+    "description": "Toast description for tag removed"
+  },
+  "toast_edit_success": {
+    "message": "Modification réussie",
+    "description": "Toast title for successful edit"
+  },
+  "toast_edit_success_description": {
+    "message": "Le favori \"$TITLE$\" a été mis à jour",
+    "description": "Toast message for successful bookmark update",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Example Bookmark"
+      }
+    }
+  },
+  "toast_edit_failed": {
+    "message": "Échec de la modification",
+    "description": "Toast title for failed edit"
+  },
+  "toast_edit_error_description": {
+    "message": "Une erreur s'est produite lors de la mise à jour du favori",
+    "description": "Toast message for bookmark update error"
+  },
+  "toast_delete_success": {
+    "message": "Suppression réussie",
+    "description": "Toast title for successful delete"
+  },
+  "toast_delete_success_description": {
+    "message": "Le favori et ses tags associés ont été supprimés",
+    "description": "Toast message for successful bookmark deletion"
+  },
+  "toast_delete_error_description": {
+    "message": "Une erreur s'est produite lors de la suppression du favori, veuillez réessayer",
+    "description": "Toast message for bookmark deletion error"
+  },
+  "toast_load_failed": {
+    "message": "Échec du chargement",
+    "description": "Toast title for load failed"
+  },
+  "toast_save_failed": {
+    "message": "Échec de l'enregistrement",
+    "description": "Toast title for save failed"
+  },
+  "toast_delete_failed": {
+    "message": "Échec de la suppression",
+    "description": "Toast title for delete failed"
+  },
+  "toast_add_failed": {
+    "message": "Échec de l'ajout",
+    "description": "Toast title for failed add operation"
+  },
+
+  "settings_title": {
+    "message": "Paramètres",
+    "description": "Settings page title"
+  },
+  "settings_description": {
+    "message": "Configurez les préférences de votre extension Tag Mark",
+    "description": "Settings page description"
+  },
+  "settings_keyboard_shortcuts": {
+    "message": "Raccourcis clavier",
+    "description": "Keyboard shortcuts section title"
+  },
+  "settings_keyboard_shortcuts_description": {
+    "message": "Configurez les raccourcis clavier pour un accès rapide aux fonctionnalités",
+    "description": "Keyboard shortcuts section description"
+  },
+  "settings_enable_shortcuts": {
+    "message": "Activer les raccourcis clavier",
+    "description": "Enable shortcuts toggle label"
+  },
+  "settings_enable_shortcuts_description": {
+    "message": "Activer ou désactiver les raccourcis clavier dans toute l'extension",
+    "description": "Enable shortcuts toggle description"
+  },
+  "settings_no_hotkeys": {
+    "message": "Aucun raccourci clavier configuré",
+    "description": "Message when no hotkeys are available"
+  },
+  "settings_hotkeys_search": {
+    "message": "Recherche",
+    "description": "Search hotkeys group title"
+  },
+  "settings_hotkeys_bookmark": {
+    "message": "Gestion des favoris",
+    "description": "Bookmark hotkeys group title"
+  },
+
+  "settings_data_management": {
+    "message": "Gestion des données",
+    "description": "Data management section title"
+  },
+  "settings_data_management_description": {
+    "message": "Sauvegardez et restaurez vos données de tags et de favoris",
+    "description": "Data management section description"
+  },
+  "settings_export_data": {
+    "message": "Exporter les données",
+    "description": "Export data title"
+  },
+  "settings_export_data_description": {
+    "message": "Exporter tous vos tags et favoris associés sous forme de fichier JSON",
+    "description": "Export data description"
+  },
+  "settings_export_button": {
+    "message": "Exporter vers un fichier",
+    "description": "Export button text"
+  },
+  "settings_import_data": {
+    "message": "Importer des données",
+    "description": "Import data title"
+  },
+  "settings_import_data_description": {
+    "message": "Importer des tags et des associations de favoris à partir d'un fichier précédemment exporté",
+    "description": "Import data description"
+  },
+  "settings_import_button": {
+    "message": "Importer depuis un fichier",
+    "description": "Import button text"
+  },
+
+  "settings_export_success_title": {
+    "message": "Exportation réussie",
+    "description": "Export success toast title"
+  },
+  "settings_export_success_description": {
+    "message": "Vos données ont été exportées avec succès",
+    "description": "Export success toast description"
+  },
+  "settings_export_error_title": {
+    "message": "Échec de l'exportation",
+    "description": "Export error toast title"
+  },
+  "settings_export_error_description": {
+    "message": "Un problème est survenu lors de l'exportation de vos données",
+    "description": "Export error toast description"
+  },
+  "settings_import_success_title": {
+    "message": "Importation réussie",
+    "description": "Import success toast title"
+  },
+  "settings_import_success_description": {
+    "message": "Vos données ont été importées avec succès",
+    "description": "Import success toast description"
+  },
+  "settings_import_error_title": {
+    "message": "Échec de l'importation",
+    "description": "Import error toast title"
+  },
+  "settings_import_error_description": {
+    "message": "Un problème est survenu lors de l'importation de vos données. Assurez-vous que le fichier est une sauvegarde Tag Mark valide.",
+    "description": "Import error toast description"
+  },
+  "bookmark_edit_dialog_url_error": {
+    "message": "Veuillez entrer une URL valide (commençant par http:// ou https://)",
+    "description": "Error message for invalid URL format"
+  },
+  "bookmark_edit_dialog_title_empty": {
+    "message": "Le titre du favori ne peut pas être vide",
+    "description": "Error message for empty bookmark title"
+  },
+  "button_saving": {
+    "message": "Enregistrement...",
+    "description": "Text shown when saving is in progress"
+  },
+
+  "error_boundary_title": {
+    "message": "Une erreur s'est produite",
+    "description": "Error boundary title"
+  },
+  "error_boundary_unknown": {
+    "message": "L'application a rencontré une erreur inconnue",
+    "description": "Unknown error message in error boundary"
+  },
+  "error_boundary_recover": {
+    "message": "Essayer de récupérer",
+    "description": "Button text to attempt recovery from error"
+  },
+
+  "hotkey_open_search": {
+    "message": "Ouvrir la recherche",
+    "description": "Hotkey description for opening search"
+  },
+  "hotkey_open_all_bookmarks": {
+    "message": "Ouvrir tous les favoris",
+    "description": "Hotkey description for opening all bookmarks"
+  },
+  "hotkey_edit_bookmark": {
+    "message": "Modifier le favori",
+    "description": "Hotkey description for editing bookmark"
+  },
+  "hotkey_delete_bookmark": {
+    "message": "Supprimer le favori",
+    "description": "Hotkey description for deleting bookmark"
+  },
+  "bookmark_batch_tag_dialog_title": {
+    "message": "Ajout groupé de tags",
+    "description": "Title for batch tag dialog"
+  },
+  "bookmark_batch_tag_dialog_folder_info": {
+    "message": "Information sur le dossier",
+    "description": "Folder information section title"
+  },
+  "bookmark_batch_tag_dialog_bookmarks_count": {
+    "message": "Total de $COUNT$ favoris",
+    "description": "Bookmarks count",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "bookmark_batch_tag_dialog_tags_selected": {
+    "message": "$COUNT$ tags sélectionnés",
+    "description": "Selected tags count",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "bookmark_batch_tag_dialog_selected_tags": {
+    "message": "Tags sélectionnés",
+    "description": "Selected tags section title"
+  },
+  "bookmark_batch_tag_dialog_processing": {
+    "message": "Traitement en cours...",
+    "description": "Text shown during processing"
+  },
+  "bookmark_batch_tag_dialog_apply": {
+    "message": "Appliquer à tous les favoris",
+    "description": "Apply button text"
+  },
+  "settings_click_to_open": {
+    "message": "Cliquer pour ouvrir les favoris",
+    "description": "Toggle label for click to open bookmarks setting"
+  },
+  "settings_click_to_open_description": {
+    "message": "Activer l'ouverture des favoris dans un nouvel onglet lors d'un clic",
+    "description": "Description for click to open bookmarks setting"
+  }
+}

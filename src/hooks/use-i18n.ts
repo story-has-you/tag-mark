@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 const messagesCache: Record<string, Record<string, string>> = {};
 
 // 定义受支持的语言列表
-const SUPPORTED_LOCALES = ["en", "zh"];
+const SUPPORTED_LOCALES = ["en", "zh", "ru", "fr", "de", "es", "ja", "pt", "it"];
 
 // 安全地验证语言代码
 const isValidLocale = (locale: string): boolean => {

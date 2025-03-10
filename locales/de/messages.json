@@ -1,0 +1,534 @@
+{
+  "app_name": {
+    "message": "Tag Mark",
+    "description": "Extension name"
+  },
+  "app_description": {
+    "message": "Organisieren Sie Lesezeichen nahtlos mit verschachtelten Tags und benutzerdefinierten Tastenkombinationen.",
+    "description": "Extension description"
+  },
+
+  "button_cancel": {
+    "message": "Abbrechen",
+    "description": "Cancel button text"
+  },
+  "button_confirm": {
+    "message": "Bestätigen",
+    "description": "Confirm button text"
+  },
+  "button_save": {
+    "message": "Speichern",
+    "description": "Save button text"
+  },
+  "button_delete": {
+    "message": "Löschen",
+    "description": "Delete button text"
+  },
+  "button_edit": {
+    "message": "Bearbeiten",
+    "description": "Edit button text"
+  },
+  "button_add_tag": {
+    "message": "Tag hinzufügen",
+    "description": "Add tag button text"
+  },
+  "button_open_all": {
+    "message": "Alle öffnen",
+    "description": "Open all button text"
+  },
+
+  "main_layout_tag_management": {
+    "message": "Tag-Verwaltung",
+    "description": "Tab label for tag management"
+  },
+  "main_layout_bookmark_management": {
+    "message": "Lesezeichen-Verwaltung",
+    "description": "Tab label for bookmark management"
+  },
+  "main_layout_search": {
+    "message": "Suchen...",
+    "description": "Search button text"
+  },
+  "main_layout_keyboard_shortcuts": {
+    "message": "Tastenkombinationen",
+    "description": "Keyboard shortcuts toggle"
+  },
+
+  "search_command_title": {
+    "message": "Lesezeichen und Tags durchsuchen",
+    "description": "Search dialog title"
+  },
+  "search_command_help": {
+    "message": "Benutzen Sie ↑↓ zum Navigieren, Enter zum Auswählen, Esc zum Schließen",
+    "description": "Search dialog help text"
+  },
+  "search_command_no_results": {
+    "message": "Keine Ergebnisse gefunden",
+    "description": "No search results message"
+  },
+  "search_command_tags": {
+    "message": "Tags",
+    "description": "Tags section header"
+  },
+  "search_command_bookmarks": {
+    "message": "Lesezeichen",
+    "description": "Bookmarks section header"
+  },
+
+  "language_selector_language": {
+    "message": "Sprache",
+    "description": "Language label"
+  },
+
+  "bookmark_list_select_folder": {
+    "message": "Bitte wählen Sie einen Ordner",
+    "description": "Message when no folder is selected"
+  },
+  "bookmark_list_no_bookmarks": {
+    "message": "Keine Lesezeichen in diesem Ordner",
+    "description": "Empty state for bookmark list"
+  },
+
+  "bookmark_context_menu_add_tag": {
+    "message": "Tag hinzufügen",
+    "description": "Context menu option to add tag"
+  },
+  "bookmark_context_menu_open_bookmark": {
+    "message": "Lesezeichen öffnen",
+    "description": "Context menu option to open bookmark"
+  },
+  "bookmark_context_menu_edit_bookmark": {
+    "message": "Lesezeichen bearbeiten",
+    "description": "Context menu option to edit bookmark"
+  },
+  "bookmark_context_menu_delete_bookmark": {
+    "message": "Lesezeichen löschen",
+    "description": "Context menu option to delete bookmark"
+  },
+
+  "bookmark_edit_dialog_title": {
+    "message": "Lesezeichen bearbeiten",
+    "description": "Edit bookmark dialog title"
+  },
+  "bookmark_edit_dialog_bookmark_title": {
+    "message": "Titel",
+    "description": "Bookmark title field label"
+  },
+  "bookmark_edit_dialog_url": {
+    "message": "URL",
+    "description": "Bookmark URL field label"
+  },
+
+  "bookmark_delete_dialog_title": {
+    "message": "Lesezeichen löschen",
+    "description": "Delete bookmark dialog title"
+  },
+  "bookmark_delete_dialog_confirm_message": {
+    "message": "Sind Sie sicher, dass Sie das Lesezeichen \"$BOOKMARK_TITLE$\" löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "description": "Delete bookmark confirmation message",
+    "placeholders": {
+      "bookmark_title": {
+        "content": "$1",
+        "example": "Example Bookmark"
+      }
+    }
+  },
+
+  "bookmark_add_tag_dialog_title": {
+    "message": "Tags verwalten",
+    "description": "Add tag dialog title"
+  },
+  "bookmark_add_tag_dialog_bookmark_info": {
+    "message": "Lesezeichen-Information",
+    "description": "Bookmark info section title"
+  },
+  "bookmark_add_tag_dialog_add_tags": {
+    "message": "Tags hinzufügen",
+    "description": "Add tags section title"
+  },
+  "bookmark_add_tag_dialog_tag_count": {
+    "message": "$COUNT$ Tags hinzugefügt",
+    "description": "Tag count text",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "bookmark_add_tag_dialog_tag_placeholder": {
+    "message": "Geben Sie einen Tag-Namen ein, drücken Sie Enter zum Hinzufügen...",
+    "description": "Tag input placeholder"
+  },
+  "bookmark_add_tag_dialog_added_tags": {
+    "message": "Hinzugefügte Tags",
+    "description": "Added tags section title"
+  },
+  "bookmark_add_tag_dialog_no_tags": {
+    "message": "Noch keine Tags hinzugefügt. Bitte fügen Sie oben einen Tag hinzu.",
+    "description": "Empty state for added tags"
+  },
+
+  "tag_tree_select_tag": {
+    "message": "Bitte wählen Sie einen Tag",
+    "description": "Message when no tag is selected"
+  },
+
+  "tag_detail_created": {
+    "message": "Erstellt",
+    "description": "Created date label"
+  },
+  "tag_detail_updated": {
+    "message": "Aktualisiert",
+    "description": "Updated date label"
+  },
+  "tag_detail_sub_tags": {
+    "message": "Unter-Tags",
+    "description": "Sub-tags section header"
+  },
+  "tag_detail_related_bookmarks": {
+    "message": "Verknüpfte Lesezeichen",
+    "description": "Related bookmarks section header"
+  },
+  "tag_detail_no_bookmarks": {
+    "message": "Keine Lesezeichen mit diesem Tag verknüpft",
+    "description": "Empty state for tag bookmarks"
+  },
+
+  "tag_edit_dialog_title": {
+    "message": "Tag bearbeiten",
+    "description": "Edit tag dialog title"
+  },
+  "tag_edit_dialog_new_title": {
+    "message": "Neuer Tag",
+    "description": "New tag dialog title"
+  },
+  "tag_edit_dialog_tag_name": {
+    "message": "Tag-Name",
+    "description": "Tag name field label"
+  },
+  "tag_edit_dialog_parent_tag": {
+    "message": "Übergeordneter Tag",
+    "description": "Parent tag field label"
+  },
+  "tag_edit_dialog_none": {
+    "message": "Keine",
+    "description": "None option for parent tag select"
+  },
+  "tag_edit_dialog_name_empty": {
+    "message": "Tag-Name darf nicht leer sein",
+    "description": "Error for empty tag name"
+  },
+  "tag_edit_dialog_name_duplicate": {
+    "message": "Ein Tag mit diesem Namen existiert bereits auf dieser Ebene",
+    "description": "Error for duplicate tag name"
+  },
+  "tag_edit_dialog_parent_hint": {
+    "message": "Hinweis: Tags mit demselben Namen wurden aus den übergeordneten Optionen ausgeschlossen",
+    "description": "Hint about excluded parent tags"
+  },
+
+  "tag_delete_dialog_title": {
+    "message": "Tag löschen",
+    "description": "Delete tag dialog title"
+  },
+  "tag_delete_dialog_confirm_message": {
+    "message": "Wie möchten Sie den Tag \"$TAG_NAME$\" löschen?",
+    "description": "Delete tag confirmation message",
+    "placeholders": {
+      "tag_name": {
+        "content": "$1",
+        "example": "Example Tag"
+      }
+    }
+  },
+  "tag_delete_dialog_warning": {
+    "message": "Warnung: Dieser Tag hat $COUNT$ Unter-Tags, die nach dem Löschen zu Top-Level-Tags werden.",
+    "description": "Warning about sub-tags when deleting",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "tag_delete_dialog_delete_tag_only": {
+    "message": "Nur Tag löschen",
+    "description": "Option to delete just the tag"
+  },
+  "tag_delete_dialog_delete_with_bookmarks": {
+    "message": "Tag und verknüpfte Lesezeichen löschen",
+    "description": "Option to delete tag and its bookmarks"
+  },
+
+  "tag_suggestions_placeholder": {
+    "message": "Geben Sie einen Tag-Namen ein, drücken Sie Enter zum Hinzufügen...",
+    "description": "Tag suggestions input placeholder"
+  },
+
+  "toast_tag_added": {
+    "message": "Tag hinzugefügt",
+    "description": "Toast title for tag added"
+  },
+  "toast_tag_added_desc": {
+    "message": "Tag \"$TAG_NAME$\" wurde hinzugefügt",
+    "description": "Toast description for tag added",
+    "placeholders": {
+      "tag_name": {
+        "content": "$1",
+        "example": "Example Tag"
+      }
+    }
+  },
+  "toast_tag_removed": {
+    "message": "Tag entfernt",
+    "description": "Toast title for tag removed"
+  },
+  "toast_tag_removed_desc": {
+    "message": "Tag wurde erfolgreich entfernt",
+    "description": "Toast description for tag removed"
+  },
+  "toast_edit_success": {
+    "message": "Bearbeitung erfolgreich",
+    "description": "Toast title for successful edit"
+  },
+  "toast_edit_success_description": {
+    "message": "Lesezeichen \"$TITLE$\" wurde aktualisiert",
+    "description": "Toast message for successful bookmark update",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Example Bookmark"
+      }
+    }
+  },
+  "toast_edit_failed": {
+    "message": "Bearbeitung fehlgeschlagen",
+    "description": "Toast title for failed edit"
+  },
+  "toast_edit_error_description": {
+    "message": "Beim Aktualisieren des Lesezeichens ist ein Fehler aufgetreten",
+    "description": "Toast message for bookmark update error"
+  },
+  "toast_delete_success": {
+    "message": "Löschen erfolgreich",
+    "description": "Toast title for successful delete"
+  },
+  "toast_delete_success_description": {
+    "message": "Lesezeichen und zugehörige Tags wurden gelöscht",
+    "description": "Toast message for successful bookmark deletion"
+  },
+  "toast_delete_error_description": {
+    "message": "Beim Löschen des Lesezeichens ist ein Fehler aufgetreten, bitte versuchen Sie es erneut",
+    "description": "Toast message for bookmark deletion error"
+  },
+  "toast_load_failed": {
+    "message": "Laden fehlgeschlagen",
+    "description": "Toast title for load failed"
+  },
+  "toast_save_failed": {
+    "message": "Speichern fehlgeschlagen",
+    "description": "Toast title for save failed"
+  },
+  "toast_delete_failed": {
+    "message": "Löschen fehlgeschlagen",
+    "description": "Toast title for delete failed"
+  },
+  "toast_add_failed": {
+    "message": "Hinzufügen fehlgeschlagen",
+    "description": "Toast title for failed add operation"
+  },
+
+  "settings_title": {
+    "message": "Einstellungen",
+    "description": "Settings page title"
+  },
+  "settings_description": {
+    "message": "Konfigurieren Sie die Einstellungen Ihrer Tag Mark-Erweiterung",
+    "description": "Settings page description"
+  },
+  "settings_keyboard_shortcuts": {
+    "message": "Tastenkombinationen",
+    "description": "Keyboard shortcuts section title"
+  },
+  "settings_keyboard_shortcuts_description": {
+    "message": "Konfigurieren Sie Tastenkombinationen für schnellen Zugriff auf Funktionen",
+    "description": "Keyboard shortcuts section description"
+  },
+  "settings_enable_shortcuts": {
+    "message": "Tastenkombinationen aktivieren",
+    "description": "Enable shortcuts toggle label"
+  },
+  "settings_enable_shortcuts_description": {
+    "message": "Tastenkombinationen in der gesamten Erweiterung aktivieren oder deaktivieren",
+    "description": "Enable shortcuts toggle description"
+  },
+  "settings_no_hotkeys": {
+    "message": "Keine Tastenkombinationen konfiguriert",
+    "description": "Message when no hotkeys are available"
+  },
+  "settings_hotkeys_search": {
+    "message": "Suche",
+    "description": "Search hotkeys group title"
+  },
+  "settings_hotkeys_bookmark": {
+    "message": "Lesezeichen-Verwaltung",
+    "description": "Bookmark hotkeys group title"
+  },
+
+  "settings_data_management": {
+    "message": "Datenverwaltung",
+    "description": "Data management section title"
+  },
+  "settings_data_management_description": {
+    "message": "Sichern und Wiederherstellen Ihrer Tags und Lesezeichendaten",
+    "description": "Data management section description"
+  },
+  "settings_export_data": {
+    "message": "Daten exportieren",
+    "description": "Export data title"
+  },
+  "settings_export_data_description": {
+    "message": "Exportieren Sie alle Ihre Tags und verknüpften Lesezeichen als JSON-Datei",
+    "description": "Export data description"
+  },
+  "settings_export_button": {
+    "message": "In Datei exportieren",
+    "description": "Export button text"
+  },
+  "settings_import_data": {
+    "message": "Daten importieren",
+    "description": "Import data title"
+  },
+  "settings_import_data_description": {
+    "message": "Importieren Sie Tags und Lesezeichenverknüpfungen aus einer zuvor exportierten Datei",
+    "description": "Import data description"
+  },
+  "settings_import_button": {
+    "message": "Aus Datei importieren",
+    "description": "Import button text"
+  },
+
+  "settings_export_success_title": {
+    "message": "Export erfolgreich",
+    "description": "Export success toast title"
+  },
+  "settings_export_success_description": {
+    "message": "Ihre Daten wurden erfolgreich exportiert",
+    "description": "Export success toast description"
+  },
+  "settings_export_error_title": {
+    "message": "Export fehlgeschlagen",
+    "description": "Export error toast title"
+  },
+  "settings_export_error_description": {
+    "message": "Beim Exportieren Ihrer Daten ist ein Problem aufgetreten",
+    "description": "Export error toast description"
+  },
+  "settings_import_success_title": {
+    "message": "Import erfolgreich",
+    "description": "Import success toast title"
+  },
+  "settings_import_success_description": {
+    "message": "Ihre Daten wurden erfolgreich importiert",
+    "description": "Import success toast description"
+  },
+  "settings_import_error_title": {
+    "message": "Import fehlgeschlagen",
+    "description": "Import error toast title"
+  },
+  "settings_import_error_description": {
+    "message": "Beim Importieren Ihrer Daten ist ein Problem aufgetreten. Stellen Sie sicher, dass die Datei ein gültiges Tag Mark-Backup ist.",
+    "description": "Import error toast description"
+  },
+  "bookmark_edit_dialog_url_error": {
+    "message": "Bitte geben Sie eine gültige URL ein (beginnend mit http:// oder https://)",
+    "description": "Error message for invalid URL format"
+  },
+  "bookmark_edit_dialog_title_empty": {
+    "message": "Lesezeichentitel darf nicht leer sein",
+    "description": "Error message for empty bookmark title"
+  },
+  "button_saving": {
+    "message": "Speichern...",
+    "description": "Text shown when saving is in progress"
+  },
+
+  "error_boundary_title": {
+    "message": "Ein Fehler ist aufgetreten",
+    "description": "Error boundary title"
+  },
+  "error_boundary_unknown": {
+    "message": "Die Anwendung ist auf einen unbekannten Fehler gestoßen",
+    "description": "Unknown error message in error boundary"
+  },
+  "error_boundary_recover": {
+    "message": "Wiederherstellung versuchen",
+    "description": "Button text to attempt recovery from error"
+  },
+
+  "hotkey_open_search": {
+    "message": "Suche öffnen",
+    "description": "Hotkey description for opening search"
+  },
+  "hotkey_open_all_bookmarks": {
+    "message": "Alle Lesezeichen öffnen",
+    "description": "Hotkey description for opening all bookmarks"
+  },
+  "hotkey_edit_bookmark": {
+    "message": "Lesezeichen bearbeiten",
+    "description": "Hotkey description for editing bookmark"
+  },
+  "hotkey_delete_bookmark": {
+    "message": "Lesezeichen löschen",
+    "description": "Hotkey description for deleting bookmark"
+  },
+  "bookmark_batch_tag_dialog_title": {
+    "message": "Tags stapelweise hinzufügen",
+    "description": "Title for batch tag dialog"
+  },
+  "bookmark_batch_tag_dialog_folder_info": {
+    "message": "Ordnerinformation",
+    "description": "Folder information section title"
+  },
+  "bookmark_batch_tag_dialog_bookmarks_count": {
+    "message": "Insgesamt $COUNT$ Lesezeichen",
+    "description": "Bookmarks count",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "bookmark_batch_tag_dialog_tags_selected": {
+    "message": "$COUNT$ Tags ausgewählt",
+    "description": "Selected tags count",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "bookmark_batch_tag_dialog_selected_tags": {
+    "message": "Ausgewählte Tags",
+    "description": "Selected tags section title"
+  },
+  "bookmark_batch_tag_dialog_processing": {
+    "message": "Verarbeitung...",
+    "description": "Text shown during processing"
+  },
+  "bookmark_batch_tag_dialog_apply": {
+    "message": "Auf alle Lesezeichen anwenden",
+    "description": "Apply button text"
+  },
+  "settings_click_to_open": {
+    "message": "Lesezeichen durch Klicken öffnen",
+    "description": "Toggle label for click to open bookmarks setting"
+  },
+  "settings_click_to_open_description": {
+    "message": "Aktivieren Sie das Öffnen von Lesezeichen in einem neuen Tab durch Klicken",
+    "description": "Description for click to open bookmarks setting"
+  }
+}

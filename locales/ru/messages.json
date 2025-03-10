@@ -1,0 +1,569 @@
+{
+  "app_name": {
+    "message": "Менеджер тегов",
+    "description": "Extension name"
+  },
+  "app_description": {
+    "message": "Удобная организация закладок с помощью вложенных тегов и настраиваемых горячих клавиш.",
+    "description": "Extension description"
+  },
+
+  "button_cancel": {
+    "message": "Отмена",
+    "description": "Cancel button text"
+  },
+  "button_confirm": {
+    "message": "Подтвердить",
+    "description": "Confirm button text"
+  },
+  "button_save": {
+    "message": "Сохранить",
+    "description": "Save button text"
+  },
+  "button_delete": {
+    "message": "Удалить",
+    "description": "Delete button text"
+  },
+  "button_edit": {
+    "message": "Редактировать",
+    "description": "Edit button text"
+  },
+  "button_add_tag": {
+    "message": "Добавить тег",
+    "description": "Add tag button text"
+  },
+  "button_open_all": {
+    "message": "Открыть все",
+    "description": "Open all button text"
+  },
+
+  "main_layout_tag_management": {
+    "message": "Управление тегами",
+    "description": "Tab label for tag management"
+  },
+  "main_layout_bookmark_management": {
+    "message": "Управление закладками",
+    "description": "Tab label for bookmark management"
+  },
+  "main_layout_search": {
+    "message": "Поиск...",
+    "description": "Search button text"
+  },
+  "main_layout_keyboard_shortcuts": {
+    "message": "Горячие клавиши",
+    "description": "Keyboard shortcuts toggle"
+  },
+
+  "search_command_title": {
+    "message": "Поиск закладок и тегов",
+    "description": "Search dialog title"
+  },
+  "search_command_help": {
+    "message": "Используйте ↑↓ для навигации, Enter для выбора, Esc для закрытия",
+    "description": "Search dialog help text"
+  },
+  "search_command_no_results": {
+    "message": "Результаты не найдены",
+    "description": "No search results message"
+  },
+  "search_command_tags": {
+    "message": "Теги",
+    "description": "Tags section header"
+  },
+  "search_command_bookmarks": {
+    "message": "Закладки",
+    "description": "Bookmarks section header"
+  },
+
+  "language_selector_language": {
+    "message": "Язык",
+    "description": "Language label"
+  },
+  "language_selector_english": {
+    "message": "English",
+    "description": "English language option"
+  },
+  "language_selector_chinese": {
+    "message": "中文",
+    "description": "Chinese language option"
+  },
+
+  "bookmark_list_select_folder": {
+    "message": "Выберите папку",
+    "description": "Message when no folder is selected"
+  },
+  "bookmark_list_no_bookmarks": {
+    "message": "В этой папке нет закладок",
+    "description": "Empty state for bookmark list"
+  },
+
+  "bookmark_context_menu_add_tag": {
+    "message": "Добавить тег",
+    "description": "Context menu option to add tag"
+  },
+  "bookmark_context_menu_open_bookmark": {
+    "message": "Открыть закладку",
+    "description": "Context menu option to open bookmark"
+  },
+  "bookmark_context_menu_edit_bookmark": {
+    "message": "Редактировать закладку",
+    "description": "Context menu option to edit bookmark"
+  },
+  "bookmark_context_menu_delete_bookmark": {
+    "message": "Удалить закладку",
+    "description": "Context menu option to delete bookmark"
+  },
+
+  "bookmark_edit_dialog_title": {
+    "message": "Редактировать закладку",
+    "description": "Edit bookmark dialog title"
+  },
+  "bookmark_edit_dialog_bookmark_title": {
+    "message": "Заголовок",
+    "description": "Bookmark title field label"
+  },
+  "bookmark_edit_dialog_url": {
+    "message": "URL",
+    "description": "Bookmark URL field label"
+  },
+
+  "bookmark_delete_dialog_title": {
+    "message": "Удалить закладку",
+    "description": "Delete bookmark dialog title"
+  },
+  "bookmark_delete_dialog_confirm_message": {
+    "message": "Вы уверены, что хотите удалить закладку \"$BOOKMARK_TITLE$\"? Это действие нельзя отменить.",
+    "description": "Delete bookmark confirmation message",
+    "placeholders": {
+      "bookmark_title": {
+        "content": "$1",
+        "example": "Example Bookmark"
+      }
+    }
+  },
+
+  "bookmark_add_tag_dialog_title": {
+    "message": "Управление тегами",
+    "description": "Add tag dialog title"
+  },
+  "bookmark_add_tag_dialog_bookmark_info": {
+    "message": "Информация о закладке",
+    "description": "Bookmark info section title"
+  },
+  "bookmark_add_tag_dialog_add_tags": {
+    "message": "Добавить теги",
+    "description": "Add tags section title"
+  },
+  "bookmark_add_tag_dialog_tag_count": {
+    "message": "Добавлено $COUNT$ тегов",
+    "description": "Tag count text",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "bookmark_add_tag_dialog_tag_placeholder": {
+    "message": "Введите название тега, нажмите Enter для добавления...",
+    "description": "Tag input placeholder"
+  },
+  "bookmark_add_tag_dialog_added_tags": {
+    "message": "Добавленные теги",
+    "description": "Added tags section title"
+  },
+  "bookmark_add_tag_dialog_no_tags": {
+    "message": "Теги еще не добавлены. Добавьте тег выше.",
+    "description": "Empty state for added tags"
+  },
+
+  "tag_tree_select_tag": {
+    "message": "Выберите тег",
+    "description": "Message when no tag is selected"
+  },
+
+  "tag_detail_path": {
+    "message": "Путь",
+    "description": "Tag path label"
+  },
+  "tag_detail_created": {
+    "message": "Создано",
+    "description": "Created date label"
+  },
+  "tag_detail_updated": {
+    "message": "Обновлено",
+    "description": "Updated date label"
+  },
+  "tag_detail_sub_tags": {
+    "message": "Подтеги",
+    "description": "Sub-tags section header"
+  },
+  "tag_detail_related_bookmarks": {
+    "message": "Связанные закладки",
+    "description": "Related bookmarks section header"
+  },
+  "tag_detail_no_bookmarks": {
+    "message": "Нет закладок, связанных с этим тегом",
+    "description": "Empty state for tag bookmarks"
+  },
+
+  "tag_edit_dialog_title": {
+    "message": "Редактировать тег",
+    "description": "Edit tag dialog title"
+  },
+  "tag_edit_dialog_new_title": {
+    "message": "Новый тег",
+    "description": "New tag dialog title"
+  },
+  "tag_edit_dialog_tag_name": {
+    "message": "Название тега",
+    "description": "Tag name field label"
+  },
+  "tag_edit_dialog_parent_tag": {
+    "message": "Родительский тег",
+    "description": "Parent tag field label"
+  },
+  "tag_edit_dialog_none": {
+    "message": "Нет",
+    "description": "None option for parent tag select"
+  },
+  "tag_edit_dialog_name_empty": {
+    "message": "Название тега не может быть пустым",
+    "description": "Error for empty tag name"
+  },
+  "tag_edit_dialog_name_duplicate": {
+    "message": "Тег с таким названием уже существует на этом уровне",
+    "description": "Error for duplicate tag name"
+  },
+  "tag_edit_dialog_parent_hint": {
+    "message": "Примечание: Теги с одинаковыми названиями исключены из вариантов родительских тегов",
+    "description": "Hint about excluded parent tags"
+  },
+
+  "tag_delete_dialog_title": {
+    "message": "Удалить тег",
+    "description": "Delete tag dialog title"
+  },
+  "tag_delete_dialog_confirm_message": {
+    "message": "Как вы хотите удалить тег \"$TAG_NAME$\"?",
+    "description": "Delete tag confirmation message",
+    "placeholders": {
+      "tag_name": {
+        "content": "$1",
+        "example": "Example Tag"
+      }
+    }
+  },
+  "tag_delete_dialog_warning": {
+    "message": "Предупреждение: У этого тега есть $COUNT$ подтегов, которые станут тегами верхнего уровня после удаления.",
+    "description": "Warning about sub-tags when deleting",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "tag_delete_dialog_delete_tag_only": {
+    "message": "Удалить только тег",
+    "description": "Option to delete just the tag"
+  },
+  "tag_delete_dialog_delete_with_bookmarks": {
+    "message": "Удалить тег и связанные закладки",
+    "description": "Option to delete tag and its bookmarks"
+  },
+
+  "tag_suggestions_placeholder": {
+    "message": "Введите название тега, нажмите Enter для добавления...",
+    "description": "Tag suggestions input placeholder"
+  },
+
+  "toast_tag_added": {
+    "message": "Тег добавлен",
+    "description": "Toast title for tag added"
+  },
+  "toast_tag_added_desc": {
+    "message": "Тег \"$TAG_NAME$\" был добавлен",
+    "description": "Toast description for tag added",
+    "placeholders": {
+      "tag_name": {
+        "content": "$1",
+        "example": "Example Tag"
+      }
+    }
+  },
+  "toast_tag_removed": {
+    "message": "Тег удален",
+    "description": "Toast title for tag removed"
+  },
+  "toast_tag_removed_desc": {
+    "message": "Тег был успешно удален",
+    "description": "Toast description for tag removed"
+  },
+  "toast_bookmark_edited": {
+    "message": "Закладка обновлена",
+    "description": "Toast title for bookmark edited"
+  },
+  "toast_bookmark_edited_desc": {
+    "message": "Закладка была обновлена",
+    "description": "Toast description for bookmark edited"
+  },
+  "toast_bookmark_deleted": {
+    "message": "Закладка удалена",
+    "description": "Toast title for bookmark deleted"
+  },
+  "toast_bookmark_deleted_desc": {
+    "message": "Закладка и связанные с ней теги были удалены",
+    "description": "Toast description for bookmark deleted"
+  },
+  "toast_load_failed": {
+    "message": "Не удалось загрузить",
+    "description": "Toast title for load failed"
+  },
+  "toast_save_failed": {
+    "message": "Не удалось сохранить",
+    "description": "Toast title for save failed"
+  },
+  "toast_delete_failed": {
+    "message": "Не удалось удалить",
+    "description": "Toast title for delete failed"
+  },
+  "main_layout_settings": {
+    "message": "Настройки",
+    "description": "Tab label for settings"
+  },
+
+  "settings_title": {
+    "message": "Настройки",
+    "description": "Settings page title"
+  },
+  "settings_description": {
+    "message": "Настройте параметры вашего расширения Tag Mark",
+    "description": "Settings page description"
+  },
+
+  "settings_keyboard_shortcuts": {
+    "message": "Горячие клавиши",
+    "description": "Keyboard shortcuts section title"
+  },
+  "settings_keyboard_shortcuts_description": {
+    "message": "Настройка горячих клавиш для быстрого доступа к функциям",
+    "description": "Keyboard shortcuts section description"
+  },
+  "settings_enable_shortcuts": {
+    "message": "Включить горячие клавиши",
+    "description": "Enable shortcuts toggle label"
+  },
+  "settings_enable_shortcuts_description": {
+    "message": "Включить или отключить горячие клавиши во всем расширении",
+    "description": "Enable shortcuts toggle description"
+  },
+  "settings_no_hotkeys": {
+    "message": "Горячие клавиши не настроены",
+    "description": "Message when no hotkeys are available"
+  },
+  "settings_hotkeys_search": {
+    "message": "Поиск",
+    "description": "Search hotkeys group title"
+  },
+  "settings_hotkeys_bookmark": {
+    "message": "Управление закладками",
+    "description": "Bookmark hotkeys group title"
+  },
+
+  "settings_data_management": {
+    "message": "Управление данными",
+    "description": "Data management section title"
+  },
+  "settings_data_management_description": {
+    "message": "Резервное копирование и восстановление ваших тегов и данных закладок",
+    "description": "Data management section description"
+  },
+  "settings_export_data": {
+    "message": "Экспорт данных",
+    "description": "Export data title"
+  },
+  "settings_export_data_description": {
+    "message": "Экспорт всех ваших тегов и связанных закладок в JSON файл",
+    "description": "Export data description"
+  },
+  "settings_export_button": {
+    "message": "Экспорт в файл",
+    "description": "Export button text"
+  },
+  "settings_import_data": {
+    "message": "Импорт данных",
+    "description": "Import data title"
+  },
+  "settings_import_data_description": {
+    "message": "Импорт тегов и связей закладок из ранее экспортированного файла",
+    "description": "Import data description"
+  },
+  "settings_import_button": {
+    "message": "Импорт из файла",
+    "description": "Import button text"
+  },
+
+  "settings_export_success_title": {
+    "message": "Экспорт успешно выполнен",
+    "description": "Export success toast title"
+  },
+  "settings_export_success_description": {
+    "message": "Ваши данные были успешно экспортированы",
+    "description": "Export success toast description"
+  },
+  "settings_export_error_title": {
+    "message": "Ошибка экспорта",
+    "description": "Export error toast title"
+  },
+  "settings_export_error_description": {
+    "message": "Возникла проблема при экспорте ваших данных",
+    "description": "Export error toast description"
+  },
+  "settings_import_success_title": {
+    "message": "Импорт успешно выполнен",
+    "description": "Import success toast title"
+  },
+  "settings_import_success_description": {
+    "message": "Ваши данные были успешно импортированы",
+    "description": "Import success toast description"
+  },
+  "settings_import_error_title": {
+    "message": "Ошибка импорта",
+    "description": "Import error toast title"
+  },
+  "settings_import_error_description": {
+    "message": "Возникла проблема при импорте ваших данных. Убедитесь, что файл является действительной резервной копией Tag Mark.",
+    "description": "Import error toast description"
+  },
+  "bookmark_edit_dialog_url_error": {
+    "message": "Пожалуйста, введите действительный URL (начинающийся с http:// или https://)",
+    "description": "Error message for invalid URL format"
+  },
+  "bookmark_edit_dialog_title_empty": {
+    "message": "Заголовок закладки не может быть пустым",
+    "description": "Error message for empty bookmark title"
+  },
+  "button_saving": {
+    "message": "Сохранение...",
+    "description": "Text shown when saving is in progress"
+  },
+
+  "toast_edit_success": {
+    "message": "Редактирование успешно",
+    "description": "Toast title for successful edit"
+  },
+  "toast_edit_success_description": {
+    "message": "Закладка \"$TITLE$\" была обновлена",
+    "description": "Toast message for successful bookmark update",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Example Bookmark"
+      }
+    }
+  },
+  "toast_edit_failed": {
+    "message": "Ошибка редактирования",
+    "description": "Toast title for failed edit"
+  },
+  "toast_edit_error_description": {
+    "message": "Произошла ошибка при обновлении закладки",
+    "description": "Toast message for bookmark update error"
+  },
+
+  "toast_delete_success": {
+    "message": "Удаление успешно",
+    "description": "Toast title for successful delete"
+  },
+  "toast_delete_success_description": {
+    "message": "Закладка и связанные с ней теги были удалены",
+    "description": "Toast message for successful bookmark deletion"
+  },
+  "toast_delete_error_description": {
+    "message": "Произошла ошибка при удалении закладки, пожалуйста, попробуйте снова",
+    "description": "Toast message for bookmark deletion error"
+  },
+
+  "error_boundary_title": {
+    "message": "Произошла ошибка",
+    "description": "Error boundary title"
+  },
+  "error_boundary_unknown": {
+    "message": "Приложение столкнулось с неизвестной ошибкой",
+    "description": "Unknown error message in error boundary"
+  },
+  "error_boundary_recover": {
+    "message": "Попытаться восстановить",
+    "description": "Button text to attempt recovery from error"
+  },
+
+  "hotkey_open_search": {
+    "message": "Открыть поиск",
+    "description": "Hotkey description for opening search"
+  },
+  "hotkey_open_all_bookmarks": {
+    "message": "Открыть все закладки",
+    "description": "Hotkey description for opening all bookmarks"
+  },
+  "hotkey_edit_bookmark": {
+    "message": "Редактировать закладку",
+    "description": "Hotkey description for editing bookmark"
+  },
+  "hotkey_delete_bookmark": {
+    "message": "Удалить закладку",
+    "description": "Hotkey description for deleting bookmark"
+  },
+  "bookmark_batch_tag_dialog_title": {
+    "message": "Пакетное добавление тегов",
+    "description": "Title for batch tag dialog"
+  },
+  "bookmark_batch_tag_dialog_folder_info": {
+    "message": "Информация о папке",
+    "description": "Folder information section title"
+  },
+  "bookmark_batch_tag_dialog_bookmarks_count": {
+    "message": "Всего $COUNT$ закладок",
+    "description": "Bookmarks count",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "bookmark_batch_tag_dialog_tags_selected": {
+    "message": "Выбрано $COUNT$ тегов",
+    "description": "Selected tags count",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "bookmark_batch_tag_dialog_selected_tags": {
+    "message": "Выбранные теги",
+    "description": "Selected tags section title"
+  },
+  "bookmark_batch_tag_dialog_processing": {
+    "message": "Обработка...",
+    "description": "Text shown during processing"
+  },
+  "bookmark_batch_tag_dialog_apply": {
+    "message": "Применить ко всем закладкам",
+    "description": "Apply button text"
+  },
+  "toast_add_failed": {
+    "message": "Ошибка добавления",
+    "description": "Toast title for failed add operation"
+  },
+  "settings_click_to_open": {
+    "message": "Открывать закладки по клику",
+    "description": "Toggle label for click to open bookmarks setting"
+  },
+  "settings_click_to_open_description": {
+    "message": "Включить открытие закладок в новой вкладке при клике",
+    "description": "Description for click to open bookmarks setting"
+  }
+}

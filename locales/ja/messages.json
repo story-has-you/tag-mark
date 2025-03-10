@@ -1,0 +1,534 @@
+{
+  "app_name": {
+    "message": "タグマーク",
+    "description": "Extension name"
+  },
+  "app_description": {
+    "message": "ネストされたタグとカスタムホットキーでブックマークをシームレスに整理します。",
+    "description": "Extension description"
+  },
+
+  "button_cancel": {
+    "message": "キャンセル",
+    "description": "Cancel button text"
+  },
+  "button_confirm": {
+    "message": "確認",
+    "description": "Confirm button text"
+  },
+  "button_save": {
+    "message": "保存",
+    "description": "Save button text"
+  },
+  "button_delete": {
+    "message": "削除",
+    "description": "Delete button text"
+  },
+  "button_edit": {
+    "message": "編集",
+    "description": "Edit button text"
+  },
+  "button_add_tag": {
+    "message": "タグを追加",
+    "description": "Add tag button text"
+  },
+  "button_open_all": {
+    "message": "すべて開く",
+    "description": "Open all button text"
+  },
+
+  "main_layout_tag_management": {
+    "message": "タグ管理",
+    "description": "Tab label for tag management"
+  },
+  "main_layout_bookmark_management": {
+    "message": "ブックマーク管理",
+    "description": "Tab label for bookmark management"
+  },
+  "main_layout_search": {
+    "message": "検索...",
+    "description": "Search button text"
+  },
+  "main_layout_keyboard_shortcuts": {
+    "message": "キーボードショートカット",
+    "description": "Keyboard shortcuts toggle"
+  },
+
+  "search_command_title": {
+    "message": "ブックマークとタグを検索",
+    "description": "Search dialog title"
+  },
+  "search_command_help": {
+    "message": "↑↓で移動、Enterで選択、Escで閉じる",
+    "description": "Search dialog help text"
+  },
+  "search_command_no_results": {
+    "message": "結果が見つかりません",
+    "description": "No search results message"
+  },
+  "search_command_tags": {
+    "message": "タグ",
+    "description": "Tags section header"
+  },
+  "search_command_bookmarks": {
+    "message": "ブックマーク",
+    "description": "Bookmarks section header"
+  },
+
+  "language_selector_language": {
+    "message": "言語",
+    "description": "Language label"
+  },
+
+  "bookmark_list_select_folder": {
+    "message": "フォルダを選択してください",
+    "description": "Message when no folder is selected"
+  },
+  "bookmark_list_no_bookmarks": {
+    "message": "このフォルダにブックマークはありません",
+    "description": "Empty state for bookmark list"
+  },
+
+  "bookmark_context_menu_add_tag": {
+    "message": "タグを追加",
+    "description": "Context menu option to add tag"
+  },
+  "bookmark_context_menu_open_bookmark": {
+    "message": "ブックマークを開く",
+    "description": "Context menu option to open bookmark"
+  },
+  "bookmark_context_menu_edit_bookmark": {
+    "message": "ブックマークを編集",
+    "description": "Context menu option to edit bookmark"
+  },
+  "bookmark_context_menu_delete_bookmark": {
+    "message": "ブックマークを削除",
+    "description": "Context menu option to delete bookmark"
+  },
+
+  "bookmark_edit_dialog_title": {
+    "message": "ブックマークを編集",
+    "description": "Edit bookmark dialog title"
+  },
+  "bookmark_edit_dialog_bookmark_title": {
+    "message": "タイトル",
+    "description": "Bookmark title field label"
+  },
+  "bookmark_edit_dialog_url": {
+    "message": "URL",
+    "description": "Bookmark URL field label"
+  },
+
+  "bookmark_delete_dialog_title": {
+    "message": "ブックマークを削除",
+    "description": "Delete bookmark dialog title"
+  },
+  "bookmark_delete_dialog_confirm_message": {
+    "message": "ブックマーク「$BOOKMARK_TITLE$」を削除してもよろしいですか？この操作は元に戻せません。",
+    "description": "Delete bookmark confirmation message",
+    "placeholders": {
+      "bookmark_title": {
+        "content": "$1",
+        "example": "Example Bookmark"
+      }
+    }
+  },
+
+  "bookmark_add_tag_dialog_title": {
+    "message": "タグ管理",
+    "description": "Add tag dialog title"
+  },
+  "bookmark_add_tag_dialog_bookmark_info": {
+    "message": "ブックマーク情報",
+    "description": "Bookmark info section title"
+  },
+  "bookmark_add_tag_dialog_add_tags": {
+    "message": "タグを追加",
+    "description": "Add tags section title"
+  },
+  "bookmark_add_tag_dialog_tag_count": {
+    "message": "$COUNT$個のタグが追加されました",
+    "description": "Tag count text",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "bookmark_add_tag_dialog_tag_placeholder": {
+    "message": "タグ名を入力し、Enterキーで追加...",
+    "description": "Tag input placeholder"
+  },
+  "bookmark_add_tag_dialog_added_tags": {
+    "message": "追加されたタグ",
+    "description": "Added tags section title"
+  },
+  "bookmark_add_tag_dialog_no_tags": {
+    "message": "まだタグが追加されていません。上記からタグを追加してください。",
+    "description": "Empty state for added tags"
+  },
+
+  "tag_tree_select_tag": {
+    "message": "タグを選択してください",
+    "description": "Message when no tag is selected"
+  },
+
+  "tag_detail_created": {
+    "message": "作成日",
+    "description": "Created date label"
+  },
+  "tag_detail_updated": {
+    "message": "更新日",
+    "description": "Updated date label"
+  },
+  "tag_detail_sub_tags": {
+    "message": "サブタグ",
+    "description": "Sub-tags section header"
+  },
+  "tag_detail_related_bookmarks": {
+    "message": "関連するブックマーク",
+    "description": "Related bookmarks section header"
+  },
+  "tag_detail_no_bookmarks": {
+    "message": "このタグに関連するブックマークはありません",
+    "description": "Empty state for tag bookmarks"
+  },
+
+  "tag_edit_dialog_title": {
+    "message": "タグを編集",
+    "description": "Edit tag dialog title"
+  },
+  "tag_edit_dialog_new_title": {
+    "message": "新しいタグ",
+    "description": "New tag dialog title"
+  },
+  "tag_edit_dialog_tag_name": {
+    "message": "タグ名",
+    "description": "Tag name field label"
+  },
+  "tag_edit_dialog_parent_tag": {
+    "message": "親タグ",
+    "description": "Parent tag field label"
+  },
+  "tag_edit_dialog_none": {
+    "message": "なし",
+    "description": "None option for parent tag select"
+  },
+  "tag_edit_dialog_name_empty": {
+    "message": "タグ名は空にできません",
+    "description": "Error for empty tag name"
+  },
+  "tag_edit_dialog_name_duplicate": {
+    "message": "同じレベルに同じ名前のタグが既に存在します",
+    "description": "Error for duplicate tag name"
+  },
+  "tag_edit_dialog_parent_hint": {
+    "message": "注意：同じ名前のタグは親オプションから除外されています",
+    "description": "Hint about excluded parent tags"
+  },
+
+  "tag_delete_dialog_title": {
+    "message": "タグを削除",
+    "description": "Delete tag dialog title"
+  },
+  "tag_delete_dialog_confirm_message": {
+    "message": "タグ「$TAG_NAME$」をどのように削除しますか？",
+    "description": "Delete tag confirmation message",
+    "placeholders": {
+      "tag_name": {
+        "content": "$1",
+        "example": "Example Tag"
+      }
+    }
+  },
+  "tag_delete_dialog_warning": {
+    "message": "警告：このタグには$COUNT$個のサブタグがあり、削除後はトップレベルタグになります。",
+    "description": "Warning about sub-tags when deleting",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "tag_delete_dialog_delete_tag_only": {
+    "message": "タグのみを削除",
+    "description": "Option to delete just the tag"
+  },
+  "tag_delete_dialog_delete_with_bookmarks": {
+    "message": "タグと関連するブックマークを削除",
+    "description": "Option to delete tag and its bookmarks"
+  },
+
+  "tag_suggestions_placeholder": {
+    "message": "タグ名を入力し、Enterキーで追加...",
+    "description": "Tag suggestions input placeholder"
+  },
+
+  "toast_tag_added": {
+    "message": "タグが追加されました",
+    "description": "Toast title for tag added"
+  },
+  "toast_tag_added_desc": {
+    "message": "タグ「$TAG_NAME$」が追加されました",
+    "description": "Toast description for tag added",
+    "placeholders": {
+      "tag_name": {
+        "content": "$1",
+        "example": "Example Tag"
+      }
+    }
+  },
+  "toast_tag_removed": {
+    "message": "タグが削除されました",
+    "description": "Toast title for tag removed"
+  },
+  "toast_tag_removed_desc": {
+    "message": "タグが正常に削除されました",
+    "description": "Toast description for tag removed"
+  },
+  "toast_edit_success": {
+    "message": "編集成功",
+    "description": "Toast title for successful edit"
+  },
+  "toast_edit_success_description": {
+    "message": "ブックマーク「$TITLE$」が更新されました",
+    "description": "Toast message for successful bookmark update",
+    "placeholders": {
+      "title": {
+        "content": "$1",
+        "example": "Example Bookmark"
+      }
+    }
+  },
+  "toast_edit_failed": {
+    "message": "編集失敗",
+    "description": "Toast title for failed edit"
+  },
+  "toast_edit_error_description": {
+    "message": "ブックマークの更新中にエラーが発生しました",
+    "description": "Toast message for bookmark update error"
+  },
+  "toast_delete_success": {
+    "message": "削除成功",
+    "description": "Toast title for successful delete"
+  },
+  "toast_delete_success_description": {
+    "message": "ブックマークと関連タグが削除されました",
+    "description": "Toast message for successful bookmark deletion"
+  },
+  "toast_delete_error_description": {
+    "message": "ブックマークの削除中にエラーが発生しました。もう一度お試しください",
+    "description": "Toast message for bookmark deletion error"
+  },
+  "toast_load_failed": {
+    "message": "読み込みに失敗しました",
+    "description": "Toast title for load failed"
+  },
+  "toast_save_failed": {
+    "message": "保存に失敗しました",
+    "description": "Toast title for save failed"
+  },
+  "toast_delete_failed": {
+    "message": "削除に失敗しました",
+    "description": "Toast title for delete failed"
+  },
+  "toast_add_failed": {
+    "message": "追加に失敗しました",
+    "description": "Toast title for failed add operation"
+  },
+
+  "settings_title": {
+    "message": "設定",
+    "description": "Settings page title"
+  },
+  "settings_description": {
+    "message": "Tag Mark拡張機能の設定を構成します",
+    "description": "Settings page description"
+  },
+  "settings_keyboard_shortcuts": {
+    "message": "キーボードショートカット",
+    "description": "Keyboard shortcuts section title"
+  },
+  "settings_keyboard_shortcuts_description": {
+    "message": "機能に素早くアクセスするためのキーボードショートカットを設定します",
+    "description": "Keyboard shortcuts section description"
+  },
+  "settings_enable_shortcuts": {
+    "message": "キーボードショートカットを有効にする",
+    "description": "Enable shortcuts toggle label"
+  },
+  "settings_enable_shortcuts_description": {
+    "message": "拡張機能全体でキーボードショートカットを有効または無効にします",
+    "description": "Enable shortcuts toggle description"
+  },
+  "settings_no_hotkeys": {
+    "message": "キーボードショートカットが設定されていません",
+    "description": "Message when no hotkeys are available"
+  },
+  "settings_hotkeys_search": {
+    "message": "検索",
+    "description": "Search hotkeys group title"
+  },
+  "settings_hotkeys_bookmark": {
+    "message": "ブックマーク管理",
+    "description": "Bookmark hotkeys group title"
+  },
+
+  "settings_data_management": {
+    "message": "データ管理",
+    "description": "Data management section title"
+  },
+  "settings_data_management_description": {
+    "message": "タグとブックマークデータのバックアップと復元",
+    "description": "Data management section description"
+  },
+  "settings_export_data": {
+    "message": "データをエクスポート",
+    "description": "Export data title"
+  },
+  "settings_export_data_description": {
+    "message": "すべてのタグと関連するブックマークをJSONファイルとしてエクスポートします",
+    "description": "Export data description"
+  },
+  "settings_export_button": {
+    "message": "ファイルにエクスポート",
+    "description": "Export button text"
+  },
+  "settings_import_data": {
+    "message": "データをインポート",
+    "description": "Import data title"
+  },
+  "settings_import_data_description": {
+    "message": "以前にエクスポートしたファイルからタグとブックマークの関連付けをインポートします",
+    "description": "Import data description"
+  },
+  "settings_import_button": {
+    "message": "ファイルからインポート",
+    "description": "Import button text"
+  },
+
+  "settings_export_success_title": {
+    "message": "エクスポート成功",
+    "description": "Export success toast title"
+  },
+  "settings_export_success_description": {
+    "message": "データが正常にエクスポートされました",
+    "description": "Export success toast description"
+  },
+  "settings_export_error_title": {
+    "message": "エクスポート失敗",
+    "description": "Export error toast title"
+  },
+  "settings_export_error_description": {
+    "message": "データのエクスポート中に問題が発生しました",
+    "description": "Export error toast description"
+  },
+  "settings_import_success_title": {
+    "message": "インポート成功",
+    "description": "Import success toast title"
+  },
+  "settings_import_success_description": {
+    "message": "データが正常にインポートされました",
+    "description": "Import success toast description"
+  },
+  "settings_import_error_title": {
+    "message": "インポート失敗",
+    "description": "Import error toast title"
+  },
+  "settings_import_error_description": {
+    "message": "データのインポート中に問題が発生しました。ファイルが有効なTag Markバックアップであることを確認してください。",
+    "description": "Import error toast description"
+  },
+  "bookmark_edit_dialog_url_error": {
+    "message": "有効なURL（http://またはhttps://で始まる）を入力してください",
+    "description": "Error message for invalid URL format"
+  },
+  "bookmark_edit_dialog_title_empty": {
+    "message": "ブックマークのタイトルは空にできません",
+    "description": "Error message for empty bookmark title"
+  },
+  "button_saving": {
+    "message": "保存中...",
+    "description": "Text shown when saving is in progress"
+  },
+
+  "error_boundary_title": {
+    "message": "エラーが発生しました",
+    "description": "Error boundary title"
+  },
+  "error_boundary_unknown": {
+    "message": "アプリケーションで不明なエラーが発生しました",
+    "description": "Unknown error message in error boundary"
+  },
+  "error_boundary_recover": {
+    "message": "回復を試みる",
+    "description": "Button text to attempt recovery from error"
+  },
+
+  "hotkey_open_search": {
+    "message": "検索を開く",
+    "description": "Hotkey description for opening search"
+  },
+  "hotkey_open_all_bookmarks": {
+    "message": "すべてのブックマークを開く",
+    "description": "Hotkey description for opening all bookmarks"
+  },
+  "hotkey_edit_bookmark": {
+    "message": "ブックマークを編集",
+    "description": "Hotkey description for editing bookmark"
+  },
+  "hotkey_delete_bookmark": {
+    "message": "ブックマークを削除",
+    "description": "Hotkey description for deleting bookmark"
+  },
+  "bookmark_batch_tag_dialog_title": {
+    "message": "バッチタグ追加",
+    "description": "Title for batch tag dialog"
+  },
+  "bookmark_batch_tag_dialog_folder_info": {
+    "message": "フォルダ情報",
+    "description": "Folder information section title"
+  },
+  "bookmark_batch_tag_dialog_bookmarks_count": {
+    "message": "合計$COUNT$個のブックマーク",
+    "description": "Bookmarks count",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "bookmark_batch_tag_dialog_tags_selected": {
+    "message": "$COUNT$個のタグが選択されました",
+    "description": "Selected tags count",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "bookmark_batch_tag_dialog_selected_tags": {
+    "message": "選択されたタグ",
+    "description": "Selected tags section title"
+  },
+  "bookmark_batch_tag_dialog_processing": {
+    "message": "処理中...",
+    "description": "Text shown during processing"
+  },
+  "bookmark_batch_tag_dialog_apply": {
+    "message": "すべてのブックマークに適用",
+    "description": "Apply button text"
+  },
+  "settings_click_to_open": {
+    "message": "クリックでブックマークを開く",
+    "description": "Toggle label for click to open bookmarks setting"
+  },
+  "settings_click_to_open_description": {
+    "message": "クリックで新しいタブでブックマークを開く機能を有効にします",
+    "description": "Description for click to open bookmarks setting"
+  }
+}
