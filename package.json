@@ -1,7 +1,7 @@
 {
   "name": "tag-mark",
   "displayName": "Tag mark",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Seamlessly organize bookmarks with nested tags and custom hotkeys. Experience a smarter way to manage your digital favorites.",
   "author": "ReAvid",
   "scripts": {
