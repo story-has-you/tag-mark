@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tag Mark - Redefine Bookmark Management with Tags</title>
-    <meta name="description" content="Tag Mark is a powerful Chrome extension that lets you organize and manage your browser bookmarks through a nested tag system." />
+    <meta name="description" content="Tag Mark is a powerful Chrome extension that helps you organize and manage browser bookmarks more flexibly through a nested tag system. Break free from traditional folder structure limitations." />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
     <script src="js/i18n.js"></script>
@@ -205,14 +205,13 @@
             </div>
           </div>
 
-          <!-- NEW Use Case: Batch Tab Opening -->
+          <!-- NEW Updated Use Case: Batch Tab Opening -->
           <div class="rounded-lg overflow-hidden shadow-lg bg-white">
             <img src="images/batch-tabs.jpg" alt="Batch Tab Opening" class="w-full h-48 object-cover" />
             <div class="p-6">
               <h3 class="text-xl font-semibold mb-3" data-i18n="use_case_batch_title">Batch Tab Opening</h3>
               <p class="text-gray-600" data-i18n="use_case_batch_desc">
-                Open all bookmarks under a specific tag with a single click, automatically organizing them into a named tab group. Perfect for research sessions, daily workflow
-                setup, or restoring project-specific resources.
+                Open all bookmarks under a specific tag with one click, automatically organizing them into a named tab group for research sessions or daily workflow setup.
               </p>
             </div>
           </div>
@@ -367,9 +366,13 @@
           <div>
             <h3 class="text-lg font-medium mb-4" data-i18n="footer_contact">Contact Us</h3>
             <ul class="space-y-2">
-              <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_github">GitHub</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_email">Email</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_contribute">Contribute</a></li>
+              <li><a href="https://github.com/story-has-you/tag-mark" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_github">GitHub</a></li>
+              <li><a href="mailto:contact@tag-mark-extension.com" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_email">Email</a></li>
+              <li>
+                <a href="https://github.com/story-has-you/tag-mark/blob/main/CONTRIBUTING.md" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_contribute"
+                  >Contribute</a
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -386,12 +389,19 @@
       // Initialize Lucide icons
       lucide.createIcons();
 
-      // Initialize with English as default language
+      // Initialize with current language
       document.addEventListener("DOMContentLoaded", () => {
-        // Set default language to English if not already set
+        // If no language is set, default to English
         if (!localStorage.getItem("language")) {
           localStorage.setItem("language", "en");
         }
+
+        const currentLang = getCurrentLanguage();
+        applyTranslations(currentLang);
+
+        // Update checkmarks based on current language
+        document.getElementById("zh-check").classList.toggle("hidden", currentLang !== "zh");
+        document.getElementById("en-check").classList.toggle("hidden", currentLang !== "en");
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
