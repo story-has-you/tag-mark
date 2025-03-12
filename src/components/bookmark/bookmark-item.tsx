@@ -4,11 +4,12 @@ import BookmarkTag from "@/components/bookmark/bookmark-tag";
 import { Card, CardContent } from "@/components/ui/card";
 import { useBookmarkTagManagement } from "@/hooks/bookmark/use-bookmark-tag-management";
 import { useSettings } from "@/hooks/use-settings";
+import { createBookmarkGradient } from "@/lib/color-utils";
 import { cn } from "@/lib/utils";
 import BookmarkService from "@/services/bookmark-service";
 import type { BookmarkTreeNode } from "@/types/bookmark";
 import { motion, type TargetAndTransition, type Variants } from "framer-motion";
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 
 interface BookmarkItemProps {
   bookmark: BookmarkTreeNode;
@@ -31,6 +32,22 @@ const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onEdit, onDelete,
       BookmarkService.getInstance().createTab(bookmark.url!);
     }
   };
+
+  // 获取标签颜色用于渐变效果 - 使用useMemo优化性能
+  const tagGradient = useMemo(() => {
+    if (tags && tags.length > 0) {
+      // 提取所有有颜色的标签的颜色，最多使用4种
+      const tagColors = tags
+        .filter((tag) => tag.color)
+        .slice(0, 4) // 最多取前4个有颜色的标签
+        .map((tag) => tag.color as string);
+
+      if (tagColors.length > 0) {
+        return createBookmarkGradient(tagColors);
+      }
+    }
+    return undefined;
+  }, [tags]);
 
   // 定义动画变体
   const containerVariants: Variants = {
@@ -121,8 +138,19 @@ const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onEdit, onDelete,
     className
   );
 
-  // 内容区样式
-  const contentStyles = cn("flex items-center justify-between gap-3 p-3 group", isClickable && "hover:bg-primary/5 dark:hover:bg-primary/10");
+  // 获取背景样式
+  const getBackgroundStyle = () => {
+    if (isHighlighted) return {};
+
+    if (tagGradient) {
+      return {
+        background: tagGradient,
+        boxShadow: "0 2px 10px rgba(0, 0, 0, 0.05)"
+      };
+    }
+
+    return {};
+  };
 
   const titleStyles = getTitleStyles();
 
@@ -130,10 +158,10 @@ const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onEdit, onDelete,
     <BookmarkContextMenu bookmark={bookmark} onEdit={onEdit} onDelete={onDelete}>
       <motion.div variants={containerVariants} initial="initial" animate="animate">
         <motion.div variants={highlightVariants} animate={isHighlighted ? "highlighted" : "normal"} className="rounded-xl overflow-hidden">
-          <Card className={cardStyles} onClick={handleItemClick}>
+          <Card className={cardStyles} onClick={handleItemClick} style={getBackgroundStyle()}>
             <motion.div variants={backgroundVariants} animate={isHighlighted ? "highlighted" : "normal"} className="p-0">
               <CardContent className="p-0">
-                <div className={contentStyles}>
+                <div className={cn("flex items-center justify-between gap-3 p-3 group", isClickable && "hover:bg-primary/5 dark:hover:bg-primary/10")}>
                   <div className="flex items-center gap-3 min-w-0">
                     {/* 图标 */}
                     <motion.div variants={iconVariants} animate={isHighlighted ? "highlighted" : "normal"} className="flex-shrink-0">

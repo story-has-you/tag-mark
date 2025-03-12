@@ -1,3 +1,4 @@
+import { generatePastelColor } from "@/lib/color-utils";
 import { safeGetFromStorage } from "@/lib/storage-utils";
 import type { CreateTagParams, Tag, UpdateTagParams } from "@/types/tag";
 
@@ -84,6 +85,7 @@ class TagService {
         name: params.name,
         parentId: params.parentId,
         order: params.order || tags.length,
+        color: params.color || generatePastelColor(), // 使用提供的颜色或生成随机颜色
         createdAt: Date.now(),
         updatedAt: Date.now()
       };
@@ -115,6 +117,11 @@ class TagService {
         ...params,
         updatedAt: Date.now()
       };
+
+      // 如果没有提供颜色，则保持原有颜色
+      if (!params.color && tags[index].color) {
+        updatedTag.color = tags[index].color;
+      }
 
       tags[index] = updatedTag;
       await chrome.storage.local.set({ [STORAGE_KEY]: tags });

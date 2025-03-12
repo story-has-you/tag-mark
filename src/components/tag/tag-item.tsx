@@ -1,7 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { getTextColor } from "@/lib/color-utils";
 import { sanitizeInput } from "@/lib/security-utils";
 import type { Tag } from "@/types/tag";
-import { Hash } from "lucide-react"; // 导入 Hash 图标
+import { Hash } from "lucide-react";
 import React from "react";
 
 interface TagItemProps {
@@ -35,13 +36,25 @@ const TagItem: React.FC<TagItemProps> = ({ tag, onSelect }) => {
 
   const { parentPath, tagName } = getPathParts(tag.fullPath, tag.name);
 
+  // 使用标签颜色或默认颜色
+  const tagColor = tag.color || "hsl(210, 40%, 96.1%)";
+  const textColor = tag.color ? getTextColor(tagColor) : undefined;
+
+  // 创建样式对象
+  const tagStyle = {
+    backgroundColor: `${tagColor}20`, // 添加透明度
+    borderLeft: `3px solid ${tagColor}`
+  };
+
   return (
-    <Card className="hover:bg-accent transition-colors cursor-pointer hover:shadow-sm border-transparent hover:border-primary/20" onClick={() => onSelect(tag)}>
+    <Card className="hover:bg-accent transition-colors cursor-pointer hover:shadow-sm border-transparent hover:border-primary/20" onClick={() => onSelect(tag)} style={tagStyle}>
       <CardContent className="p-3">
         <div className="flex items-center gap-2">
           <Hash className="h-4 w-4 text-primary/70 flex-shrink-0" />
           <div className="flex flex-col min-w-0">
-            <span className="text-sm font-medium truncate">{sanitizeInput(tagName)}</span>
+            <span className="text-sm font-medium truncate" style={{ color: textColor }}>
+              {sanitizeInput(tagName)}
+            </span>
             {parentPath && <span className="text-xs text-muted-foreground truncate">在 {parentPath} 中</span>}
           </div>
         </div>

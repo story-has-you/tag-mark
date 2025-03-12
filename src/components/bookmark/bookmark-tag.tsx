@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { getTextColor } from "@/lib/color-utils";
 import type { Tag } from "@/types/tag";
 import { motion } from "framer-motion";
 import React from "react";
@@ -18,7 +19,15 @@ const BookmarkTag: React.FC<BookmarkTagProps> = ({ tags }) => {
       transition={{ duration: 0.3, delay: 0.1 }}>
       {tags.slice(0, MAX_DISPLAY_TAGS).map((tag, index) => (
         <motion.div key={tag.id} initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2, delay: index * 0.1 }}>
-          <Badge className="text-sm whitespace-nowrap">{tag.fullPath}</Badge>
+          <Badge
+            className="text-sm whitespace-nowrap"
+            style={{
+              backgroundColor: tag.color || undefined,
+              color: tag.color ? getTextColor(tag.color) : undefined,
+              borderColor: tag.color ? `${tag.color}50` : undefined
+            }}>
+            {tag.fullPath}
+          </Badge>
         </motion.div>
       ))}
       {tags.length > MAX_DISPLAY_TAGS && (
