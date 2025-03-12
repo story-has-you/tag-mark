@@ -530,5 +530,13 @@
   "settings_click_to_open_description": {
     "message": "Aktivieren Sie das Öffnen von Lesezeichen in einem neuen Tab durch Klicken",
     "description": "Description for click to open bookmarks setting"
+  },
+  "settings_colored_tags": {
+    "message": "Farbige Tags",
+    "description": "Toggle label for colored tags setting"
+  },
+  "settings_colored_tags_description": {
+    "message": "Aktivieren Sie die Farbgebung von Tags in der Tag-Verwaltung",
+    "description": "Description for colored tags setting"
   }
 }

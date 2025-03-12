@@ -530,5 +530,13 @@
   "settings_click_to_open_description": {
     "message": "Habilitar la apertura de marcadores en una nueva pestaña al hacer clic",
     "description": "Description for click to open bookmarks setting"
+  },
+  "settings_colored_tags": {
+    "message": "Etiquetas de colores",
+    "description": "Toggle label for colored tags setting"
+  },
+  "settings_colored_tags_description": {
+    "message": "Habilitar colores para las etiquetas en la lista de marcadores",
+    "description": "Description for colored tags setting"
   }
 }

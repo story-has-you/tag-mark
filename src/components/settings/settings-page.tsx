@@ -19,7 +19,14 @@ const SettingsPage: React.FC = () => {
   const { hotkeys } = useKeyboardShortcut({});
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dataTransferService = DataTransferService.getInstance();
-  const { hotkeyEnabled, setHotkeyEnabled, clickToOpenEnabled, setClickToOpenEnabled } = useSettings();
+  const {
+    hotkeyEnabled,
+    setHotkeyEnabled,
+    clickToOpenEnabled,
+    setClickToOpenEnabled,
+    coloredTagsEnabled, // 新增
+    setColoredTagsEnabled // 新增
+  } = useSettings();
 
   const handleExport = async () => {
     try {
@@ -112,6 +119,17 @@ const SettingsPage: React.FC = () => {
                   <p className="text-sm text-muted-foreground">{t("settings_click_to_open_description")}</p>
                 </div>
                 <Switch id="click-to-open-toggle" checked={clickToOpenEnabled} onCheckedChange={setClickToOpenEnabled} />
+              </div>
+
+              <Separator />
+
+              {/* 新增：多颜色标签开关 */}
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label htmlFor="colored-tags-toggle">{t("settings_colored_tags")}</Label>
+                  <p className="text-sm text-muted-foreground">{t("settings_colored_tags_description")}</p>
+                </div>
+                <Switch id="colored-tags-toggle" checked={coloredTagsEnabled} onCheckedChange={setColoredTagsEnabled} />
               </div>
             </CardContent>
           </Card>

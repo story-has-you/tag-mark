@@ -21,7 +21,7 @@ interface BookmarkItemProps {
 
 const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onEdit, onDelete, className, isHighlighted = false }) => {
   const { tags, loading } = useBookmarkTagManagement(bookmark);
-  const { clickToOpenEnabled } = useSettings();
+  const { clickToOpenEnabled, coloredTagsEnabled } = useSettings();
   const hasUrl = Boolean(bookmark.url);
   const isClickable = clickToOpenEnabled && hasUrl;
 
@@ -35,11 +35,13 @@ const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onEdit, onDelete,
 
   // 获取标签颜色用于渐变效果 - 使用useMemo优化性能
   const tagGradient = useMemo(() => {
+    if (!coloredTagsEnabled) return undefined; // 如果禁用了多彩标签，返回 undefined
+
     if (tags && tags.length > 0) {
       // 提取所有有颜色的标签的颜色，最多使用4种
       const tagColors = tags
         .filter((tag) => tag.color)
-        .slice(0, 4) // 最多取前4个有颜色的标签
+        .slice(0, 4)
         .map((tag) => tag.color as string);
 
       if (tagColors.length > 0) {
@@ -47,7 +49,7 @@ const BookmarkItem: React.FC<BookmarkItemProps> = ({ bookmark, onEdit, onDelete,
       }
     }
     return undefined;
-  }, [tags]);
+  }, [tags, coloredTagsEnabled]); // 添加 coloredTagsEnabled 依赖
 
   // 定义动画变体
   const containerVariants: Variants = {

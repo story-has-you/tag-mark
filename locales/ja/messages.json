@@ -530,5 +530,13 @@
   "settings_click_to_open_description": {
     "message": "クリックで新しいタブでブックマークを開く機能を有効にします",
     "description": "Description for click to open bookmarks setting"
+  },
+  "settings_colored_tags": {
+    "message": "カラータグ",
+    "description": "Toggle label for colored tags setting"
+  },
+  "settings_colored_tags_description": {
+    "message": "タグに色を付けて視覚的に区別します",
+    "description": "Description for colored tags setting"
   }
 }

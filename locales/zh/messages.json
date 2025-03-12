@@ -565,5 +565,11 @@
   "settings_click_to_open_description": {
     "message": "启用点击书签直接在新标签页中打开",
     "description": "点击打开书签设置的描述"
+  },
+  "settings_colored_tags": {
+    "message": "多彩标签"
+  },
+  "settings_colored_tags_description": {
+    "message": "以不同颜色显示标签，更易于视觉区分"
   }
 }

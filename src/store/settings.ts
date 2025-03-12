@@ -4,7 +4,8 @@ import { atomWithStorage } from "jotai/utils";
 // 默认设置值
 const defaultSettings: SettingsStore = {
   hotkeyEnabled: false,
-  clickToOpenEnabled: false
+  clickToOpenEnabled: false,
+  coloredTagsEnabled: false
 };
 
 // 创建存储服务

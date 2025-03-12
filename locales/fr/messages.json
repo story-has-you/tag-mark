@@ -530,5 +530,13 @@
   "settings_click_to_open_description": {
     "message": "Activer l'ouverture des favoris dans un nouvel onglet lors d'un clic",
     "description": "Description for click to open bookmarks setting"
+  },
+  "settings_colored_tags": {
+    "message": "Tags colorés",
+    "description": "Toggle label for colored tags setting"
+  },
+  "settings_colored_tags_description": {
+    "message": "Activer la coloration des tags pour une meilleure distinction",
+    "description": "Description for colored tags setting"
   }
 }

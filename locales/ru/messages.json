@@ -565,5 +565,13 @@
   "settings_click_to_open_description": {
     "message": "Включить открытие закладок в новой вкладке при клике",
     "description": "Description for click to open bookmarks setting"
+  },
+  "settings_colored_tags": {
+    "message": "Цветные теги",
+    "description": "Toggle label for colored tags setting"
+  },
+  "settings_colored_tags_description": {
+    "message": "Включить цветные теги для лучшей визуализации",
+    "description": "Description for colored tags setting"
   }
 }

@@ -32,6 +32,14 @@ export function useSettings() {
     [settings.clickToOpenEnabled, updateSetting]
   );
 
+  // 新增：多颜色标签设置控制
+  const toggleColoredTags = useCallback(
+    (enabled?: boolean) => {
+      updateSetting("coloredTagsEnabled", enabled !== undefined ? enabled : !settings.coloredTagsEnabled);
+    },
+    [settings.coloredTagsEnabled, updateSetting]
+  );
+
   return {
     // 所有设置值
     settings,
@@ -47,6 +55,11 @@ export function useSettings() {
 
     clickToOpenEnabled: settings.clickToOpenEnabled,
     toggleClickToOpen,
-    setClickToOpenEnabled: (enabled: boolean) => updateSetting("clickToOpenEnabled", enabled)
+    setClickToOpenEnabled: (enabled: boolean) => updateSetting("clickToOpenEnabled", enabled),
+
+    // 新增：多颜色标签设置
+    coloredTagsEnabled: settings.coloredTagsEnabled,
+    toggleColoredTags,
+    setColoredTagsEnabled: (enabled: boolean) => updateSetting("coloredTagsEnabled", enabled)
   };
 }

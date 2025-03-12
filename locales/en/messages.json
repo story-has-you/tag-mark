@@ -565,5 +565,11 @@
   "settings_click_to_open_description": {
     "message": "Enable clicking on bookmarks to open them in a new tab",
     "description": "Description for click to open bookmarks setting"
+  },
+  "settings_colored_tags": {
+    "message": "Colored tags"
+  },
+  "settings_colored_tags_description": {
+    "message": "Display tags with different colors to visually distinguish them"
   }
 }

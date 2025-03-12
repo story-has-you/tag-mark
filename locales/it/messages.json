@@ -530,5 +530,13 @@
   "settings_click_to_open_description": {
     "message": "Abilita l'apertura dei segnalibri in una nuova scheda con un clic",
     "description": "Description for click to open bookmarks setting"
+  },
+  "settings_colored_tags": {
+    "message": "Tag colorati",
+    "description": "Toggle label for colored tags setting"
+  },
+  "settings_colored_tags_description": {
+    "message": "Abilita la colorazione dei tag per una migliore organizzazione visiva",
+    "description": "Description for colored tags setting"
   }
 }
