@@ -19,14 +19,7 @@ const SettingsPage: React.FC = () => {
   const { hotkeys } = useKeyboardShortcut({});
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dataTransferService = DataTransferService.getInstance();
-  const {
-    hotkeyEnabled,
-    setHotkeyEnabled,
-    clickToOpenEnabled,
-    setClickToOpenEnabled,
-    coloredTagsEnabled, // 新增
-    setColoredTagsEnabled // 新增
-  } = useSettings();
+  const { hotkeyEnabled, setHotkeyEnabled, clickToOpenEnabled, setClickToOpenEnabled, coloredTagsEnabled, setColoredTagsEnabled, isHomePage, setIsHomePage } = useSettings();
 
   const handleExport = async () => {
     try {
@@ -130,6 +123,29 @@ const SettingsPage: React.FC = () => {
                   <p className="text-sm text-muted-foreground">{t("settings_colored_tags_description")}</p>
                 </div>
                 <Switch id="colored-tags-toggle" checked={coloredTagsEnabled} onCheckedChange={setColoredTagsEnabled} />
+              </div>
+
+              <Separator />
+
+              {/* 起始页设置 */}
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label htmlFor="home-page-toggle">{t("settings_home_page")}</Label>
+                  <p className="text-sm text-muted-foreground">{t("settings_home_page_description")}</p>
+                </div>
+                <Switch
+                  id="home-page-toggle"
+                  checked={isHomePage}
+                  onCheckedChange={(checked) => {
+                    setIsHomePage(checked);
+                    if (checked) {
+                      toast({
+                        title: t("settings_home_page_enabled_title"),
+                        description: t("settings_home_page_enabled_description")
+                      });
+                    }
+                  }}
+                />
               </div>
             </CardContent>
           </Card>

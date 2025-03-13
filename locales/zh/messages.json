@@ -571,5 +571,21 @@
   },
   "settings_colored_tags_description": {
     "message": "以不同颜色显示标签，更易于视觉区分"
+  },
+  "settings_home_page": {
+    "message": "设为浏览器起始页",
+    "description": "Toggle label for setting extension as home page"
+  },
+  "settings_home_page_description": {
+    "message": "在浏览器启动时自动打开Tag Mark",
+    "description": "Description for home page setting"
+  },
+  "settings_home_page_enabled_title": {
+    "message": "已设置为起始页",
+    "description": "Title when home page is enabled"
+  },
+  "settings_home_page_enabled_description": {
+    "message": "Tag Mark将在浏览器启动时自动打开",
+    "description": "Description when home page is enabled"
   }
 }
