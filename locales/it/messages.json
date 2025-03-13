@@ -538,5 +538,21 @@
   "settings_colored_tags_description": {
     "message": "Abilita la colorazione dei tag per una migliore organizzazione visiva",
     "description": "Description for colored tags setting"
+  },
+  "settings_home_page": {
+    "message": "Imposta come pagina iniziale",
+    "description": "Toggle label for setting extension as home page"
+  },
+  "settings_home_page_description": {
+    "message": "Apri automaticamente Tag Mark all'avvio del browser",
+    "description": "Description for home page setting"
+  },
+  "settings_home_page_enabled_title": {
+    "message": "Impostato come pagina iniziale",
+    "description": "Title when home page is enabled"
+  },
+  "settings_home_page_enabled_description": {
+    "message": "Tag Mark si aprirà automaticamente all'avvio del browser",
+    "description": "Description when home page is enabled"
   }
 }

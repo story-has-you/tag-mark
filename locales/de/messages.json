@@ -538,5 +538,17 @@
   "settings_colored_tags_description": {
     "message": "Aktivieren Sie die Farbgebung von Tags in der Tag-Verwaltung",
     "description": "Description for colored tags setting"
+  },
+  "settings_home_page_description": {
+    "message": "Tag Mark beim Browserstart automatisch öffnen",
+    "description": "Description for home page setting"
+  },
+  "settings_home_page_enabled_title": {
+    "message": "Als Startseite festgelegt",
+    "description": "Title when home page is enabled"
+  },
+  "settings_home_page_enabled_description": {
+    "message": "Tag Mark wird beim Browserstart automatisch geöffnet",
+    "description": "Description when home page is enabled"
   }
 }

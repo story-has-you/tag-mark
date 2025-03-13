@@ -573,5 +573,17 @@
   "settings_colored_tags_description": {
     "message": "Включить цветные теги для лучшей визуализации",
     "description": "Description for colored tags setting"
+  },
+  "settings_home_page_description": {
+    "message": "Автоматически открывать Tag Mark при запуске браузера",
+    "description": "Description for home page setting"
+  },
+  "settings_home_page_enabled_title": {
+    "message": "Установлено как домашняя страница",
+    "description": "Title when home page is enabled"
+  },
+  "settings_home_page_enabled_description": {
+    "message": "Tag Mark будет автоматически открываться при запуске браузера",
+    "description": "Description when home page is enabled"
   }
 }

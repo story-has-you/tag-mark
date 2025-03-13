@@ -538,5 +538,17 @@
   "settings_colored_tags_description": {
     "message": "Activer la coloration des tags pour une meilleure distinction",
     "description": "Description for colored tags setting"
+  },
+  "settings_home_page_description": {
+    "message": "Ouvrir automatiquement Tag Mark au démarrage du navigateur",
+    "description": "Description for home page setting"
+  },
+  "settings_home_page_enabled_title": {
+    "message": "Défini comme page d'accueil",
+    "description": "Title when home page is enabled"
+  },
+  "settings_home_page_enabled_description": {
+    "message": "Tag Mark s'ouvrira automatiquement au démarrage du navigateur",
+    "description": "Description when home page is enabled"  
   }
 }

@@ -538,5 +538,17 @@
   "settings_colored_tags_description": {
     "message": "タグに色を付けて視覚的に区別します",
     "description": "Description for colored tags setting"
+  },
+  "settings_home_page_description": {
+    "message": "ブラウザの起動時にTag Markを自動的に開く",
+    "description": "Description for home page setting"
+  },
+  "settings_home_page_enabled_title": {
+    "message": "スタートページとして設定されました",
+    "description": "Title when home page is enabled" 
+  },
+  "settings_home_page_enabled_description": {
+    "message": "ブラウザの起動時にTag Markが自動的に開きます",
+    "description": "Description when home page is enabled"
   }
 }

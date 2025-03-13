@@ -571,5 +571,17 @@
   },
   "settings_colored_tags_description": {
     "message": "Display tags with different colors to visually distinguish them"
+  },
+  "settings_home_page_description": {
+    "message": "Automatically open Tag Mark when the browser starts",
+    "description": "Description for home page setting"
+  },
+  "settings_home_page_enabled_title": {
+    "message": "Set as homepage",
+    "description": "Title when home page is enabled"
+  },
+  "settings_home_page_enabled_description": {
+    "message": "Tag Mark will open automatically when the browser starts",
+    "description": "Description when home page is enabled"
   }
 }

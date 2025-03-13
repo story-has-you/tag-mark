@@ -538,5 +538,17 @@
   "settings_colored_tags_description": {
     "message": "Habilitar colores para las etiquetas en la lista de marcadores",
     "description": "Description for colored tags setting"
+  },
+  "settings_home_page_description": {
+    "message": "Abrir Tag Mark automáticamente al iniciar el navegador",
+    "description": "Description for home page setting"
+  },
+  "settings_home_page_enabled_title": {
+    "message": "Establecido como página de inicio",
+    "description": "Title when home page is enabled"
+  },
+  "settings_home_page_enabled_description": {
+    "message": "Tag Mark se abrirá automáticamente al iniciar el navegador",
+    "description": "Description when home page is enabled"
   }
 }
